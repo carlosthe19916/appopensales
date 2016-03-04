@@ -1,0 +1,34 @@
+<form name="form" class="form-horizontal" novalidate>
+  <div class="form-group" data-ng-class="{ 'has-error' : form.title.$invalid && form.$submitted }">
+    <label class="col-sm-2 control-label"><span class="required">*</span> Titulo:</label>
+    <div class="col-sm-4">
+      <input name="title" type="text" data-ng-model="view.form.title" data-ng-minlength="1" data-ng-maxlength="200" class="form-control" required/>
+      <div data-ng-messages="form.title.$error" data-ng-if="form.title.$submitted">
+        <div class="has-error" data-ng-message="required">Ingrese titulo.</div>
+        <div class="has-error" data-ng-message="minlength">Ingrese titulo.</div>
+        <div class="has-error" data-ng-message="maxlength">Maximo 200 caracteres.</div>
+      </div>
+    </div>
+  </div>
+  <div class="form-group" data-ng-class="{ 'has-error' : form.description.$invalid && form.$submitted }">
+    <label class="col-sm-2 control-label">Descripcion:</label>
+    <div class="col-sm-3">
+      <textarea name="description" data-ng-model="view.form.description" data-ng-maxlength="200" class="form-control"></textarea>
+      <div data-ng-messages="form.description.$error" data-ng-if="form.description.$submitted">
+        <div class="has-error" data-ng-message="required">Ingrese Descripcion.</div>
+        <div class="has-error" data-ng-message="maxlength">Maximo 200 caracteres.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <button sg-save ng-disabled="working">
+        <span ng-show="working">Guardando...</span>
+        <span ng-hide="working">Guardar</span>
+      </button>
+      <button sg-cancel ng-disabled="working" ui-sref="^.summary">Cancelar</button>
+    </div>
+  </div>
+</form>
+

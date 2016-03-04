@@ -1,0 +1,159 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Sistcoopform</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <!-- build:css(.) styles/vendor.css -->
+    <!-- bower:css -->
+    <link rel="stylesheet" href="bower_components/angular-toastr/dist/angular-toastr.css" />
+    <link rel="stylesheet" href="bower_components/angular-patternfly/dist/styles/angular-patternfly.css" />
+    <link rel="stylesheet" href="bower_components/bootstrap-select/dist/css/bootstrap-select.css" />
+    <link rel="stylesheet" href="bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker3.css" />
+    <link rel="stylesheet" href="bower_components/angular-ui-select/dist/select.css" />
+    <!-- endbower -->
+    <!-- endbuild -->
+    <!-- build:css(.tmp) styles/main.css -->
+    <link rel="stylesheet" href="styles/main.css">
+    <!-- endbuild -->
+
+    <style>
+      [ng\:cloak],
+      [ng-cloak],
+      [x-ng-cloak],
+      .ng-cloak,
+      .x-ng-cloak {
+        display: none !important;
+      }
+    </style>
+  </head>
+  <body class="ng-cloak">
+    <!--[if lte IE 8]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+
+    <!-- Application content here -->
+    <nav data-ng-include="'header.html'" class="navbar navbar-default navbar-pf navbar-fixed-top"></nav>
+    <div class="container-fluid">
+      <div class="row">
+        <div id="view">
+          <div class="col-sm-9 col-md-10 col-sm-push-3 col-md-push-2">
+            <div ui-view></div>
+          </div>
+          <div sc-sidebar-resize class="col-sm-3 col-md-2 col-sm-pull-9 col-md-pull-10 sidebar-pf sidebar-pf-left" style="min-height: 354px;">
+            <div class="nav-category">
+              <h2>Administracion</h2>
+              <ul class="nav nav-pills nav-stacked">
+                <li ui-sref-active="active">
+                  <a ui-sref="forms.app.formAnswer"><span class="fa fa-exchange"></span> Responder</a>
+                </li>
+                <li ui-sref-active="active">
+                  <a ui-sref="forms.app.result"><span class="fa fa-database"></span> Resultados</a>
+                </li>
+              </ul>
+              <h2>Configuracion</h2>
+              <ul class="nav nav-pills nav-stacked">
+                <li ui-sref-active="active">
+                  <a ui-sref="forms.app.form"><span class="fa fa-cubes"></span> Encuestas</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
+     <script>
+       !function(A,n,g,u,l,a,r){A.GoogleAnalyticsObject=l,A[l]=A[l]||function(){
+       (A[l].q=A[l].q||[]).push(arguments)},A[l].l=+new Date,a=n.createElement(g),
+       r=n.getElementsByTagName(g)[0],a.src=u,r.parentNode.insertBefore(a,r)
+       }(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+       ga('create', 'UA-XXXXX-X');
+       ga('send', 'pageview');
+    </script>
+
+    <!-- build:js(.) scripts/vendor.js -->
+    <!-- bower:js -->
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-animate/angular-animate.js"></script>
+    <script src="bower_components/angular-resource/angular-resource.js"></script>
+    <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+    <script src="bower_components/angular-touch/angular-touch.js"></script>
+    <script src="bower_components/angular-messages/angular-messages.js"></script>
+    <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+    <script src="bower_components/angular-ui-utils/ui-utils.js"></script>
+    <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+    <script src="bower_components/br-validations/releases/br-validations.js"></script>
+    <script src="bower_components/string-mask/src/string-mask.js"></script>
+    <script src="bower_components/angular-input-masks/angular-input-masks-standalone.min.js"></script>
+    <script src="bower_components/angular-toastr/dist/angular-toastr.tpls.js"></script>
+    <script src="bower_components/angular-breadcrumb/release/angular-breadcrumb.js"></script>
+    <script src="bower_components/angular-patternfly/dist/angular-patternfly.js"></script>
+    <script src="bower_components/lodash/lodash.js"></script>
+    <script src="bower_components/restangular/dist/restangular.js"></script>
+    <script src="bower_components/underscore/underscore.js"></script>
+    <script src="bower_components/patternfly-sass/assets/javascripts/patternfly.js"></script>
+    <script src="bower_components/jquery-ui/jquery-ui.js"></script>
+    <script src="bower_components/jquery.maskedinput/dist/jquery.maskedinput.js"></script>
+    <script src="bower_components/bootstrap-select/dist/js/bootstrap-select.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+    <script src="bower_components/keycloak/dist/keycloak.js"></script>
+    <script src="bower_components/angular-ui-select/dist/select.js"></script>
+    <script src="bower_components/checklist-model/checklist-model.js"></script>
+    <!-- endbower -->
+    <!-- endbuild -->
+
+    <!-- build:js({.tmp,app}) scripts/scripts.js -->
+
+    <script src="/scripts/config.js"></script>
+    <script src="/scripts/init.js"></script>
+    <script src="/modules/forms/forms.client.module.js"></script>
+    <script src="/modules/forms/config/forms.client.routes.js"></script>
+    <script src="/modules/forms/controllers/forms.client.controller.js"></script>
+    <script src="/modules/forms/controllers/form/create.client.controller.js"></script>
+    <script src="/modules/forms/controllers/form/edit.builder.client.controller.js"></script>
+    <script src="/modules/forms/controllers/form/edit.client.controller.js"></script>
+    <script src="/modules/forms/controllers/form/edit.principaldata.client.controller.js"></script>
+    <script src="/modules/forms/controllers/form/edit.summary.client.controller.js"></script>
+    <script src="/modules/forms/controllers/form/search.client.controller.js"></script>
+    <script src="/modules/forms/controllers/formAnswer/edit.client.controller.js"></script>
+    <script src="/modules/forms/controllers/formAnswer/search.all.client.controller.js"></script>
+    <script src="/modules/forms/controllers/formAnswer/search.client.controller.js"></script>
+    <script src="/modules/forms/controllers/formAnswer/search.saved.client.controller.js"></script>
+    <script src="/modules/forms/services/forms.client.service.js"></script>
+    <script src="/scripts/config/header.js"></script>
+    <script src="/scripts/config/routes.js"></script>
+    <script src="/scripts/directives/datemask.js"></script>
+    <script src="/scripts/directives/sidebar.resize.directive.js"></script>
+    <script src="/scripts/directives/util.directive.js"></script>
+    <script src="/scripts/directives/answer-datetime/answer.datetime.directive.js"></script>
+    <script src="/scripts/directives/answer-grid/answer.grid.directive.js"></script>
+    <script src="/scripts/directives/answer-number/answer.number.directive.js"></script>
+    <script src="/scripts/directives/answer-scale/answer.scale.directive.js"></script>
+    <script src="/scripts/directives/answer-select/answer.select.directive.js"></script>
+    <script src="/scripts/directives/answer-select/answer.select.dropdown.directive.js"></script>
+    <script src="/scripts/directives/answer-select/answer.select.multiple.directive.js"></script>
+    <script src="/scripts/directives/answer-select/answer.select.verification.directive.js"></script>
+    <script src="/scripts/directives/answer-text/answer.text.directive.js"></script>
+    <script src="/scripts/directives/answer/answer.directive.js"></script>
+    <script src="/scripts/directives/question-datetime/question.datetime.directive.js"></script>
+    <script src="/scripts/directives/question-grid/question.grid.directive.js"></script>
+    <script src="/scripts/directives/question-grid/question.grid.elements.directive.js"></script>
+    <script src="/scripts/directives/question-number/question.number.directive.js"></script>
+    <script src="/scripts/directives/question-scale/question.scale.directive.js"></script>
+    <script src="/scripts/directives/question-select/question.select.directive.js"></script>
+    <script src="/scripts/directives/question-text/question.text.directive.js"></script>
+    <script src="/scripts/directives/question/question.directive.js"></script>
+    <script src="/scripts/directives/section/section.directive.js"></script>
+    <script src="/scripts/factories/models.js"></script>
+    <script src="/scripts/services/services.js"></script>
+    <!-- endbuild -->
+
+  </body>
+</html>

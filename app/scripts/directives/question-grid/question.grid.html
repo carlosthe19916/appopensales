@@ -1,0 +1,55 @@
+<div>
+  <div data-ng-show="isEditing">
+    <div class="form-group" data-ng-class="{ 'has-error' : form.required.$invalid && form.$submitted }">
+      <label class="col-sm-3 control-label">Pregunta obligatoria:</label>
+      <div class="col-sm-3">
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" data-ng-model="question.required"> Seleccione
+          </label>
+        </div>
+      </div>
+    </div>
+    <div class="form-group" data-ng-class="{ 'has-error' : form.rows.$invalid && form.$submitted }">
+      <label class="col-sm-3 control-label">Filas: </label>
+      <div class="col-sm-6">
+        <sc-question-grid-elements type="'Fila'" data-ng-model="question.rows" is-editing="isEditing"></sc-question-grid-elements>
+      </div>
+    </div>
+    <div class="form-group" data-ng-class="{ 'has-error' : form.rows.$invalid && form.$submitted }">
+      <label class="col-sm-3 control-label">Columnas: </label>
+      <div class="col-sm-6">
+        <sc-question-grid-elements type="'Columna'" data-ng-model="question.columns" is-editing="isEditing"></sc-question-grid-elements>
+      </div>
+    </div>
+  </div>
+
+  <!---PRE VISUAL-->
+  <div data-ng-show="!isEditing" class="form-horizontal">
+    <div class="form-group">
+      <div class="col-sm-12">
+        <table class="table table-striped table-bordered table-condensed">
+          <thead>
+          <tr>
+            <td></td>
+            <td data-ng-repeat="item in question.columns | orderBy: 'number' ">{{item.denomination}}</td>
+          </tr>
+          </thead>
+          <tbody>
+          <tr data-ng-repeat="item in question.rows | orderBy: 'number' ">
+            <td>{{item.denomination}}</td>
+            <td data-ng-repeat="prueba in question.columns" class="text-center" style="padding: 0;">
+              <div class="radio">
+                <label>
+                  <input type="radio" disabled>
+                </label>
+              </div>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+</div>

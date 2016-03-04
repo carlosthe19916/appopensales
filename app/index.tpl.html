@@ -1,0 +1,87 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Sistcoopform</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <!-- build:css(.) styles/vendor.css -->
+    <!-- bower:css -->
+    <!-- endbower -->
+    <!-- endbuild -->
+    <!-- build:css(.tmp) styles/main.css -->
+    <link rel="stylesheet" href="styles/main.css">
+    <!-- endbuild -->
+
+    <style>
+      [ng\:cloak],
+      [ng-cloak],
+      [x-ng-cloak],
+      .ng-cloak,
+      .x-ng-cloak {
+        display: none !important;
+      }
+    </style>
+  </head>
+  <body class="ng-cloak">
+    <!--[if lte IE 8]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+
+    <!-- Application content here -->
+    <nav data-ng-include="'header.html'" class="navbar navbar-default navbar-pf navbar-fixed-top"></nav>
+    <div class="container-fluid">
+      <div class="row">
+        <div id="view">
+          <div class="col-sm-9 col-md-10 col-sm-push-3 col-md-push-2">
+            <div ui-view></div>
+          </div>
+          <div sc-sidebar-resize class="col-sm-3 col-md-2 col-sm-pull-9 col-md-pull-10 sidebar-pf sidebar-pf-left" style="min-height: 354px;">
+            <div class="nav-category">
+              <h2>Administracion</h2>
+              <ul class="nav nav-pills nav-stacked">
+                <li ui-sref-active="active">
+                  <a ui-sref="forms.app.formAnswer"><span class="fa fa-exchange"></span> Responder</a>
+                </li>
+                <li ui-sref-active="active">
+                  <a ui-sref="forms.app.result"><span class="fa fa-database"></span> Resultados</a>
+                </li>
+              </ul>
+              <h2>Configuracion</h2>
+              <ul class="nav nav-pills nav-stacked">
+                <li ui-sref-active="active">
+                  <a ui-sref="forms.app.form"><span class="fa fa-cubes"></span> Encuestas</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
+     <script>
+       !function(A,n,g,u,l,a,r){A.GoogleAnalyticsObject=l,A[l]=A[l]||function(){
+       (A[l].q=A[l].q||[]).push(arguments)},A[l].l=+new Date,a=n.createElement(g),
+       r=n.getElementsByTagName(g)[0],a.src=u,r.parentNode.insertBefore(a,r)
+       }(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+       ga('create', 'UA-XXXXX-X');
+       ga('send', 'pageview');
+    </script>
+
+    <!-- build:js(.) scripts/vendor.js -->
+    <!-- bower:js -->
+    <!-- endbower -->
+    <!-- endbuild -->
+
+    <!-- build:js({.tmp,app}) scripts/scripts.js -->
+
+    <script src="/scripts/config.js"></script>
+    <script src="/scripts/init.js"></script>
+    <!-- include: "type": "js", "ordering": "top-down", "files": ["scripts/**/*.js", "modules/**/*.js", "!scripts/config.js", "!scripts/init.js"] -->
+    <!-- endbuild -->
+
+  </body>
+</html>

@@ -1,0 +1,84 @@
+<div>
+
+  <div data-ng-show="isEditing">
+    <div class="form-group" data-ng-class="{ 'has-error' : form.type.$invalid && form.$submitted }">
+      <label class="col-sm-3 control-label"><span class="required">*</span> Tipo:</label>
+      <div class="col-sm-3">
+        <select class="form-control" data-ng-model="question.type" data-ng-options="item.value as item.name for item in combo.type" required></select>
+        <div data-ng-messages="form.type.$error" data-ng-if="form.type.$submitted">
+          <div class="has-error" data-ng-message="required">Seleccione tipo.</div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group" data-ng-class="{ 'has-error' : form.required.$invalid && form.$submitted }">
+      <label class="col-sm-3 control-label">Pregunta obligatoria:</label>
+      <div class="col-sm-3">
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" data-ng-model="question.required"> Seleccione
+          </label>
+        </div>
+      </div>
+    </div>
+    <div class="form-group" data-ng-class="{ 'has-error' : form.required.$invalid && form.$submitted }">
+      <label class="col-sm-3 control-label">Opciones: </label>
+      <div class="col-sm-4">
+        <ul class="list-unstyled">
+          <li data-ng-repeat="item in question.selectOptions | orderBy: 'number' ">
+            <div class="input-group" style="padding: 5px;">
+              <div class="input-group-addon" style="background-color: white; border: 0;">
+                <i class="fa fa-ellipsis-v"></i>&nbsp;
+                <i class="fa fa-ellipsis-v"></i>
+              </div>
+              <span data-ng-if="question.type === 'DROPDOWN'" class="input-group-addon" style="background-color: white; border: 0;">{{$index + 1}}.</span>
+              <span data-ng-if="question.type === 'MULTIPLE'" class="input-group-addon" style="background-color: white; border: 0;"><input type="radio" disabled></span>
+              <span data-ng-if="question.type === 'VERIFICATION'" class="input-group-addon" style="background-color: white; border: 0;"><input type="checkbox" disabled></span>
+
+              <input data-ng-if="!item.editable" type="text" data-ng-model="item.denomination" class="form-control" required>
+              <table data-ng-if="item.editable" style="margin-top: 0">
+                <tr>
+                  <td>&nbsp;{{item.denomination}}:&nbsp;</td>
+                  <td><input type="text" class="form-control" placeholder="Respuesta" disabled required></td>
+                </tr>
+              </table>
+              <span class="input-group-btn"><button type="button" data-ng-click="removeElement($index)" class="close">&nbsp;<i class="pficon pficon-close"></i></button></span>
+            </div>
+          </li>
+        </ul>
+        <button type="button" data-ng-click="addElement()" class="btn btn-link">Anadir</button>
+        <button type="button" data-ng-if="question.type !== 'DROPDOWN'" data-ng-click="addEditableElement()" class="btn btn-link">Anadir Otro</button>
+      </div>
+    </div>
+
+  </div>
+
+  <!---PRE VISUAL-->
+  <div data-ng-show="!isEditing" class="form-group">
+    <div class="col-sm-6">
+      <ul class="list-unstyled">
+        <li data-ng-repeat="item in question.selectOptions | orderBy: 'number' ">
+          <div class="input-group" style="padding: 5px;">
+            <div class="input-group-addon" style="background-color: white; border: 0;">
+              <i class="fa fa-ellipsis-v"></i>&nbsp;
+              <i class="fa fa-ellipsis-v"></i>
+            </div>
+            <span data-ng-if="question.type === 'DROPDOWN'" class="input-group-addon" style="background-color: white; border: 0;">{{$index + 1}}.</span>
+            <span data-ng-if="question.type === 'MULTIPLE'" class="input-group-addon" style="background-color: white; border: 0;"><input type="radio" disabled></span>
+            <span data-ng-if="question.type === 'VERIFICATION'" class="input-group-addon" style="background-color: white; border: 0;"><input type="checkbox" disabled></span>
+
+            <input data-ng-if="!item.editable" type="text" data-ng-model="item.denomination" class="form-control" disabled required>
+            <table data-ng-if="item.editable" style="margin-top: 0;">
+              <tr>
+                <td>&nbsp;{{item.denomination}}:&nbsp;</td>
+                <td><input type="text" class="form-control" placeholder="Respuesta" disabled required></td>
+              </tr>
+            </table>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+</div>
+
+

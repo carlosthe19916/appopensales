@@ -1,0 +1,114 @@
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <div class="navbar-brand">
+        <i class="fa fa-building"></i>
+      </div>
+      <span class="navbar-brand" href="">Menu</span>
+    </div>
+    <div class="collapse navbar-collapse">
+      <ul class="nav navbar-nav">
+        <li><a href="" data-ng-click="setOperation('section')" tooltip-placement="bottom" uib-tooltip="Nueva seccion">Seccion</a></li>
+        <li><a href="">&nbsp;</a></li>
+        <li><a href="" data-ng-click="setOperation('question', 'text')" tooltip-placement="bottom" uib-tooltip="Nuevo Texto">Texto</a></li>
+        <li><a href="" data-ng-click="setOperation('question', 'number')" tooltip-placement="bottom" uib-tooltip="Nuevo numero">Numero</a></li>
+        <li><a href="" data-ng-click="setOperation('question', 'datetime')" tooltip-placement="bottom" uib-tooltip="Nueva fecha">Fecha</a></li>
+        <li><a href="" data-ng-click="setOperation('question', 'select')" tooltip-placement="bottom" uib-tooltip="Nueva seleccion">Seleccion</a></li>
+        <li><a href="" data-ng-click="setOperation('question', 'scale')" tooltip-placement="bottom" uib-tooltip="Nueva escala">Escala</a></li>
+        <li><a href="" data-ng-click="setOperation('question', 'grid')" tooltip-placement="bottom" uib-tooltip="Nueva tabla">Tabla</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<form name="form" data-ng-if="view.elementToCreate.selected" class="form-horizontal" novalidate>
+  <div class="row">
+    <div class="col-sm-offset-2 col-sm-8">
+
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <div data-ng-if="view.elementToCreate.selected == 'question'" class="form-group" data-ng-class="{ 'has-error' : form.section.$invalid && form.$submitted }">
+            <label class="col-sm-3 control-label"><span class="required">*</span> Seccion:</label>
+            <div class="col-sm-5">
+              <select name="section" class="form-control" data-ng-model="view.elementToCreate.sectionComboSelected" data-ng-options="item as item.title for item in sections" required>
+                <option></option>
+              </select>
+              <div data-ng-messages="form.section.$error" data-ng-if="form.section.$submitted">
+                <div class="has-error" data-ng-message="required">Seleccione seccion.</div>
+              </div>
+            </div>
+          </div>
+
+          <sc-section data-ng-if="view.elementToCreate.selected == 'section'" data-ng-model="view.elementToCreate.section" is-editing="true"></sc-section>
+          <sc-question data-ng-if="view.elementToCreate.selected == 'question'" data-ng-model="view.elementToCreate.question" is-editing="true"></sc-question>
+
+          <div data-ng-if="!view.form.active" class="form-group">
+            <div class="col-sm-offset-3 col-sm-9">
+              <button data-ng-if="view.elementToCreate.selected == 'section'" sg-save on-save="createSectionElement" ng-disabled="working">
+                <span ng-show="working">Guardando...</span>
+                <span ng-hide="working">Guardar</span>
+              </button>
+              <button data-ng-if="view.elementToCreate.selected == 'question'" sg-save on-save="createQuestionElement" ng-disabled="working">
+                <span ng-show="working">Guardando...</span>
+                <span ng-hide="working">Guardar</span>
+              </button>
+              <button type="button" class="btn btn-default" data-ng-click="view.elementToCreate.clear()">Cancelar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</form>
+
+<div class="row">
+  <div class="col-sm-8 col-sm-offset-2">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h2>Pre visualizacion</h2>
+      </div>
+      <div class="panel-body">
+
+        <form data-ng-repeat-start="item in sections | orderBy : 'number' " data-ng-submit="updateSection(item)" name="form" class="form-horizontal" novalidate>
+          <div data-ng-if="!view.form.active" class="btn-group pull-right" style="margin-bottom: -5px;">
+            <button data-ng-click="item.isEditing = !item.isEditing" type="button" class="btn btn-default" tooltip-placement="bottom" uib-tooltip="Editar"><i class="fa fa-pencil"></i></button>
+            <button data-ng-click="removeSection(item, $index)" type="button" class="btn btn-default" tooltip-placement="bottom" uib-tooltip="Eliminar"><i class="fa fa-trash"></i></button>
+          </div>
+          <sc-section data-ng-model="item" is-editing="item.isEditing"></sc-section>
+          <div data-ng-if="item.isEditing" class="form-group">
+            <div class="col-sm-offset-3 col-sm-9">
+              <button type="submit" class="btn btn-primary" ng-disabled="working">
+                <span ng-show="working">Guardando...</span>
+                <span ng-hide="working">Guardar</span>
+              </button>
+              <button type="button" class="btn btn-default" data-ng-click="item.isEditing = false">Cancelar</button>
+            </div>
+          </div>
+        </form>
+        <div data-ng-repeat-end data-ng-repeat="question in item.questions | orderBy : 'number' " class="row">
+          <div class="col-sm-11">
+            <form data-ng-submit="updateQuestion(item, question)" name="form" class="form-horizontal" novalidate>
+              <div data-ng-if="!view.form.active" class="btn-group pull-right" style="margin-bottom: -5px;">
+                <button data-ng-click="question.isEditing = !question.isEditing" type="button" class="btn btn-default" tooltip-placement="bottom" uib-tooltip="Editar"><i class="fa fa-pencil"></i></button>
+                <button data-ng-click="removeQuestion(item, question, $index)" type="button" class="btn btn-default" tooltip-placement="bottom" uib-tooltip="Eliminar"><i class="fa fa-trash"></i></button>
+              </div>
+              <sc-question data-ng-model="question" is-editing="question.isEditing"></sc-question>
+
+              <div data-ng-if="question.isEditing" class="form-group">
+                <div class="col-sm-offset-3 col-sm-9">
+                  <button type="submit" class="btn btn-primary" ng-disabled="working">
+                    <span ng-show="working">Guardando...</span>
+                    <span ng-hide="working">Guardar</span>
+                  </button>
+                  <button type="button" class="btn btn-default" data-ng-click="question.isEditing = false">Cancelar</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

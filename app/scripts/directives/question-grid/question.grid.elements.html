@@ -1,0 +1,25 @@
+<div>
+  <div data-ng-show="isEditing">
+    <div class="form-group" data-ng-class="{ 'has-error' : form.required.$invalid && form.$submitted }">
+      <div class="col-sm-8">
+        <ul class="list-unstyled">
+          <li data-ng-repeat="item in elements | orderBy: 'number' ">
+            <div class="input-group" style="padding: 5px;">
+              <div class="input-group-addon" style="background-color: white; border: 0;">
+                <i class="fa fa-ellipsis-v"></i>&nbsp;
+                <i class="fa fa-ellipsis-v"></i>
+              </div>
+              <span class="input-group-addon" style="background-color: white; border: 0;">{{$index + 1}}.</span>
+
+              <input type="text" data-ng-model="item.denomination" class="form-control" required>
+              <span class="input-group-btn"><button type="button" data-ng-click="removeElement($index)" class="close">&nbsp;<i class="pficon pficon-close"></i></button></span>
+            </div>
+          </li>
+        </ul>
+        <button type="button" data-ng-click="addElement()" class="btn btn-link">Anadir</button>
+        <!--<button type="button" data-ng-click="addEditableElement()" class="btn btn-link">Anadir Otro</button>-->
+      </div>
+    </div>
+  </div>
+
+</div>

@@ -1,0 +1,51 @@
+<div class="row">
+  <div class="col-sm-12">
+    <fieldset class="border-top">
+      <legend><h4>{{section.number}}.&nbsp;{{section.title}}<small>.&nbsp;{{section.description}}</small></h4></legend>
+
+      <div data-ng-if="isEditing" class="form-horizontal" novalidate>
+        <div class="form-group" data-ng-class="{ 'has-error' : form.number.$invalid && form.$submitted }">
+          <label class="col-sm-3 control-label"><span class="required">*</span> Numero:</label>
+          <div class="col-sm-3">
+            <input type="text" name="number" data-ng-model="section.number" ui-number-mask="0" class="form-control" pf-focused="true" autofocus required/>
+            <div data-ng-messages="form.number.$error" data-ng-if="form.number.$submitted">
+              <div class="has-error" data-ng-message="required">Ingrese numero.</div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group" data-ng-class="{ 'has-error' : form.title.$invalid && form.$submitted }">
+          <label class="col-sm-3 control-label"><span class="required">*</span> Titulo:</label>
+          <div class="col-sm-4">
+            <input name="title" type="text" data-ng-model="section.title" data-ng-minlength="1" data-ng-maxlength="200" class="form-control" required/>
+            <div data-ng-messages="form.title.$error" data-ng-if="form.title.$submitted">
+              <div class="has-error" data-ng-message="required">Ingrese titulo.</div>
+              <div class="has-error" data-ng-message="minlength">Ingrese titulo.</div>
+              <div class="has-error" data-ng-message="maxlength">Maximo 200 caracteres.</div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group" data-ng-class="{ 'has-error' : form.description.$invalid && form.$submitted }">
+          <label class="col-sm-3 control-label">Descripcion:</label>
+          <div class="col-sm-3">
+            <textarea name="description" data-ng-model="section.description" data-ng-maxlength="200" class="form-control"></textarea>
+            <div data-ng-messages="form.description.$error" data-ng-if="form.description.$submitted">
+              <div class="has-error" data-ng-message="required">Ingrese Descripcion.</div>
+              <div class="has-error" data-ng-message="maxlength">Maximo 200 caracteres.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!--
+      <div data-ng-repeat="item in scQuestions">
+        <sc-question data-ng-model="item"
+                     type="item.question"
+                     is-working="working"
+                     on-save="onQuestionSave()"
+                     on-remove="removeQuestion(item, $index)"></sc-question>
+      </div>
+-->
+    </fieldset>
+  </div>
+</div>
+

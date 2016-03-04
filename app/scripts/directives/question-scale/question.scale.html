@@ -1,0 +1,63 @@
+<div>
+  <div data-ng-show="isEditing">
+    <div class="form-group" data-ng-class="{ 'has-error' : (form.min.$invalid || form.max.$invalid ) && form.$submitted }">
+      <label class="col-sm-3 control-label">Escala:</label>
+      <div class="col-sm-2">
+        <input type="text" name="min" data-ng-model="question.min" ui-number-mask="0" class="form-control" placeholder="Desde" required/>
+        <div data-ng-messages="form.min.$error" data-ng-if="form.$submitted">
+          <div class="has-error" data-ng-message="required">Ingrese minimo.</div>
+        </div>
+      </div>
+      <div class="col-sm-2">
+        <input type="text" name="max" data-ng-model="question.max" ui-number-mask="0" class="form-control" placeholder="Hasta" required/>
+        <div data-ng-messages="form.max.$error" data-ng-if="form.$submitted">
+          <div class="has-error" data-ng-message="required">Ingrese maximo.</div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group" data-ng-class="{ 'has-error' : (form.tag1.$invalid || form.tag2.$invalid ) && form.$submitted }">
+      <label class="col-sm-3 control-label">Etiquetas:</label>
+      <div class="col-sm-2">
+        <input type="text" name="tag1" data-ng-model="question.tag1" class="form-control" placeholder="Etiqueta 01"/>
+      </div>
+      <div class="col-sm-2">
+        <input type="text" name="tag2" data-ng-model="question.tag2" class="form-control" placeholder="Etiqueta 02"/>
+      </div>
+    </div>
+
+    <div class="form-group" data-ng-class="{ 'has-error' : form.required.$invalid && form.$submitted }">
+      <label class="col-sm-3 control-label">Pregunta obligatoria:</label>
+      <div class="col-sm-3">
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" data-ng-model="question.required"> Seleccione
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!---PRE VISUAL-->
+  <div data-ng-show="!isEditing" class="form-horizontal">
+    <div class="form-group">
+      <div class="col-sm-1"></div>
+      <div class="col-sm-11">
+        <table cellpadding="5">
+          <tr>
+            <td>&nbsp;</td>
+            <td data-ng-repeat="n in range(question.min, question.max)">{{n}}</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td style="padding-right: 10px;">{{question.tag1}}</td>
+            <td data-ng-repeat="n in range(question.min, question.max)" style="padding-right: 10px;" style="padding-right: 10px;">
+              <input type="radio" disabled>
+            </td>
+            <td style="padding-right: 10px;">{{question.tag2}}</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+</div>

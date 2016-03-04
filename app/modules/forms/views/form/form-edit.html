@@ -1,0 +1,51 @@
+<div ncy-breadcrumb></div>
+
+<h1>
+  <strong>Editar encuesta</strong>
+
+  <span data-ng-if="view.form.active" class="label label-info" style="font-size: 11px;">Activo</span>
+  <span data-ng-if="!view.form.active" class="label label-warning" style="font-size: 11px;">Inactivo</span>
+
+  <div class="pull-right">
+    <div class="btn-group">
+      <button data-ng-if="!view.form.active" type="button" data-ng-click="activeForm()" class="btn btn-primary">
+        <span>Activar</span>
+      </button>
+      <button type="button" data-ng-click="remove()" class="btn btn-danger">
+        <span>Eliminar</span>
+      </button>
+    </div>
+  </div>
+</h1>
+
+<div class="panel panel-default">
+  <div class="panel-body">
+    <div>
+
+      <div class="tab-container">
+        <ul class="nav nav-tabs">
+          <li ui-sref-active="active">
+            <a href ui-sref=".summary">
+              Resumen
+            </a>
+          </li>
+          <li ui-sref-active="active">
+            <a href ui-sref=".principaldata">
+              Datos principales
+            </a>
+          </li>
+          <li ui-sref-active="active">
+            <a href ui-sref=".builder">
+              Editor
+            </a>
+          </li>
+        </ul>
+        <div class="tab-pane">
+          <br/>
+          <div ui-view></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

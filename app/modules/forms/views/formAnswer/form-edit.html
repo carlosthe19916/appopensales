@@ -1,0 +1,67 @@
+<div ncy-breadcrumb></div>
+
+<div class="panel panel-default">
+  <div class="panel-body" style="padding-top: 0; padding-bottom: 0;">
+    <div class="row">
+      <div class="col-sm-8 col-md-9">
+        <form name="form" data-ng-submit="" class="form-horizontal" novalidate>
+          <div class="page-header page-header-bleed-right">
+            <h1>
+              <strong>Editar respuesta</strong>
+              <div class="input-group pull-right" style="padding-right: 5px;">
+                <button sg-save on-save="saveSection" ng-disabled="working">
+                  <span ng-show="working">Guardando...</span>
+                  <span ng-hide="working">Guardar</span>
+                </button>
+              </div>
+            </h1>
+          </div>
+          <div class="row">
+            <div class="col-sm-12 text-right">
+              <uib-pagination boundary-links="true" total-items="sections.length" items-per-page="1" ng-model="paginationOptions.page" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></uib-pagination>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-12">
+              <div>
+                <fieldset class="border-top">
+                  <legend>
+                    <h4>
+                      {{sections[paginationOptions.page - 1].number}}.&nbsp;{{sections[paginationOptions.page -1].title}}
+                      <small>.&nbsp;{{sections[paginationOptions.page - 1].description}}</small>
+                    </h4>
+                  </legend>
+                </fieldset>
+              </div>
+              <div class="row" data-ng-repeat="question in sections[paginationOptions.page - 1].questions | orderBy : 'number' ">
+                <div class="col-sm-12">
+                  <sc-answer data-ng-model="question.answer" question="question" is-active="true"></sc-answer>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-12 text-right">
+              <uib-pagination boundary-links="true" total-items="sections.length" items-per-page="1" ng-model="paginationOptions.page" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></uib-pagination>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="col-sm-4 col-md-3 sidebar-pf sidebar-pf-right">
+        <div class="sidebar-header sidebar-header-bleed-left">
+          <h2 class="h5"><strong>Encuesta</strong></h2>
+        </div>
+        <dl class="dl-horizontal left">
+          <dt style="width: 80px;">Uuid:</dt>
+          <dd style="margin-left: 90px;" data-ng-bind="view.formAnswer.form.id"></dd>
+          <dt style="width: 80px;">Titulo:</dt>
+          <dd style="margin-left: 90px;" data-ng-bind="view.formAnswer.form.title"></dd>
+          <dt style="width: 80px;">Descripcion:</dt>
+          <dd style="margin-left: 90px;" data-ng-bind="view.formAnswer.form.description"></dd>
+        </dl>
+      </div>
+    </div>
+  </div>
+</div>

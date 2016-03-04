@@ -1,0 +1,43 @@
+<div data-ng-controller="HeaderController">
+  <div>
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse-1" data-ng-click="toggleCollapsibleMenu()">
+      <span class="sr-only">toggle-navigation</span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
+    <a data-ui-sref="home" class="navbar-brand">
+
+    </a>
+  </div>
+  <div class="uib-collapse navbar-collapse navbar-collapse-1" uib-collapse="!isCollapsed" role="navigation">
+    <ul class="nav navbar-nav navbar-utility">
+      <li class="dropdown">
+        <a href="" class="dropdown-toggle">
+          <strong>User: </strong>
+          <span ng-bind="user.username"></span>
+        </a>
+      </li>
+      <li class="dropdown">
+        <a href="" class="dropdown-toggle">
+          <strong>Roles: </strong>
+          <span ng-bind="user.roles"></span>
+        </a>
+      </li>
+      <li class="dropdown" uib-dropdown>
+        <a href="#" class="dropdown-toggle" uib-dropdown-toggle>
+          <span class="pficon pficon-user"></span>
+          <span class="username">{{user.fullName || user.metadata.name}}</span> <b class="caret"></b>
+        </a>
+        <ul uib-dropdown-menu role="menu" aria-labelledby="single-button">
+          <li role="menuitem">
+            <a href="" data-ng-click="accountManagement()">Account</a>
+          </li>
+          <li role="menuitem">
+            <a href="" data-ng-click="logout()">Log out</a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</div>

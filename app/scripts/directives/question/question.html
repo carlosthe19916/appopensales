@@ -1,0 +1,71 @@
+<div class="row">
+  <div ng-class="{'col-sm-offset-1 col-sm-10': !isEditing, 'col-sm-12': isEditing}">
+    <fieldset class="border-top">
+      <legend>
+        <h4>{{question.number}}.&nbsp;{{question.title}}<span data-ng-if="question.required" class="required">&nbsp;*</span><small>.&nbsp;{{question.description}}</small></h4>
+      </legend>
+
+      <!--FORM-->
+      <div class="form-horizontal" novalidate>
+        <div data-ng-show="isEditing" class="form-group" data-ng-class="{ 'has-error' : form.type.$invalid && form.$submitted }">
+          <label class="col-sm-3 control-label"><span class="required">*</span> Tipo:</label>
+          <div class="col-sm-3">
+            <select class="form-control" data-ng-model="question.question" data-ng-options="item.value as item.name for item in combo.type" data-ng-disabled="question.id" required></select>
+            <div data-ng-messages="form.type.$error" data-ng-if="form.type.$submitted">
+              <div class="has-error" data-ng-message="required">Seleccione tipo.</div>
+            </div>
+          </div>
+        </div>
+        <div data-ng-show="isEditing" class="form-group" data-ng-class="{ 'has-error' : form.number.$invalid && form.$submitted }">
+          <label class="col-sm-3 control-label"><span class="required">*</span> Numero:</label>
+          <div class="col-sm-3">
+            <input type="text" name="number" data-ng-model="question.number" ui-number-mask="0" class="form-control" required/>
+            <div data-ng-messages="form.number.$error" data-ng-if="form.number.$submitted">
+              <div class="has-error" data-ng-message="required">Ingrese numero.</div>
+            </div>
+          </div>
+        </div>
+        <div data-ng-show="isEditing" class="form-group" data-ng-class="{ 'has-error' : form.title.$invalid && form.$submitted }">
+          <label class="col-sm-3 control-label"><span class="required">*</span> Titulo:</label>
+          <div class="col-sm-4">
+            <input name="title" type="text" data-ng-model="question.title" data-ng-minlength="1" data-ng-maxlength="200" class="form-control" required/>
+            <div data-ng-messages="form.title.$error" data-ng-if="form.title.$submitted">
+              <div class="has-error" data-ng-message="required">Ingrese titulo.</div>
+              <div class="has-error" data-ng-message="minlength">Ingrese titulo.</div>
+              <div class="has-error" data-ng-message="maxlength">Maximo 200 caracteres.</div>
+            </div>
+          </div>
+        </div>
+        <div data-ng-show="isEditing" class="form-group" data-ng-class="{ 'has-error' : form.description.$invalid && form.$submitted }">
+          <label class="col-sm-3 control-label">Descripcion:</label>
+          <div class="col-sm-3">
+            <textarea name="description" data-ng-model="question.description" data-ng-maxlength="200" class="form-control"></textarea>
+            <div data-ng-messages="form.description.$error" data-ng-if="form.description.$submitted">
+              <div class="has-error" data-ng-message="required">Ingrese Descripcion.</div>
+              <div class="has-error" data-ng-message="maxlength">Maximo 200 caracteres.</div>
+            </div>
+          </div>
+        </div>
+
+        <div data-ng-if="question.question == 'TEXT' ">
+          <sc-question-text data-ng-model="question" is-editing="isEditing"></sc-question-text>
+        </div>
+        <div data-ng-if="question.question == 'NUMBER' ">
+          <sc-question-number data-ng-model="question" is-editing="isEditing"></sc-question-number>
+        </div>
+        <div data-ng-if="question.question == 'DATETIME' ">
+          <sc-question-datetime data-ng-model="question" is-editing="isEditing"></sc-question-datetime>
+        </div>
+        <div data-ng-if="question.question == 'SELECT' ">
+          <sc-question-select data-ng-model="question" is-editing="isEditing"></sc-question-select>
+        </div>
+        <div data-ng-if="question.question == 'SCALE' ">
+          <sc-question-scale data-ng-model="question" is-editing="isEditing"></sc-question-scale>
+        </div>
+        <div data-ng-if="question.question == 'GRID' ">
+          <sc-question-grid data-ng-model="question" is-editing="isEditing"></sc-question-grid>
+        </div>
+      </div>
+    </fieldset>
+  </div>
+</div>
