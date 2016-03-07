@@ -1,7 +1,7 @@
 'use strict';
 
 // Setting up route
-angular.module('mean').config(['$stateProvider', '$urlRouterProvider',
+angular.module(ApplicationConfiguration.applicationModuleName).config(['$stateProvider', '$urlRouterProvider',
   function ($stateProvider, $urlRouterProvider) {
 
     $urlRouterProvider.otherwise('/');

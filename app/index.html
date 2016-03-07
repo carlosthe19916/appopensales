@@ -2,16 +2,27 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Sistcoopform</title>
+    <title>Opensales</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css(.) styles/vendor.css -->
     <!-- bower:css -->
     <link rel="stylesheet" href="bower_components/angular-toastr/dist/angular-toastr.css" />
-    <link rel="stylesheet" href="bower_components/angular-patternfly/dist/styles/angular-patternfly.css" />
-    <link rel="stylesheet" href="bower_components/bootstrap-select/dist/css/bootstrap-select.css" />
+    <link rel="stylesheet" href="bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.css" />
     <link rel="stylesheet" href="bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker3.css" />
+    <link rel="stylesheet" href="bower_components/bootstrap-select/dist/css/bootstrap-select.css" />
+    <link rel="stylesheet" href="bower_components/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.css" />
+    <link rel="stylesheet" href="bower_components/bootstrap-treeview/dist/bootstrap-treeview.min.css" />
+    <link rel="stylesheet" href="bower_components/c3/c3.css" />
+    <link rel="stylesheet" href="bower_components/datatables/media/css/jquery.dataTables.css" />
+    <link rel="stylesheet" href="bower_components/datatables-colreorder/css/dataTables.colReorder.css" />
+    <link rel="stylesheet" href="bower_components/datatables-colvis/css/dataTables.colVis.css" />
+    <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.css" />
+    <link rel="stylesheet" href="bower_components/google-code-prettify/bin/prettify.min.css" />
+    <link rel="stylesheet" href="bower_components/patternfly/dist/css/patternfly.css" />
+    <link rel="stylesheet" href="bower_components/patternfly/dist/css/patternfly-additions.css" />
+    <link rel="stylesheet" href="bower_components/angular-patternfly/dist/styles/angular-patternfly.css" />
     <link rel="stylesheet" href="bower_components/angular-ui-select/dist/select.css" />
     <!-- endbower -->
     <!-- endbuild -->
@@ -81,7 +92,6 @@
     <script src="bower_components/jquery/dist/jquery.js"></script>
     <script src="bower_components/angular/angular.js"></script>
     <script src="bower_components/angular-animate/angular-animate.js"></script>
-    <script src="bower_components/angular-resource/angular-resource.js"></script>
     <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
     <script src="bower_components/angular-touch/angular-touch.js"></script>
     <script src="bower_components/angular-messages/angular-messages.js"></script>
@@ -93,19 +103,29 @@
     <script src="bower_components/angular-input-masks/angular-input-masks-standalone.min.js"></script>
     <script src="bower_components/angular-toastr/dist/angular-toastr.tpls.js"></script>
     <script src="bower_components/angular-breadcrumb/release/angular-breadcrumb.js"></script>
-    <script src="bower_components/angular-patternfly/dist/angular-patternfly.js"></script>
     <script src="bower_components/lodash/lodash.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="bower_components/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+    <script src="bower_components/bootstrap-select/dist/js/bootstrap-select.js"></script>
+    <script src="bower_components/bootstrap-switch/dist/js/bootstrap-switch.js"></script>
+    <script src="bower_components/bootstrap-treeview/dist/bootstrap-treeview.min.js"></script>
+    <script src="bower_components/d3/d3.js"></script>
+    <script src="bower_components/c3/c3.js"></script>
+    <script src="bower_components/datatables/media/js/jquery.dataTables.js"></script>
+    <script src="bower_components/datatables-colreorder/js/dataTables.colReorder.js"></script>
+    <script src="bower_components/datatables-colvis/js/dataTables.colVis.js"></script>
+    <script src="bower_components/google-code-prettify/bin/prettify.min.js"></script>
+    <script src="bower_components/matchHeight/jquery.matchHeight-min.js"></script>
+    <script src="bower_components/patternfly/dist/js/patternfly.js"></script>
+    <script src="bower_components/angular-patternfly/dist/angular-patternfly.js"></script>
     <script src="bower_components/restangular/dist/restangular.js"></script>
     <script src="bower_components/underscore/underscore.js"></script>
+    <script src="bower_components/bootstrap-sass/assets/javascripts/bootstrap.js"></script>
     <script src="bower_components/patternfly-sass/assets/javascripts/patternfly.js"></script>
     <script src="bower_components/jquery-ui/jquery-ui.js"></script>
     <script src="bower_components/jquery.maskedinput/dist/jquery.maskedinput.js"></script>
-    <script src="bower_components/bootstrap-select/dist/js/bootstrap-select.js"></script>
-    <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
-    <script src="bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
     <script src="bower_components/keycloak/dist/keycloak.js"></script>
     <script src="bower_components/angular-ui-select/dist/select.js"></script>
-    <script src="bower_components/checklist-model/checklist-model.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -113,46 +133,9 @@
 
     <script src="/scripts/config.js"></script>
     <script src="/scripts/init.js"></script>
-    <script src="/modules/forms/forms.client.module.js"></script>
-    <script src="/modules/forms/config/forms.client.routes.js"></script>
-    <script src="/modules/forms/controllers/forms.client.controller.js"></script>
-    <script src="/modules/forms/controllers/form/create.client.controller.js"></script>
-    <script src="/modules/forms/controllers/form/edit.builder.client.controller.js"></script>
-    <script src="/modules/forms/controllers/form/edit.client.controller.js"></script>
-    <script src="/modules/forms/controllers/form/edit.principaldata.client.controller.js"></script>
-    <script src="/modules/forms/controllers/form/edit.summary.client.controller.js"></script>
-    <script src="/modules/forms/controllers/form/search.client.controller.js"></script>
-    <script src="/modules/forms/controllers/formAnswer/edit.client.controller.js"></script>
-    <script src="/modules/forms/controllers/formAnswer/search.all.client.controller.js"></script>
-    <script src="/modules/forms/controllers/formAnswer/search.client.controller.js"></script>
-    <script src="/modules/forms/controllers/formAnswer/search.saved.client.controller.js"></script>
-    <script src="/modules/forms/services/forms.client.service.js"></script>
     <script src="/scripts/config/header.js"></script>
     <script src="/scripts/config/routes.js"></script>
-    <script src="/scripts/directives/datemask.js"></script>
     <script src="/scripts/directives/sidebar.resize.directive.js"></script>
-    <script src="/scripts/directives/util.directive.js"></script>
-    <script src="/scripts/directives/answer-datetime/answer.datetime.directive.js"></script>
-    <script src="/scripts/directives/answer-grid/answer.grid.directive.js"></script>
-    <script src="/scripts/directives/answer-number/answer.number.directive.js"></script>
-    <script src="/scripts/directives/answer-scale/answer.scale.directive.js"></script>
-    <script src="/scripts/directives/answer-select/answer.select.directive.js"></script>
-    <script src="/scripts/directives/answer-select/answer.select.dropdown.directive.js"></script>
-    <script src="/scripts/directives/answer-select/answer.select.multiple.directive.js"></script>
-    <script src="/scripts/directives/answer-select/answer.select.verification.directive.js"></script>
-    <script src="/scripts/directives/answer-text/answer.text.directive.js"></script>
-    <script src="/scripts/directives/answer/answer.directive.js"></script>
-    <script src="/scripts/directives/question-datetime/question.datetime.directive.js"></script>
-    <script src="/scripts/directives/question-grid/question.grid.directive.js"></script>
-    <script src="/scripts/directives/question-grid/question.grid.elements.directive.js"></script>
-    <script src="/scripts/directives/question-number/question.number.directive.js"></script>
-    <script src="/scripts/directives/question-scale/question.scale.directive.js"></script>
-    <script src="/scripts/directives/question-select/question.select.directive.js"></script>
-    <script src="/scripts/directives/question-text/question.text.directive.js"></script>
-    <script src="/scripts/directives/question/question.directive.js"></script>
-    <script src="/scripts/directives/section/section.directive.js"></script>
-    <script src="/scripts/factories/models.js"></script>
-    <script src="/scripts/services/services.js"></script>
     <!-- endbuild -->
 
   </body>

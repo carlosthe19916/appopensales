@@ -1,8 +1,0 @@
-<div class="form-horizontal">
-  <div class="form-group" data-ng-class="{ 'has-error' : form.answer.$invalid && form.$submitted }">
-    <div class="col-sm-6">
-      <input data-ng-if="type === 'SHORT'" name="answer" data-ng-model="$parent.answer" type="text" class="form-control" data-ng-required="isRequired" data-ng-disabled="!isActive"/>
-      <textarea data-ng-if="type === 'LARGE'" name="answer" data-ng-model="$parent.answer" class="form-control" data-ng-required="isRequired" data-ng-disabled="!isActive"></textarea>
-    </div>
-  </div>
-</div>

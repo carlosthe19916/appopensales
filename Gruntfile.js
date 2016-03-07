@@ -1,4 +1,4 @@
-// Generated on 2015-11-17 using generator-angular 0.14.0
+// Generated on 2016-03-05 using generator-angular 0.15.1
 'use strict';
 
 // # Globbing
@@ -212,28 +212,31 @@ module.exports = function (grunt) {
     wiredep: {
       app: {
         src: ['<%= yeoman.app %>/index.html'],
-        ignorePath: /\.\.\//,
+        ignorePath:  /\.\.\//,
         exclude: [ 'bower_components/bootstrap/dist/css/bootstrap.css' ]
       },
       test: {
         devDependencies: true,
         src: '<%= karma.unit.configFile %>',
-        ignorePath: /\.\.\//,
-        fileTypes: {
+        ignorePath:  /\.\.\//,
+        fileTypes:{
           js: {
             block: /(([\s\t]*)\/{2}\s*?bower:\s*?(\S*))(\n|\r|.)*?(\/{2}\s*endbower)/gi,
-            detect: {
-              js: /'(.*\.js)'/gi
-            },
-            replace: {
-              js: '\'{{filePath}}\','
+              detect: {
+                js: /'(.*\.js)'/gi
+              },
+              replace: {
+                js: '\'{{filePath}}\','
+              }
             }
           }
-        }
       },
       sass: {
         src: ['<%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
-        ignorePath: /(\.\.\/){1,2}bower_components\//
+        ignorePath: /(\.\.\/){1,2}bower_components\//,
+        exclude: [
+          'bootstrap'
+        ]
       }
     },
 
@@ -382,7 +385,7 @@ module.exports = function (grunt) {
     ngtemplates: {
       dist: {
         options: {
-          module: 'mean',
+          module: 'opensales',
           htmlmin: '<%= htmlmin.dist.options %>',
           usemin: 'scripts/scripts.js'
         },
@@ -434,16 +437,16 @@ module.exports = function (grunt) {
         }, {
           expand: true,
           cwd: '.',
-          src: 'bower_components/bootstrap-sass-official/assets/fonts/bootstrap/*',
+          src: 'bower_components/bootstrap-sass/assets/fonts/bootstrap/*',
           dest: '<%= yeoman.dist %>'
         }, {
           expand: true,
-          cwd: 'bower_components/patternfly/dist',
+          cwd: 'bower_components/patternfly-sass/assets/fonts/patternfly/*',
           src: 'fonts/*',
           dest: '<%= yeoman.dist %>'
         }, {
           expand: true,
-          cwd: 'bower_components/patternfly/components/font-awesome',
+          cwd: 'bower_components/font-awesome-sass/assets/fonts/font-awesome/*',
           src: 'fonts/*',
           dest: '<%= yeoman.dist %>'
         }, {
@@ -514,7 +517,7 @@ module.exports = function (grunt) {
           war_dist_folder: '<%= yeoman.dist %>',
           war_name: 'appopensales',
           webxml_welcome: 'index.html',
-          webxml_display_name: 'Opensales App',
+          webxml_display_name: 'Opensales',
           webxml_mime_mapping: [
             {
               extension: 'woff',

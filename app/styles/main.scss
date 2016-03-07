@@ -1,9 +1,7 @@
-//$icon-font-path: "../bower_components/patternfly-sass/assets/fonts/patternfly/";
-$icon-font-path: "../styles/fonts/bootstrap/";
-$font-path: "../styles/fonts/patternfly";
-$fa-font-path: "../styles/fonts/font-awesome/";
+$icon-font-path: "../bower_components/bootstrap-sass/assets/fonts/bootstrap/";
 
-//$navbar-pf-bg-color: #393F45 !default;
+$font-path: "../bower_components/patternfly-sass/assets/fonts/patternfly/";
+$fa-font-path: "../bower_components/font-awesome-sass/assets/fonts/font-awesome/";
 
 // bower:scss
 @import "patternfly-sass/assets/stylesheets/_patternfly.scss";
@@ -403,7 +401,7 @@ th.w-40 {
   height: 56px;
   line-height: 56px;
   background-position: center center;
-  background-image: url('../images/brand.svg');
+  background-image: url('../images/ahren.jpg');
   background-size: 148px 30px;
   background-repeat: no-repeat;
   width: 148px;

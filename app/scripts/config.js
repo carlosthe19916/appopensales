@@ -4,7 +4,7 @@
 var ApplicationConfiguration = (function () {
 
   // Init module configuration options
-  var applicationModuleName = 'mean';
+  var applicationModuleName = 'opensales';
 
   var applicationModuleVendorDependencies = [
     'ngAnimate',
@@ -18,8 +18,7 @@ var ApplicationConfiguration = (function () {
     'ui.select',
     'patternfly',
     'restangular',
-    'toastr',
-    'checklist-model'
+    'toastr'
   ];
 
   // Add a new vertical module

@@ -1,8 +1,0 @@
-<div class="form-horizontal">
-  <div class="form-group" data-ng-class="{ 'has-error' : form.answer.$invalid && form.$submitted }">
-    <div class="col-sm-3">
-      <input data-ng-if="type === 'INTEGER'" type="text" name="answer" data-ng-model="$parent.answer" ui-number-mask="0" class="form-control" data-ng-required="isRequired" data-ng-disabled="!isActive"/>
-      <input data-ng-if="type === 'DECIMAL'" type="text" name="answer" data-ng-model="$parent.answer" ui-number-mask="2" class="form-control" data-ng-required="isRequired" data-ng-disabled="!isActive"/>
-    </div>
-  </div>
-</div>

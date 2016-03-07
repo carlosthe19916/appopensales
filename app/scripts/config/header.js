@@ -1,9 +1,9 @@
 'use strict';
 
-angular.module(ApplicationConfiguration.applicationModuleName).controller('HeaderController', ['$scope', '$state', 'Auth',
-  function ($scope, $state, Auth) {
+angular.module(ApplicationConfiguration.applicationModuleName).controller('HeaderController', ['$scope', '$state',
+  function ($scope, $state) {
 
-    $scope.user = {
+    /*$scope.user = {
       username: Auth.authz.idTokenParsed.preferred_username,
       roles: []
     };
@@ -21,7 +21,7 @@ angular.module(ApplicationConfiguration.applicationModuleName).controller('Heade
         }
       }
     };
-    loadRoles();
+    loadRoles();*/
 
     // Expose view variables
     $scope.$state = $state;

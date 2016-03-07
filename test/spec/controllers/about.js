@@ -1,10 +1,9 @@
 'use strict';
 
-/*global ApplicationConfiguration:false */
 describe('Controller: AboutCtrl', function () {
 
-  // Load the main application module
-  beforeEach(module(ApplicationConfiguration.applicationModuleName));
+  // load the controller's module
+  beforeEach(module('opensalesApp'));
 
   var AboutCtrl,
     scope;
