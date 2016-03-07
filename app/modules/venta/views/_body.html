@@ -1,0 +1,34 @@
+<div class="row">
+  <div id="view">
+    <div ui-view class="col-sm-9 col-md-10 col-sm-push-3 col-md-push-2" style="min-height: 500px;">
+
+    </div>
+    <!-- /col -->
+
+    <div sc-sidebar-resize class="col-sm-3 col-md-2 col-sm-pull-9 col-md-pull-10 sidebar-pf sidebar-pf-left" style="min-height: 500px;">
+      <div class="panel-group"s data-ng-controller="VentaSidebarController">
+        <div class="nav-category">
+          <h2>Caja</h2>
+          <ul class="nav nav-pills nav-stacked">
+            <li ui-sref-active="active">
+              <a ui-sref="venta.app.caja.abrir"><span class="fa fa-lock"></span> Abrir caja</a>
+            </li>
+            <li ui-sref-active="active">
+              <a ui-sref="venta.app.caja.cerrar"><span class="fa fa-unlock"></span> Cerrar caja</a>
+            </li>
+            <li ui-sref-active="active">
+              <a ui-sref="venta.app.caja.movimientos.buscar"><span class="fa fa-exchange"></span> Movimientos</a>
+            </li>
+          </ul>
+          <h2>Operaciones</h2>
+          <ul class="nav nav-pills nav-stacked">
+            <li ui-sref-active="active">
+              <a ui-sref="venta.app.operaciones.venta"><span class="fa fa-shopping-cart"></span> Vender</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <!-- /col -->
+  </div>
+</div>

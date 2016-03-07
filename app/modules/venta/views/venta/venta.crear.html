@@ -1,0 +1,38 @@
+<div ncy-breadcrumb></div>
+
+<h1>Abrir caja.<small> Saldo inicial del dia.</small></h1>
+
+<form name="form" class="form-horizontal" novalidate>
+
+  <div class="form-group" data-ng-class="{ 'has-error' : form.abreviatura.$invalid && form.abreviatura.$dirty }">
+    <label class="col-sm-2 control-label"><span class="required">*</span> Abreviatura:</label>
+    <div class="col-sm-3">
+      <table class="table table-condensed table-bordered table-striped">
+        <thead>
+        <tr>
+          <td>Denominacion</td>
+          <td>Cantidad</td>
+          <td>Sub total</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr data-ng-repeat="item in detalle">
+          <td>{{item.denominacion}}</td>
+          <td>{{item.cantidad}}</td>
+          <td>{{item.getSubtotal()}}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <button sg-save ng-disabled="working">
+        <span ng-show="working">Guardando...</span>
+        <span ng-hide="working">Guardar</span>
+      </button>
+      <button sg-cancel ng-disabled="working" ui-sref="^.buscar">Cancelar</button>
+    </div>
+  </div>
+</form>
