@@ -57,6 +57,8 @@ module.exports = function(config) {
       'bower_components/jquery.maskedinput/dist/jquery.maskedinput.js',
       'bower_components/keycloak/dist/keycloak.js',
       'bower_components/angular-ui-select/dist/select.js',
+      'bower_components/ng-file-upload/ng-file-upload.js',
+      'bower_components/angular-ui-grid/ui-grid.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       'app/scripts/**/*.js',

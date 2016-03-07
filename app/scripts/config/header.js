@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module(ApplicationConfiguration.applicationModuleName).controller('HeaderController', ['$scope', '$state',
-  function ($scope, $state) {
+angular.module(ApplicationConfiguration.applicationModuleName).controller('HeaderController', ['$scope', '$state', 'Menus',
+  function ($scope, $state, Menus) {
 
     /*$scope.user = {
       username: Auth.authz.idTokenParsed.preferred_username,
@@ -25,6 +25,9 @@ angular.module(ApplicationConfiguration.applicationModuleName).controller('Heade
 
     // Expose view variables
     $scope.$state = $state;
+
+    // Get the topbar menu
+    $scope.menu = Menus.getMenu('topbar');
 
     // Toggle the menu items
     $scope.isCollapsed = false;

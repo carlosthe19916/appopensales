@@ -1,43 +1,56 @@
 <div data-ng-controller="HeaderController">
-  <div>
-    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse-1" data-ng-click="toggleCollapsibleMenu()">
-      <span class="sr-only">toggle-navigation</span>
+  <div class="navbar-header">
+    <button class="navbar-toggle" type="button" data-ng-click="toggleCollapsibleMenu()">
+      <span class="sr-only">Toggle navigation</span>
       <span class="icon-bar"></span>
       <span class="icon-bar"></span>
       <span class="icon-bar"></span>
     </button>
     <a data-ui-sref="home" class="navbar-brand">
-
     </a>
   </div>
-  <div class="uib-collapse navbar-collapse navbar-collapse-1" uib-collapse="!isCollapsed" role="navigation">
-    <ul class="nav navbar-nav navbar-utility">
-      <li class="dropdown">
-        <a href="" class="dropdown-toggle">
-          <strong>User: </strong>
-          <span ng-bind="user.username"></span>
-        </a>
-      </li>
-      <li class="dropdown">
-        <a href="" class="dropdown-toggle">
-          <strong>Roles: </strong>
-          <span ng-bind="user.roles"></span>
-        </a>
-      </li>
-      <li class="dropdown" uib-dropdown>
-        <a href="#" class="dropdown-toggle" uib-dropdown-toggle>
-          <span class="pficon pficon-user"></span>
-          <span class="username">{{user.fullName || user.metadata.name}}</span> <b class="caret"></b>
-        </a>
-        <ul uib-dropdown-menu role="menu" aria-labelledby="single-button">
-          <li role="menuitem">
-            <a href="" data-ng-click="accountManagement()">Account</a>
-          </li>
-          <li role="menuitem">
-            <a href="" data-ng-click="logout()">Log out</a>
-          </li>
-        </ul>
-      </li>
-    </ul>
+
+  <div>
+    <div class="uib-collapse navbar-collapse navbar-collapse-1" uib-collapse="!isCollapsed" role="navigation">
+      <ul class="nav navbar-nav navbar-primary">
+        <li data-ng-repeat="item in menu.items | orderBy: 'position'" ng-switch="item.type" data-ng-class="{ active: $state.includes(item.state), dropdown: item.type === 'uib-dropdown' }" class="{{item.class}}" uib-dropdown="item.type === 'uib-dropdown'">
+          <a ng-switch-when="uib-dropdown" class="uib-dropdown-toggle" uib-dropdown-toggle role="button">{{::item.title}}&nbsp;<span class="caret"></span></a>
+          <ul ng-switch-when="uib-dropdown" class="uib-dropdown-menu">
+            <li data-ng-repeat="subitem in item.items | orderBy: 'position'" data-ui-sref-active="active">
+              <a data-ui-sref="{{subitem.state}}" data-ng-bind="subitem.title"></a>
+            </li>
+          </ul>
+          <a ng-switch-default data-ui-sref="{{item.state}}" data-ng-bind="item.title"></a>
+        </li>
+      </ul>
+      <ul class="nav navbar-nav navbar-utility">
+        <li class="dropdown">
+          <a href="" class="dropdown-toggle">
+            <strong>User: </strong>
+            <span ng-bind="user.username"></span>
+          </a>
+        </li>
+        <li class="dropdown">
+          <a href="" class="dropdown-toggle">
+            <strong>Roles: </strong>
+            <span ng-bind="user.roles"></span>
+          </a>
+        </li>
+        <li class="dropdown" uib-dropdown>
+          <a href="#" class="dropdown-toggle" uib-dropdown-toggle>
+            <span class="pficon pficon-user"></span>
+            <span class="username">{{user.fullName || user.metadata.name}}</span> <b class="caret"></b>
+          </a>
+          <ul uib-dropdown-menu role="menu" aria-labelledby="single-button">
+            <li role="menuitem">
+              <a href="" data-ng-click="accountManagement()">Account</a>
+            </li>
+            <li role="menuitem">
+              <a href="" data-ng-click="logout()">Log out</a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
   </div>
 </div>

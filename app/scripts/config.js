@@ -18,7 +18,12 @@ var ApplicationConfiguration = (function () {
     'ui.select',
     'patternfly',
     'restangular',
-    'toastr'
+    'toastr',
+    'ngFileUpload',
+    'ui.grid',
+    'ui.grid.edit',
+    'ui.grid.pagination',
+    'ui.grid.selection'
   ];
 
   // Add a new vertical module
