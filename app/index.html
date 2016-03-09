@@ -24,6 +24,7 @@
     <link rel="stylesheet" href="bower_components/patternfly/dist/css/patternfly-additions.css" />
     <link rel="stylesheet" href="bower_components/angular-patternfly/dist/styles/angular-patternfly.css" />
     <link rel="stylesheet" href="bower_components/angular-ui-select/dist/select.css" />
+    <link rel="stylesheet" href="bower_components/angular-ui-grid/ui-grid.css" />
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css(.tmp) styles/main.css -->
@@ -45,35 +46,10 @@
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
 
-    <!-- Application content here -->
-    <nav data-ng-include="'header.html'" class="navbar navbar-default navbar-pf navbar-fixed-top"></nav>
+    <!-- Add your site or application content here -->
+    <nav data-ng-include="'header.html'" class="navbar navbar-default navbar-pf"></nav>
     <div class="container-fluid">
-      <div class="row">
-        <div id="view">
-          <div class="col-sm-9 col-md-10 col-sm-push-3 col-md-push-2">
-            <div ui-view></div>
-          </div>
-          <div sc-sidebar-resize class="col-sm-3 col-md-2 col-sm-pull-9 col-md-pull-10 sidebar-pf sidebar-pf-left" style="min-height: 354px;">
-            <div class="nav-category">
-              <h2>Administracion</h2>
-              <ul class="nav nav-pills nav-stacked">
-                <li ui-sref-active="active">
-                  <a ui-sref="forms.app.formAnswer"><span class="fa fa-exchange"></span> Responder</a>
-                </li>
-                <li ui-sref-active="active">
-                  <a ui-sref="forms.app.result"><span class="fa fa-database"></span> Resultados</a>
-                </li>
-              </ul>
-              <h2>Configuracion</h2>
-              <ul class="nav nav-pills nav-stacked">
-                <li ui-sref-active="active">
-                  <a ui-sref="forms.app.form"><span class="fa fa-cubes"></span> Encuestas</a>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
+      <section ui-view></section>
     </div>
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
@@ -126,6 +102,8 @@
     <script src="bower_components/jquery.maskedinput/dist/jquery.maskedinput.js"></script>
     <script src="bower_components/keycloak/dist/keycloak.js"></script>
     <script src="bower_components/angular-ui-select/dist/select.js"></script>
+    <script src="bower_components/ng-file-upload/ng-file-upload.js"></script>
+    <script src="bower_components/angular-ui-grid/ui-grid.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -133,9 +111,70 @@
 
     <script src="/scripts/config.js"></script>
     <script src="/scripts/init.js"></script>
+    <script src="/modules/almacen/almacen.client.module.js"></script>
+    <script src="/modules/almacen/config/almacen.client.config.js"></script>
+    <script src="/modules/almacen/config/almacen.client.routes.js"></script>
+    <script src="/modules/almacen/config/almacen.client.sidebar.js"></script>
+    <script src="/modules/almacen/controllers/almacen.client.controller.js"></script>
+    <script src="/modules/almacen/services/almacen.client.service.js"></script>
+    <script src="/modules/almacen/services/almacen.menuItemsAlmacen.client.service.js"></script>
+    <script src="/modules/persona/persona.client.module.js"></script>
+    <script src="/modules/persona/config/persona.client.config.js"></script>
+    <script src="/modules/persona/config/persona.client.routes.js"></script>
+    <script src="/modules/persona/config/persona.client.sidebar.js"></script>
+    <script src="/modules/persona/controllers/persona.client.controller.js"></script>
+    <script src="/modules/persona/controllers/persona.util.date.client.controller.js"></script>
+    <script src="/modules/persona/controllers/persona/juridica/buscar.client.controller.js"></script>
+    <script src="/modules/persona/controllers/persona/juridica/crear.client.controller.js"></script>
+    <script src="/modules/persona/controllers/persona/juridica/crear.datosprincipales.client.controller.js"></script>
+    <script src="/modules/persona/controllers/persona/juridica/crear.representante.client.controller.js"></script>
+    <script src="/modules/persona/controllers/persona/juridica/editar.accionistas.client.controller.js"></script>
+    <script src="/modules/persona/controllers/persona/juridica/editar.client.controller.js"></script>
+    <script src="/modules/persona/controllers/persona/juridica/editar.datosadicionales.client.controller.js"></script>
+    <script src="/modules/persona/controllers/persona/juridica/editar.datosprincipales.client.controller.js"></script>
+    <script src="/modules/persona/controllers/persona/juridica/editar.representante.client.controller.js"></script>
+    <script src="/modules/persona/controllers/persona/juridica/editar.resumen.client.controller.js"></script>
+    <script src="/modules/persona/controllers/persona/natural/buscar.client.controller.js"></script>
+    <script src="/modules/persona/controllers/persona/natural/crear.client.controller.js"></script>
+    <script src="/modules/persona/controllers/persona/natural/editar.cambiarfotomodal.client.controller.js"></script>
+    <script src="/modules/persona/controllers/persona/natural/editar.client.controller.js"></script>
+    <script src="/modules/persona/controllers/persona/natural/editar.datosadicionales.client.controller.js"></script>
+    <script src="/modules/persona/controllers/persona/natural/editar.datosprincipales.client.controller.js"></script>
+    <script src="/modules/persona/controllers/persona/natural/editar.resumen.client.controller.js"></script>
+    <script src="/modules/persona/controllers/tipoDocumento/buscar.client.controller.js"></script>
+    <script src="/modules/persona/controllers/tipoDocumento/crear.client.controller.js"></script>
+    <script src="/modules/persona/controllers/tipoDocumento/editar.client.controller.js"></script>
+    <script src="/modules/persona/directives/persona.sgAbreviaturaTipoDocumentoValidate.client.directive.js"></script>
+    <script src="/modules/persona/directives/persona.sgDocumentoIdentidad.client.directive.js"></script>
+    <script src="/modules/persona/services/persona.client.service.js"></script>
+    <script src="/modules/persona/services/persona.menuItemsPersona.client.service.js"></script>
+    <script src="/modules/producto/producto.client.module.js"></script>
+    <script src="/modules/producto/config/producto.client.config.js"></script>
+    <script src="/modules/producto/config/producto.client.routes.js"></script>
+    <script src="/modules/producto/config/producto.client.sidebar.js"></script>
+    <script src="/modules/producto/controllers/producto.client.controller.js"></script>
+    <script src="/modules/producto/services/producto.client.service.js"></script>
+    <script src="/modules/producto/services/producto.menuItemsProducto.client.service.js"></script>
+    <script src="/modules/venta/venta.client.module.js"></script>
+    <script src="/modules/venta/config/venta.client.config.js"></script>
+    <script src="/modules/venta/config/venta.client.routes.js"></script>
+    <script src="/modules/venta/config/venta.client.sidebar.js"></script>
+    <script src="/modules/venta/controllers/venta.client.controller.js"></script>
+    <script src="/modules/venta/controllers/caja/caja.abrir.controller.js"></script>
+    <script src="/modules/venta/controllers/caja/caja.cerrar.controller.js"></script>
+    <script src="/modules/venta/controllers/caja/caja.movimientos.buscar.controller.js"></script>
+    <script src="/modules/venta/controllers/caja/caja.movimientos.editar.controller.js"></script>
+    <script src="/modules/venta/controllers/venta/venta.crear.controller.js"></script>
+    <script src="/modules/venta/services/venta.client.service.js"></script>
+    <script src="/modules/venta/services/venta.menuItemsVenta.client.service.js"></script>
     <script src="/scripts/config/header.js"></script>
     <script src="/scripts/config/routes.js"></script>
+    <script src="/scripts/config/services.js"></script>
+    <script src="/scripts/directives/buttons.directive.js"></script>
     <script src="/scripts/directives/sidebar.resize.directive.js"></script>
+    <script src="/scripts/filters/filters.directive.js"></script>
+    <script src="/scripts/models/iso3166.model.factory.js"></script>
+    <script src="/scripts/models/persona.model.factory.js"></script>
     <!-- endbuild -->
 
   </body>
