@@ -4,6 +4,9 @@
 angular.module('venta').config(['$stateProvider', '$urlRouterProvider',
   function ($stateProvider, $urlRouterProvider) {
 
+    $urlRouterProvider.when('/venta/app/configuracion/oficinas', '/venta/app/configuracion/oficinas/buscar');
+    $urlRouterProvider.when('/venta/app/configuracion/oficinas/editar/:oficina', '/venta/app/configuracion/oficinas/editar/:oficina/resumen');
+
     $stateProvider
       .state('venta', {
         abstract: true,
@@ -36,14 +39,17 @@ angular.module('venta').config(['$stateProvider', '$urlRouterProvider',
         template: '<div ui-view></div>',
         abstract: true
       })
+      .state('venta.app.configuracion', {
+        url: '/configuracion',
+        template: '<div ui-view></div>',
+        abstract: true
+      })
 
       .state('venta.app.caja.abrir', {
         url: '/abrir',
         templateUrl: 'modules/venta/views/caja/caja.abrir.html',
         controller: 'Venta.Caja.AbrirController',
-        resolve: {
-
-        },
+        resolve: {},
         ncyBreadcrumb: {
           skip: true
         }
@@ -52,9 +58,7 @@ angular.module('venta').config(['$stateProvider', '$urlRouterProvider',
         url: '/cerrar',
         templateUrl: 'modules/venta/views/caja/caja.cerrar.html',
         controller: 'Venta.Caja.CerrarController',
-        resolve: {
-
-        },
+        resolve: {},
         ncyBreadcrumb: {
           skip: true
         }
@@ -70,9 +74,7 @@ angular.module('venta').config(['$stateProvider', '$urlRouterProvider',
         url: '/buscar',
         templateUrl: 'modules/venta/views/caja/caja.movimientos.buscar.html',
         controller: 'Venta.Caja.Movimientos.BuscarController',
-        resolve: {
-
-        },
+        resolve: {},
         ncyBreadcrumb: {
           label: 'Home'
         }
@@ -101,6 +103,57 @@ angular.module('venta').config(['$stateProvider', '$urlRouterProvider',
         },
         ncyBreadcrumb: {
           skip: true
+        }
+      })
+
+      .state('venta.app.configuracion.oficina', {
+        url: '/oficinas',
+        template: '<div ui-view></div>',
+        ncyBreadcrumb: {
+          skip: true // Never display this state in breadcrumb.
+        }
+      })
+      .state('venta.app.configuracion.oficina.buscar', {
+        url: '/buscar',
+        templateUrl: 'modules/venta/views/configuracion/oficina/buscar.html',
+        controller: 'Venta.Configuracion.Oficina.BuscarController',
+        resolve: {},
+        ncyBreadcrumb: {
+          label: 'Home'
+        }
+      })
+      .state('venta.app.configuracion.oficina.crear', {
+        url: '/crear',
+        templateUrl: 'modules/venta/views/configuracion/oficina/crear.html',
+        controller: 'Venta.Configuracion.Oficina.CrearController',
+        resolve: {},
+        ncyBreadcrumb: {
+          label: 'Crear oficina',
+          parent: 'venta.app.configuracion.oficina.buscar'
+        }
+      })
+      .state('venta.app.configuracion.oficina.editar', {
+        url: '/editar/:oficina',
+        templateUrl: 'modules/venta/views/configuracion/oficina/editar.html',
+        resolve: {
+          /*tipoDocumento: function ($state, $stateParams, SGTipoDocumento) {
+           return SGTipoDocumento.$find($stateParams.documento);
+           }*/
+        },
+        controller: 'Venta.Configuracion.Oficina.EditarController',
+        ncyBreadcrumb: {
+          label: 'Editar venta',
+          parent: 'venta.app.configuracion.oficina.buscar'
+        }
+      })
+      .state('venta.app.configuracion.oficina.editar.resumen', {
+        url: '/resumen',
+        templateUrl: 'modules/venta/views/configuracion/oficina/editar.resumen.html',
+        controller: 'Venta.Configuracion.Oficina.Editar.ResumenController',
+        resolve: {
+        },
+        ncyBreadcrumb: {
+          skip: true // Never display this state in breadcrumb.
         }
       });
   }
