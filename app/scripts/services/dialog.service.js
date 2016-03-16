@@ -29,7 +29,7 @@ angular.module(ApplicationConfiguration.applicationModuleName)
         "</div>\n" +
         "<div class=\"modal-body\">{{message}}</div>\n" +
         "<div class=\"modal-footer\">\n" +
-        "<button type=\"button\" data-ng-class=\"btns.cancel.cssClass\" ng-click=\"cancel()\">{{btns.cancel.label}}</button>\n" +
+        "<button type=\"button\" data-ng-class=\"btns.cancel.cssClass\" ng-click=\"cancel()\" pf-focused=\"true\">{{btns.cancel.label}}</button>\n" +
         "<button type=\"button\" data-ng-class=\"btns.ok.cssClass\" ng-click=\"ok()\">{{btns.ok.label}}</button>\n" +
         "</div>\n" +
         "",
@@ -56,7 +56,7 @@ angular.module(ApplicationConfiguration.applicationModuleName)
 
     dialog.confirmDelete = function (name, type, success) {
       var title = 'Eliminar ' + escapeHtml(type.charAt(0).toUpperCase() + type.slice(1));
-      var msg = '&#191;Estas seguro de querer eliminar permanentemente el/la ' + type + ' ' + name + '?';
+      var msg = 'Estas seguro de querer eliminar permanentemente el/la ' + type + ' ' + name + '?';
       var btns = {
         ok: {
           label: 'Eliminar',
