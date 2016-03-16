@@ -2,7 +2,7 @@
 
 // Directives for common buttons
 angular.module(ApplicationConfiguration.applicationModuleName)
-  .directive('sgSave', ['$compile', function ($compile) {
+  .directive('scSave', ['$compile', function ($compile) {
     return {
       restrict: 'A',
       link: function ($scope, elem, attr, ctrl) {
@@ -34,7 +34,8 @@ angular.module(ApplicationConfiguration.applicationModuleName)
         });
       }
     };
-  }]).directive('sgReset', ['$compile', function ($compile) {
+  }])
+  .directive('scReset', ['$compile', function ($compile) {
     return {
       restrict: 'A',
       link: function ($scope, elem, attr, ctrl) {
@@ -53,7 +54,8 @@ angular.module(ApplicationConfiguration.applicationModuleName)
         });
       }
     };
-  }]).directive('sgCancel', ['$compile', function ($compile) {
+  }])
+  .directive('scCancel', ['$compile', function ($compile) {
     return {
       restrict: 'A',
       link: function ($scope, elem, attr, ctrl) {
@@ -61,7 +63,8 @@ angular.module(ApplicationConfiguration.applicationModuleName)
         elem.attr('type', 'submit');
       }
     };
-  }]).directive('sgDelete', ['$compile', function ($compile) {
+  }])
+  .directive('scDelete', ['$compile', function ($compile) {
     return {
       restrict: 'A',
       link: function ($scope, elem, attr, ctrl) {
@@ -70,4 +73,3 @@ angular.module(ApplicationConfiguration.applicationModuleName)
       }
     };
   }]);
-

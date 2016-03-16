@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module(ApplicationConfiguration.applicationModuleName).provider('sgPersona', function () {
+angular.module(ApplicationConfiguration.applicationModuleName).provider('repeid', function () {
 
     this.restUrl = 'http://localhost';
 
@@ -20,9 +20,9 @@ angular.module(ApplicationConfiguration.applicationModuleName).provider('sgPerso
 
 
 
-angular.module(ApplicationConfiguration.applicationModuleName).factory('PersonaRestangular', ['Restangular', 'sgPersona', function(Restangular, sgPersona) {
+angular.module(ApplicationConfiguration.applicationModuleName).factory('RepeidRestangular', ['Restangular', 'repeid', function(Restangular, repeid) {
     return Restangular.withConfig(function(RestangularConfigurer) {
-        RestangularConfigurer.setBaseUrl(sgPersona.getRestUrl());
+        RestangularConfigurer.setBaseUrl(repeid.getRestUrl());
     });
 }]);
 
@@ -137,27 +137,27 @@ var RestObject = function (path, restangular, extendMethods) {
     return modelMethods;
 };
 
-angular.module(ApplicationConfiguration.applicationModuleName).factory('SGEstadoCivil', ['PersonaRestangular', function (PersonaRestangular) {
+angular.module(ApplicationConfiguration.applicationModuleName).factory('RPEstadoCivil', ['PersonaRestangular', function (PersonaRestangular) {
     var estadosCivilesResource = new RestObject('estadosCiviles', PersonaRestangular);
     return estadosCivilesResource;
 }]);
 
-angular.module(ApplicationConfiguration.applicationModuleName).factory('SGSexo', ['PersonaRestangular', function (PersonaRestangular) {
+angular.module(ApplicationConfiguration.applicationModuleName).factory('RPSexo', ['PersonaRestangular', function (PersonaRestangular) {
     var sexosResource = new RestObject('sexos', PersonaRestangular);
     return sexosResource;
 }]);
 
-angular.module(ApplicationConfiguration.applicationModuleName).factory('SGTipoEmpresa', ['PersonaRestangular', function (PersonaRestangular) {
+angular.module(ApplicationConfiguration.applicationModuleName).factory('RPTipoEmpresa', ['PersonaRestangular', function (PersonaRestangular) {
     var sexosResource = new RestObject('tiposEmpresa', PersonaRestangular);
     return sexosResource;
 }]);
 
-angular.module(ApplicationConfiguration.applicationModuleName).factory('SGTipoPersona', ['PersonaRestangular', function (PersonaRestangular) {
+angular.module(ApplicationConfiguration.applicationModuleName).factory('RPTipoPersona', ['PersonaRestangular', function (PersonaRestangular) {
     var tiposPersonaResource = new RestObject('tiposPersona', PersonaRestangular);
     return tiposPersonaResource;
 }]);
 
-angular.module(ApplicationConfiguration.applicationModuleName).factory('SGTipoDocumento', ['PersonaRestangular', function (PersonaRestangular) {
+angular.module(ApplicationConfiguration.applicationModuleName).factory('RPTipoDocumento', ['PersonaRestangular', function (PersonaRestangular) {
     var extendMethod = {
         $new: function (abreviatura) {
             return angular.extend({abreviatura: abreviatura}, this.$getModelMethods());
@@ -187,7 +187,7 @@ angular.module(ApplicationConfiguration.applicationModuleName).factory('SGTipoDo
     return tiposDocumentoResource;
 }]);
 
-angular.module(ApplicationConfiguration.applicationModuleName).factory('SGPersonaNatural', ['PersonaRestangular', 'Upload', function (PersonaRestangular, Upload) {
+angular.module(ApplicationConfiguration.applicationModuleName).factory('RPPersonaNatural', ['PersonaRestangular', 'Upload', function (PersonaRestangular, Upload) {
 
     var extendMethod = {
         $setFoto: function (file) {
@@ -211,7 +211,7 @@ angular.module(ApplicationConfiguration.applicationModuleName).factory('SGPerson
     return personaNaturalResource;
 }]);
 
-angular.module(ApplicationConfiguration.applicationModuleName).factory('SGPersonaJuridica', ['PersonaRestangular', 'Upload', function (PersonaRestangular) {
+angular.module(ApplicationConfiguration.applicationModuleName).factory('RPPersonaJuridica', ['PersonaRestangular', 'Upload', function (PersonaRestangular) {
 
     var extendMethod = {};
 
@@ -220,7 +220,7 @@ angular.module(ApplicationConfiguration.applicationModuleName).factory('SGPerson
     /**
      * Accionistas*
      * */
-    personaJuridicaResource.SGAccionista = function () {
+    personaJuridicaResource.RPAccionista = function () {
         var extendMethod = {};
 
         var accionistaSubResource = new RestObject(this.$concatSubResourcePath('accionistas'), PersonaRestangular, extendMethod);

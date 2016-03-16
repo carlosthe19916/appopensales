@@ -37,4 +37,3 @@ angular.module(ApplicationConfiguration.applicationModuleName)
       return result[1];
     };
   });
-
