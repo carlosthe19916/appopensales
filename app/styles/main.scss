@@ -16,6 +16,20 @@ body {
 }
 
 /*********** OPENSALES **************/
+/*Error*/
+.required {
+  color: #f00;
+}
+
+.has-error {
+  color: #f05050 !important;
+}
+
+.has-error .form-control {
+  border-color: #f05050 !important;
+}
+
+/*Search*/
 .os-table-search {
   margin-bottom: 0px;
   border-bottom: 0px;

@@ -29,29 +29,29 @@ angular.module('venta').controller('Venta.Configuracion.Oficina.BuscarController
         {field: 'denominacion', displayName: 'Denominacion'},
         {field: 'ubigeo', displayName: 'Ubigeo', width: '20%'},
         {
-          name: 'edit',
-          displayName: 'Edit',
+          name: 'actions',
+          displayName: 'Acciones',
           cellTemplate: '' +
           '<div class="ui-grid-action">' +
-            '<div class="ui-grid-action-cell os-45">' +
-              '<button type="button" class="btn btn-default btn-block btn-sm">Editar</button>' +
-            '</div>'+
-            '<div class="ui-grid-action-cell os-45">' +
-              '<button type="button" class="btn btn-default btn-block btn-sm">Eliminar</button>' +
-            '</div>'+
-            '<div class="ui-grid-action-cell os-10">' +
-              '<div class="btn btn-default pull-right dropdown-kebab-pf" uib-dropdown dropdown-append-to-body>'+
-                '<button class="btn btn-link" type="button" uib-dropdown-toggle>'+
-                  '<span class="fa fa-ellipsis-v"></span><br>'+
-                '</button>'+
-                '<ul class="dropdown-menu-right" uib-dropdown-menu aria-labelledby="dropdownKebabRight">'+
-                  '<li><a href="#">Action</a></li>'+
-                  '<li><a href="#">Another action</a></li>'+
-                  '<li><a href="#">Something else here</a></li>'+
-                  '<li><a href="#">Separated link</a></li>'+
-                '</ul>'+
-              '</div>'+
-            '</div>'+
+          '<div class="ui-grid-action-cell os-45">' +
+          '<button type="button" class="btn btn-default btn-block btn-sm">Editar</button>' +
+          '</div>' +
+          '<div class="ui-grid-action-cell os-45">' +
+          '<button type="button" class="btn btn-default btn-block btn-sm">Eliminar</button>' +
+          '</div>' +
+          '<div class="ui-grid-action-cell os-10">' +
+          '<div class="btn btn-default pull-right dropdown-kebab-pf" uib-dropdown dropdown-append-to-body>' +
+          '<button class="btn btn-link" type="button" uib-dropdown-toggle>' +
+          '<span class="fa fa-ellipsis-v"></span><br>' +
+          '</button>' +
+          '<ul class="dropdown-menu-right" uib-dropdown-menu aria-labelledby="dropdownKebabRight">' +
+          '<li><a href="#">Action</a></li>' +
+          '<li><a href="#">Another action</a></li>' +
+          '<li><a href="#">Something else here</a></li>' +
+          '<li><a href="#">Separated link</a></li>' +
+          '</ul>' +
+          '</div>' +
+          '</div>' +
           '</div>',
           width: '20%'
         }
@@ -87,7 +87,6 @@ angular.module('venta').controller('Venta.Configuracion.Oficina.BuscarController
         $scope.gridOptions.totalItems = response.totalSize;
       });
     };
-    $scope.search();
 
   }
 );

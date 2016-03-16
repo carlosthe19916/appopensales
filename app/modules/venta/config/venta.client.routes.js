@@ -84,8 +84,8 @@ angular.module('venta').config(['$stateProvider', '$urlRouterProvider',
         templateUrl: 'modules/venta/views/caja/caja.movimientos.editar.html',
         resolve: {
           /*tipoDocumento: function ($state, $stateParams, SGTipoDocumento) {
-            return SGTipoDocumento.$find($stateParams.documento);
-          }*/
+           return SGTipoDocumento.$find($stateParams.documento);
+           }*/
         },
         controller: 'Venta.Caja.Movimientos.EditarController',
         ncyBreadcrumb: {
@@ -98,9 +98,7 @@ angular.module('venta').config(['$stateProvider', '$urlRouterProvider',
         url: '/venta',
         templateUrl: 'modules/venta/views/venta/venta.crear.html',
         controller: 'Venta.CrearController',
-        resolve: {
-
-        },
+        resolve: {},
         ncyBreadcrumb: {
           skip: true
         }
@@ -136,13 +134,13 @@ angular.module('venta').config(['$stateProvider', '$urlRouterProvider',
         url: '/editar/:oficina',
         templateUrl: 'modules/venta/views/configuracion/oficina/editar.html',
         resolve: {
-          /*tipoDocumento: function ($state, $stateParams, SGTipoDocumento) {
-           return SGTipoDocumento.$find($stateParams.documento);
-           }*/
+          oficina: function ($state, $stateParams, OSOFicina) {
+            return OSOFicina.$find($stateParams.oficina);
+          }
         },
         controller: 'Venta.Configuracion.Oficina.EditarController',
         ncyBreadcrumb: {
-          label: 'Editar venta',
+          label: 'Editar oficina',
           parent: 'venta.app.configuracion.oficina.buscar'
         }
       })
@@ -150,8 +148,7 @@ angular.module('venta').config(['$stateProvider', '$urlRouterProvider',
         url: '/resumen',
         templateUrl: 'modules/venta/views/configuracion/oficina/editar.resumen.html',
         controller: 'Venta.Configuracion.Oficina.Editar.ResumenController',
-        resolve: {
-        },
+        resolve: {},
         ncyBreadcrumb: {
           skip: true // Never display this state in breadcrumb.
         }

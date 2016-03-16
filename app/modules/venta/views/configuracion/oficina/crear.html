@@ -1,13 +1,13 @@
 <div ncy-breadcrumb></div>
 
-<h1><strong>Crear oficina</strong></h1>
+<h1>Crear oficina</h1>
 
 <form name="form" class="form-horizontal" novalidate>
 
   <div class="form-group" data-ng-class="{ 'has-error' : form.denominacion.$invalid && form.$submitted }">
     <label class="col-sm-2 control-label"><span class="required">*</span> Denominacion:</label>
     <div class="col-sm-3">
-      <input name="denominacion" type="text" data-ng-model="view.oficina.denominacion" data-ng-minlength="1" data-ng-maxlength="60" class="form-control" required/>
+      <input name="denominacion" type="text" data-ng-model="view.oficina.denominacion" data-ng-minlength="1" data-ng-maxlength="60" class="form-control" pf-focused="true" autofocus required/>
       <div data-ng-messages="form.denominacion.$error" data-ng-if="form.$submitted">
         <div class="has-error" data-ng-message="required">Ingrese denominacion.</div>
         <div class="has-error" data-ng-message="minlength">Ingrese denominacion.</div>
@@ -15,11 +15,11 @@
       </div>
     </div>
   </div>
-  <div class="form-group" data-ng-class="{ 'has-error' : form.ubigeo.$invalid && form.ubigeo.$submitted }">
+  <div class="form-group" data-ng-class="{ 'has-error' : form.ubigeo.$invalid && form.$submitted }">
     <label class="col-sm-2 control-label"><span class="required">*</span> Ubigeo:</label>
     <div class="col-sm-3">
       <input name="ubigeo" type="text" data-ng-model="view.oficina.ubigeo" data-ng-minlength="1" data-ng-maxlength="20" class="form-control" required/>
-      <div data-ng-messages="form.ubigeo.$error" data-ng-if="form.ubigeo.$dirty">
+      <div data-ng-messages="form.ubigeo.$error" data-ng-if="form.$submitted">
         <div class="has-error" data-ng-message="required">Ingrese ubigeo.</div>
         <div class="has-error" data-ng-message="minlength">Ingrese ubigeo.</div>
         <div class="has-error" data-ng-message="maxlength">Ubigeo muy extenso, maximo 20 caracteres.</div>
@@ -29,11 +29,11 @@
 
   <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
-      <button sg-save ng-disabled="working">
+      <button sc-save ng-disabled="working">
         <span ng-show="working">Guardando...</span>
         <span ng-hide="working">Guardar</span>
       </button>
-      <button sg-cancel ng-disabled="working" ui-sref="^.buscar">Cancelar</button>
+      <button sc-cancel ng-disabled="working" ui-sref="^.buscar">Cancelar</button>
     </div>
   </div>
 </form>
