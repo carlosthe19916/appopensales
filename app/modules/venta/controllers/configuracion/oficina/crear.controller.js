@@ -2,21 +2,21 @@
 
 /* jshint -W098 */
 angular.module('venta').controller('Venta.Configuracion.Oficina.CrearController',
-  function ($scope, $state, SCDialog, OSOFicina, toastr) {
+  function ($scope, $state, SCDialog, OPExpediente, toastr) {
 
     $scope.working = false;
 
     $scope.view = {
-      oficina: OSOFicina.$build()
+      expediente: OPExpediente.$build()
     };
 
     $scope.save = function () {
-      SCDialog.confirm('Guardar', 'Estas seguro de crear la oficina?', function () {
+      SCDialog.confirm('Guardar', 'Estas seguro de crear el expediente?', function () {
         $scope.working = true;
-        $scope.view.oficina.$save().then(
+        $scope.view.expediente.$save().then(
           function (response) {
             $scope.working = false;
-            toastr.success('Oficina creada.');
+            toastr.success('Expediente creadao.');
             $state.go('^.editar', {oficina: response.id});
           },
           function error(err) {

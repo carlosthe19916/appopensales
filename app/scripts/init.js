@@ -11,7 +11,7 @@ angular.module(ApplicationConfiguration.applicationModuleName).config(['$locatio
 ]);
 
 angular.module(ApplicationConfiguration.applicationModuleName).config(function (opensalesProvider) {
-  opensalesProvider.restUrl = 'http://localhost:5891';
+  opensalesProvider.restUrl = 'http://localhost:27660';
 });
 
 //Then define the init function for starting up the application

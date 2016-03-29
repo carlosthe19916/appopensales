@@ -2,7 +2,7 @@
 
 /* jshint -W098 */
 angular.module('venta').controller('Venta.Configuracion.Oficina.BuscarController',
-  function ($scope, $state, OSOFicina) {
+  function ($scope, $state, toastr, OPExpediente) {
 
     var paginationOptions = {
       page: 1,
@@ -26,8 +26,8 @@ angular.module('venta').controller('Venta.Configuracion.Oficina.BuscarController
       useExternalSorting: true,
 
       columnDefs: [
-        {field: 'denominacion', displayName: 'Denominacion'},
-        {field: 'ubigeo', displayName: 'Ubigeo', width: '20%'},
+        {field: 'nombreObra', displayName: 'Denominacion'},
+        {field: 'ubicacion', displayName: 'Ubicacion', width: '20%'},
         {
           name: 'actions',
           displayName: 'Acciones',
@@ -82,9 +82,11 @@ angular.module('venta').controller('Venta.Configuracion.Oficina.BuscarController
         paging: paginationOptions
       };
 
-      OSOFicina.$search(criteria).then(function (response) {
+      OPExpediente.$search(criteria).then(function (response) {
         $scope.gridOptions.data = response.items;
         $scope.gridOptions.totalItems = response.totalSize;
+      }, function error(err) {
+        toastr.error('El servidor no responde, intentelo nuevamente.');
       });
     };
 

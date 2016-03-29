@@ -137,7 +137,12 @@ var RestObject = function (path, restangular, extendMethods) {
   return modelMethods;
 };
 
-angular.module(ApplicationConfiguration.applicationModuleName).factory('OSOFicina', ['OpensalesRestangular', function (OpensalesRestangular) {
-  var oficinasResource = new RestObject('oficinas', OpensalesRestangular);
+/*angular.module(ApplicationConfiguration.applicationModuleName).factory('OSOFicina', ['OpensalesRestangular', function (OpensalesRestangular) {
+  var oficinasResource = new RestObject('OficinasService.svc/oficinas', OpensalesRestangular);
   return oficinasResource;
+}]);*/
+
+angular.module(ApplicationConfiguration.applicationModuleName).factory('OPExpediente', ['OpensalesRestangular', function (OpensalesRestangular) {
+  var expedientesResource = new RestObject('com.Siacpi.Ventas.Services/ExpedienteService.svc/expedientes', OpensalesRestangular);
+  return expedientesResource;
 }]);

@@ -4,25 +4,25 @@
 
 <form name="form" class="form-horizontal" novalidate>
 
-  <div class="form-group" data-ng-class="{ 'has-error' : form.denominacion.$invalid && form.$submitted }">
-    <label class="col-sm-2 control-label"><span class="required">*</span> Denominacion:</label>
+  <div class="form-group" data-ng-class="{ 'has-error' : form.nombreObra.$invalid && form.$submitted }">
+    <label class="col-sm-2 control-label"><span class="required">*</span> Nombre obra:</label>
     <div class="col-sm-3">
-      <input name="denominacion" type="text" data-ng-model="view.oficina.denominacion" data-ng-minlength="1" data-ng-maxlength="60" class="form-control" pf-focused="true" autofocus required/>
-      <div data-ng-messages="form.denominacion.$error" data-ng-if="form.$submitted">
-        <div class="has-error" data-ng-message="required">Ingrese denominacion.</div>
-        <div class="has-error" data-ng-message="minlength">Ingrese denominacion.</div>
-        <div class="has-error" data-ng-message="maxlength">Denominacion muy extensa, maximo 60 caracteres.</div>
+      <input name="nombreObra" type="text" data-ng-model="view.expediente.nombreObra" data-ng-minlength="1" data-ng-maxlength="60" class="form-control" pf-focused="true" autofocus required/>
+      <div data-ng-messages="form.nombreObra.$error" data-ng-if="form.$submitted">
+        <div class="has-error" data-ng-message="required">Ingrese nombre obra.</div>
+        <div class="has-error" data-ng-message="minlength">Ingrese nombre obra.</div>
+        <div class="has-error" data-ng-message="maxlength">Nombre obra muy extensa, maximo 60 caracteres.</div>
       </div>
     </div>
   </div>
-  <div class="form-group" data-ng-class="{ 'has-error' : form.ubigeo.$invalid && form.$submitted }">
-    <label class="col-sm-2 control-label"><span class="required">*</span> Ubigeo:</label>
+  <div class="form-group" data-ng-class="{ 'has-error' : form.ubicacion.$invalid && form.$submitted }">
+    <label class="col-sm-2 control-label"><span class="required">*</span> Ubicacion:</label>
     <div class="col-sm-3">
-      <input name="ubigeo" type="text" data-ng-model="view.oficina.ubigeo" data-ng-minlength="1" data-ng-maxlength="20" class="form-control" required/>
-      <div data-ng-messages="form.ubigeo.$error" data-ng-if="form.$submitted">
-        <div class="has-error" data-ng-message="required">Ingrese ubigeo.</div>
-        <div class="has-error" data-ng-message="minlength">Ingrese ubigeo.</div>
-        <div class="has-error" data-ng-message="maxlength">Ubigeo muy extenso, maximo 20 caracteres.</div>
+      <input name="ubicacion" type="text" data-ng-model="view.expediente.ubicacion" data-ng-minlength="1" data-ng-maxlength="20" class="form-control" required/>
+      <div data-ng-messages="form.ubicacion.$error" data-ng-if="form.$submitted">
+        <div class="has-error" data-ng-message="required">Ingrese ubicacion.</div>
+        <div class="has-error" data-ng-message="minlength">Ingrese ubicacion.</div>
+        <div class="has-error" data-ng-message="maxlength">Ubicacion muy extenso, maximo 20 caracteres.</div>
       </div>
     </div>
   </div>
