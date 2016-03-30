@@ -1,5 +1,8 @@
 'use strict';
 
+var resourceRequests = 0;
+var loadingTimer = -1;
+
 //Start by defining the main module and adding the module dependencies
 angular.module(ApplicationConfiguration.applicationModuleName, ApplicationConfiguration.applicationModuleVendorDependencies);
 
@@ -38,3 +41,75 @@ angular.element(document).ready(function () {
   angular.bootstrap(document, [ApplicationConfiguration.applicationModuleName]);
 
 });
+
+angular.module(ApplicationConfiguration.applicationModuleName).config(function($httpProvider) {
+  //$httpProvider.interceptors.push('errorInterceptor');
+
+  var spinnerFunction = function(data, headersGetter) {
+    if (resourceRequests == 0) {
+      loadingTimer = window.setTimeout(function() {
+        $('#loading').show();
+        loadingTimer = -1;
+      }, 500);
+    }
+    resourceRequests++;
+    return data;
+  };
+  $httpProvider.defaults.transformRequest.push(spinnerFunction);
+
+  $httpProvider.interceptors.push('spinnerInterceptor');
+  //$httpProvider.interceptors.push('authInterceptor');
+
+});
+
+angular.module(ApplicationConfiguration.applicationModuleName).factory('spinnerInterceptor', function($q, $window, $rootScope, $location) {
+  return {
+    response: function(response) {
+      resourceRequests--;
+      if (resourceRequests == 0) {
+        if(loadingTimer != -1) {
+          window.clearTimeout(loadingTimer);
+          loadingTimer = -1;
+        }
+        $('#loading').hide();
+      }
+      return response;
+    },
+    responseError: function(response) {
+      resourceRequests--;
+      if (resourceRequests == 0) {
+        if(loadingTimer != -1) {
+          window.clearTimeout(loadingTimer);
+          loadingTimer = -1;
+        }
+        $('#loading').hide();
+      }
+
+      return $q.reject(response);
+    }
+  };
+});
+
+/*angular.module(ApplicationConfiguration.applicationModuleName).factory('errorInterceptor', function($q, $window, $rootScope, $location, Notifications, Auth) {
+  return {
+    response: function(response) {
+      return response;
+    },
+    responseError: function(response) {
+      if (response.status == 401) {
+        Auth.authz.logout();
+      } else if (response.status == 403) {
+        $location.path('/forbidden');
+      } else if (response.status == 404) {
+        $location.path('/notfound');
+      } else if (response.status) {
+        if (response.data && response.data.errorMessage) {
+          Notifications.error(response.data.errorMessage);
+        } else {
+          Notifications.error("An unexpected server error has occurred");
+        }
+      }
+      return $q.reject(response);
+    }
+  };
+});*/

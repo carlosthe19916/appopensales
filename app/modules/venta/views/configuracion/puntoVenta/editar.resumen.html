@@ -1,0 +1,21 @@
+<div class="row">
+  <div class="col-sm-6">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <fieldset class="border-top">
+          <legend><span class="text">Datos principales</span></legend>
+          <dl class="dl-horizontal left">
+            <dt>Denominacion:</dt>
+            <dd data-ng-if="view.puntoVenta.nombreObra" data-ng-bind="view.puntoVenta.nombreObra"></dd>
+            <dd data-ng-if="!view.puntoVenta.nombreObra"><em>No registrado</em></dd>
+            <dt>Ubicacion:</dt>
+            <dd data-ng-if="view.puntoVenta.ubicacion" data-ng-bind="view.puntoVenta.ubicacion"></dd>
+            <dd data-ng-if="!view.puntoVenta.ubicacion"><em>No registrado</em></dd>
+            <dt>Estado:</dt>
+            <dd data-ng-bind="view.puntoVenta.estado | si_no : 'ACTIVO' | uppercase"></dd>
+          </dl>
+        </fieldset>
+      </div>
+    </div>
+  </div>
+</div>

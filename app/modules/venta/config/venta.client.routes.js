@@ -4,8 +4,8 @@
 angular.module('venta').config(['$stateProvider', '$urlRouterProvider',
   function ($stateProvider, $urlRouterProvider) {
 
-    $urlRouterProvider.when('/venta/app/configuracion/oficinas', '/venta/app/configuracion/oficinas/buscar');
-    $urlRouterProvider.when('/venta/app/configuracion/oficinas/editar/:oficina', '/venta/app/configuracion/oficinas/editar/:oficina/resumen');
+    $urlRouterProvider.when('/venta/app/configuracion/puntosVenta', '/venta/app/configuracion/puntosVenta/buscar');
+    $urlRouterProvider.when('/venta/app/configuracion/puntosVenta/editar/:puntoVenta', '/venta/app/configuracion/puntosVenta/editar/:puntoVenta/resumen');
 
     $stateProvider
       .state('venta', {
@@ -104,50 +104,50 @@ angular.module('venta').config(['$stateProvider', '$urlRouterProvider',
         }
       })
 
-      .state('venta.app.configuracion.oficina', {
-        url: '/oficinas',
+      .state('venta.app.configuracion.puntoVenta', {
+        url: '/puntosVenta',
         template: '<div ui-view></div>',
         ncyBreadcrumb: {
           skip: true // Never display this state in breadcrumb.
         }
       })
-      .state('venta.app.configuracion.oficina.buscar', {
+      .state('venta.app.configuracion.puntoVenta.buscar', {
         url: '/buscar',
-        templateUrl: 'modules/venta/views/configuracion/oficina/buscar.html',
-        controller: 'Venta.Configuracion.Oficina.BuscarController',
+        templateUrl: 'modules/venta/views/configuracion/puntoVenta/buscar.html',
+        controller: 'Venta.Configuracion.PuntoVenta.BuscarController',
         resolve: {},
         ncyBreadcrumb: {
           label: 'Home'
         }
       })
-      .state('venta.app.configuracion.oficina.crear', {
+      .state('venta.app.configuracion.puntoVenta.crear', {
         url: '/crear',
-        templateUrl: 'modules/venta/views/configuracion/oficina/crear.html',
-        controller: 'Venta.Configuracion.Oficina.CrearController',
+        templateUrl: 'modules/venta/views/configuracion/puntoVenta/crear.html',
+        controller: 'Venta.Configuracion.PuntoVenta.CrearController',
         resolve: {},
         ncyBreadcrumb: {
           label: 'Crear oficina',
-          parent: 'venta.app.configuracion.oficina.buscar'
+          parent: 'venta.app.configuracion.puntoVenta.buscar'
         }
       })
-      .state('venta.app.configuracion.oficina.editar', {
-        url: '/editar/:oficina',
-        templateUrl: 'modules/venta/views/configuracion/oficina/editar.html',
+      .state('venta.app.configuracion.puntoVenta.editar', {
+        url: '/editar/:puntoVenta',
+        templateUrl: 'modules/venta/views/configuracion/puntoVenta/editar.html',
         resolve: {
-          oficina: function ($state, $stateParams, OSOFicina) {
-            return OSOFicina.$find($stateParams.oficina);
+          puntoVenta: function ($state, $stateParams, OSPuntoVenta) {
+            return OSPuntoVenta.$find($stateParams.puntoVenta);
           }
         },
-        controller: 'Venta.Configuracion.Oficina.EditarController',
+        controller: 'Venta.Configuracion.PuntoVenta.EditarController',
         ncyBreadcrumb: {
-          label: 'Editar oficina',
-          parent: 'venta.app.configuracion.oficina.buscar'
+          label: 'Editar punto venta',
+          parent: 'venta.app.configuracion.puntoVenta.buscar'
         }
       })
-      .state('venta.app.configuracion.oficina.editar.resumen', {
+      .state('venta.app.configuracion.puntoVenta.editar.resumen', {
         url: '/resumen',
-        templateUrl: 'modules/venta/views/configuracion/oficina/editar.resumen.html',
-        controller: 'Venta.Configuracion.Oficina.Editar.ResumenController',
+        templateUrl: 'modules/venta/views/configuracion/puntoVenta/editar.resumen.html',
+        controller: 'Venta.Configuracion.PuntoVenta.Editar.ResumenController',
         resolve: {},
         ncyBreadcrumb: {
           skip: true // Never display this state in breadcrumb.

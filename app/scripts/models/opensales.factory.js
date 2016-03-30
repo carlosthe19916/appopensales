@@ -142,7 +142,13 @@ var RestObject = function (path, restangular, extendMethods) {
   return oficinasResource;
 }]);*/
 
-angular.module(ApplicationConfiguration.applicationModuleName).factory('OPExpediente', ['OpensalesRestangular', function (OpensalesRestangular) {
-  var expedientesResource = new RestObject('com.Siacpi.Ventas.Services/ExpedienteService.svc/expedientes', OpensalesRestangular);
+angular.module(ApplicationConfiguration.applicationModuleName).factory('OSPuntoVenta', ['OpensalesRestangular', function (OpensalesRestangular) {
+  var extendedMethods = {
+    /*$enable: function () {
+      return OpensalesRestangular.one(this.$getBasePath(), this.id).customGET('cuentaAporte', {});
+    }*/
+  };
+
+  var expedientesResource = new RestObject('com.Siacpi.Ventas.Services/ExpedientesService.svc/expedientes', OpensalesRestangular, extendedMethods);
   return expedientesResource;
 }]);
