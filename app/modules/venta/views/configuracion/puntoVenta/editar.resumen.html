@@ -21,4 +21,40 @@
       </div>
     </div>
   </div>
+  <div class="col-sm-6">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <fieldset class="border-top" data-ng-mouseover="editCajas = true" data-ng-mouseleave="editCajas = false">
+          <legend>
+            <span class="text">Cajas</span>
+            <a href="" data-ng-show="editCajas" ui-sref="^.cajas" class="pull-right" type="button"><i class="pficon pficon-edit"></i></a>
+          </legend>
+          <table class="table table-striped table-bordered table-condensed table-hover">
+            <thead>
+            <tr>
+              <th>Denominacion</th>
+              <th class="w-20">Abreviatura</th>
+              <th class="w-30" colspan="2">Acciones</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr data-ng-if="!view.load.cajas.length">
+              <td class="text-muted" colspan="3">No existen cajas que mostrar.</td>
+            </tr>
+            <tr data-ng-repeat="item in view.load.cajas">
+              <td class="clip"><span data-ng-bind="item.denominacion"></span></td>
+              <td class="clip"><span data-ng-bind="item.abreviatura"></span></td>
+              <td class="kc-action-cell">
+                <button class="btn btn-default btn-block btn-sm" data-ng-click="gridActions.edit(item)">Editar</button>
+              </td>
+              <td class="kc-action-cell">
+                <button class="btn btn-default btn-block btn-sm" data-ng-click="gridActions.remove(item)">Eliminar</button>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </fieldset>
+      </div>
+    </div>
+  </div>
 </div>

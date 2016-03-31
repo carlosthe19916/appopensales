@@ -19,9 +19,8 @@ angular.module(ApplicationConfiguration.applicationModuleName).provider('opensal
 });
 
 
-
-angular.module(ApplicationConfiguration.applicationModuleName).factory('OpensalesRestangular', ['Restangular', 'opensales', function(Restangular, opensales) {
-  return Restangular.withConfig(function(RestangularConfigurer) {
+angular.module(ApplicationConfiguration.applicationModuleName).factory('OpensalesRestangular', ['Restangular', 'opensales', function (Restangular, opensales) {
+  return Restangular.withConfig(function (RestangularConfigurer) {
     RestangularConfigurer.setBaseUrl(opensales.getRestUrl());
   });
 }]);
@@ -94,11 +93,11 @@ var RestObject = function (path, restangular, extendMethods) {
 
   modelMethods = angular.extend(modelMethods, extendMethods);
 
-  function extendObject(obj, modelMethods){
+  function extendObject(obj, modelMethods) {
     angular.extend(obj, modelMethods);
   }
 
-  function extendArray(obj, modelMethods){
+  function extendArray(obj, modelMethods) {
     angular.forEach(obj, function (row) {
       if (angular.isObject(row)) {
         if (!angular.isArray(row)) {
@@ -108,7 +107,7 @@ var RestObject = function (path, restangular, extendMethods) {
     });
   }
 
-  function automaticExtend(obj, modelMethods){
+  function automaticExtend(obj, modelMethods) {
     if (angular.isDefined(obj)) {
       if (angular.isObject(obj)) {
         if (angular.isArray(obj)) {
@@ -138,18 +137,20 @@ var RestObject = function (path, restangular, extendMethods) {
 };
 
 /*angular.module(ApplicationConfiguration.applicationModuleName).factory('OSOFicina', ['OpensalesRestangular', function (OpensalesRestangular) {
-  var oficinasResource = new RestObject('OficinasService.svc/oficinas', OpensalesRestangular);
-  return oficinasResource;
-}]);*/
+ var oficinasResource = new RestObject('OficinasService.svc/oficinas', OpensalesRestangular);
+ return oficinasResource;
+ }]);*/
 
 angular.module(ApplicationConfiguration.applicationModuleName).factory('OSPuntoVenta', ['OpensalesRestangular', function (OpensalesRestangular) {
-  var extendedMethods = {
-    /*$enable: function () {
-      return OpensalesRestangular.one(this.$getBasePath(), this.id).customGET('cuentaAporte', {});
-    }*/
+  var extendedMethods = {};
+  var expedientesResource = new RestObject('com.Siacpi.Ventas.Services/ExpedientesService.svc/expedientes', OpensalesRestangular, extendedMethods);
+
+  expedientesResource.OPCaja = function () {
+    var extendMethod = {};
+    var cajaSubResource = new RestObject(this.$concatSubResourcePath('cajas'), OpensalesRestangular, extendMethod);
+    return cajaSubResource;
   };
 
-  var expedientesResource = new RestObject('com.Siacpi.Ventas.Services/ExpedientesService.svc/expedientes', OpensalesRestangular, extendedMethods);
   return expedientesResource;
 }]);
 
@@ -157,5 +158,6 @@ angular.module(ApplicationConfiguration.applicationModuleName).factory('OSCaja',
   var extendedMethods = {};
 
   var expedientesResource = new RestObject('com.Siacpi.Ventas.Services/CuentasService.svc/cuentas', OpensalesRestangular, extendedMethods);
+
   return expedientesResource;
 }]);
