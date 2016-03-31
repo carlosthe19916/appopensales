@@ -152,3 +152,10 @@ angular.module(ApplicationConfiguration.applicationModuleName).factory('OSPuntoV
   var expedientesResource = new RestObject('com.Siacpi.Ventas.Services/ExpedientesService.svc/expedientes', OpensalesRestangular, extendedMethods);
   return expedientesResource;
 }]);
+
+angular.module(ApplicationConfiguration.applicationModuleName).factory('OSCaja', ['OpensalesRestangular', function (OpensalesRestangular) {
+  var extendedMethods = {};
+
+  var expedientesResource = new RestObject('com.Siacpi.Ventas.Services/CuentasService.svc/cuentas', OpensalesRestangular, extendedMethods);
+  return expedientesResource;
+}]);

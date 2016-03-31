@@ -152,6 +152,15 @@ angular.module('venta').config(['$stateProvider', '$urlRouterProvider',
         ncyBreadcrumb: {
           skip: true // Never display this state in breadcrumb.
         }
+      })
+      .state('venta.app.configuracion.puntoVenta.editar.datosPrincipales', {
+        url: '/datosPrincipales',
+        templateUrl: 'modules/venta/views/configuracion/puntoVenta/editar.datosPrincipales.html',
+        controller: 'Venta.Configuracion.PuntoVenta.Editar.DatosPrincipalesController',
+        resolve: {},
+        ncyBreadcrumb: {
+          label: 'Datos principales'
+        }
       });
   }
 ]);

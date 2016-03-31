@@ -2,8 +2,11 @@
   <div class="col-sm-6">
     <div class="panel panel-default">
       <div class="panel-body">
-        <fieldset class="border-top">
-          <legend><span class="text">Datos principales</span></legend>
+        <fieldset class="border-top" data-ng-mouseover="editDatosPrincipales = true" data-ng-mouseleave="editDatosPrincipales = false">
+          <legend>
+            <span class="text">Datos principales</span>
+            <a href="" data-ng-show="editDatosPrincipales" ui-sref="^.datosPrincipales" class="pull-right" type="button"><i class="pficon pficon-edit"></i></a>
+          </legend>
           <dl class="dl-horizontal left">
             <dt>Denominacion:</dt>
             <dd data-ng-if="view.puntoVenta.nombreObra" data-ng-bind="view.puntoVenta.nombreObra"></dd>
