@@ -2,7 +2,7 @@
 
 /* jshint -W098 */
 angular.module('venta').controller('Venta.Configuracion.PuntoVenta.Editar.ResumenController',
-  function ($scope, $state, puntoVenta) {
+  function ($scope, $state, toastr, puntoVenta, SCDialog, OSCaja) {
 
     $scope.view = {
       puntoVenta: puntoVenta
@@ -18,6 +18,23 @@ angular.module('venta').controller('Venta.Configuracion.PuntoVenta.Editar.Resume
       });
     };
     $scope.loadCajas();
+
+    $scope.editCaja = function (row) {
+        $state.go('^.cajas.editar', {caja: row.id});
+    };
+    $scope.removeCaja = function (row, index) {
+      SCDialog.confirmDelete(row.denominacion, 'Caja', function(){
+        OSCaja.$new(row.id).$remove().then(
+          function (response) {
+            toastr.success('Caja eliminada.');
+            $scope.view.load.cajas.splice(index, 1);
+          },
+          function error(err) {
+            toastr.error(err.data.message);
+          }
+        );
+      });
+    };
 
   }
 );

@@ -7,6 +7,8 @@ angular.module('venta').config(['$stateProvider', '$urlRouterProvider',
     $urlRouterProvider.when('/venta/app/configuracion/puntosVenta', '/venta/app/configuracion/puntosVenta/buscar');
     $urlRouterProvider.when('/venta/app/configuracion/puntosVenta/editar/:puntoVenta', '/venta/app/configuracion/puntosVenta/editar/:puntoVenta/resumen');
 
+    $urlRouterProvider.when('/venta/app/configuracion/puntosVenta/editar/:puntoVenta/cajas', '/venta/app/configuracion/puntosVenta/editar/:puntoVenta/cajas/buscar');
+
     $stateProvider
       .state('venta', {
         abstract: true,
@@ -160,6 +162,32 @@ angular.module('venta').config(['$stateProvider', '$urlRouterProvider',
         resolve: {},
         ncyBreadcrumb: {
           label: 'Datos principales'
+        }
+      })
+      .state('venta.app.configuracion.puntoVenta.editar.cajas', {
+        url: '/cajas',
+        template: '<div ui-view></div>',
+        ncyBreadcrumb: {
+          skip: true // Never display this state in breadcrumb.
+        }
+      })
+      .state('venta.app.configuracion.puntoVenta.editar.cajas.buscar', {
+        url: '/buscar',
+        templateUrl: 'modules/venta/views/configuracion/puntoVenta/editar.cajas.buscar.html',
+        controller: 'Venta.Configuracion.PuntoVenta.Caja.BuscarController',
+        resolve: {},
+        ncyBreadcrumb: {
+          label: 'Cajas'
+        }
+      })
+      .state('venta.app.configuracion.puntoVenta.editar.cajas.crear', {
+        url: '/crear',
+        templateUrl: 'modules/venta/views/configuracion/puntoVenta/editar.cajas.crear.html',
+        controller: 'Venta.Configuracion.PuntoVenta.Caja.CrearController',
+        resolve: {},
+        ncyBreadcrumb: {
+          label: 'Crear caja',
+          parent: 'venta.app.configuracion.puntoVenta.editar.cajas.buscar'
         }
       });
   }

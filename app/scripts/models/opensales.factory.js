@@ -147,7 +147,7 @@ angular.module(ApplicationConfiguration.applicationModuleName).factory('OSPuntoV
 
   expedientesResource.OPCaja = function () {
     var extendMethod = {};
-    var cajaSubResource = new RestObject(this.$concatSubResourcePath('cajas'), OpensalesRestangular, extendMethod);
+    var cajaSubResource = new RestObject(this.$concatSubResourcePath('cuentas'), OpensalesRestangular, extendMethod);
     return cajaSubResource;
   };
 
