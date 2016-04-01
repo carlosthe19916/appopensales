@@ -15,6 +15,11 @@ body {
   padding-top: 70px;
 }
 
+/*Add padding*/
+.btn-group > ul > .dropdown-menu, .dropdown > .dropdown-menu, .input-group-btn > .dropdown-menu {
+    margin-top: 1px;
+}
+
 /*********** OPENSALES **************/
 /*Error*/
 .required {
