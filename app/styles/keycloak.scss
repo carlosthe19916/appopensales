@@ -366,6 +366,25 @@ h1 i {
   white-space: nowrap;
 }
 
+.kc-action-cell-kebab {
+  position: relative;
+  width: 10px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.kc-action-cell-kebab .btn {
+  border: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .kc-sorter span {
   margin-left: 10px;
 }
