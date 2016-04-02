@@ -5,8 +5,13 @@
     </div>
     <!-- /col -->
 
-    <div sc-sidebar-resize class="col-sm-3 col-md-2 col-sm-pull-9 col-md-pull-10 sidebar-pf sidebar-pf-left" style="min-height: 500px;">
-      <div class="panel-group"s data-ng-controller="VentaSidebarController">
+    <div uib-collapse="isSidebarCollapsed" sc-sidebar-resize class="col-sm-3 col-md-2 col-sm-pull-9 col-md-pull-10 sidebar-pf sidebar-pf-left nav-pf-vertical nav-pf-vertical-with-secondary-nav" style="min-height: 500px;">
+      <div class="panel-group" data-ng-controller="VentaSidebarController">
+        <div class="pull-right">
+          <a href="" class="btn btn-link btn-lg" data-ng-click="toggleCollapsibleSidebarMenu()">
+            <i class="fa fa-arrow-circle-o-left"></i>
+          </a>
+        </div>
         <div class="nav-category">
           <h2>Caja</h2>
           <ul class="nav nav-pills nav-stacked">
