@@ -9,6 +9,7 @@ angular.module(ApplicationConfiguration.applicationModuleName).directive('scSide
       var height = Math.max(container, window.innerHeight - navBar - 3);
 
       element[0].style['min-height'] = height + 'px';
+      element[0].style['top'] = (navBar + 2) + 'px';
     }
 
     resize();
