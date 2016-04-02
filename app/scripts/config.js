@@ -23,7 +23,8 @@ var ApplicationConfiguration = (function () {
     'ui.grid',
     'ui.grid.edit',
     'ui.grid.pagination',
-    'ui.grid.selection'
+    'ui.grid.selection',
+    'ui.grid.autoResize'
   ];
 
   // Add a new vertical module
