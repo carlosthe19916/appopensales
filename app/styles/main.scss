@@ -47,6 +47,27 @@ body {
   width: 0;
 }
 
+.nav-pf-vertical.collapsed {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.nav-pf-vertical.collapsed .nav-category h2 {
+  //display: none;
+  font-size: 8px;
+  text-align: center;
+}
+
+.nav-pf-vertical.collapsed button.pull-right {
+  float: none !important;
+}
+
+.nav-pf-vertical.collapsed .nav-pills > li > a {
+  //padding: 0px 20px 0 24px !important;
+  margin-left: 3px;
+  padding-left: 25px !important;
+}
+
 .list-group-item.active > a {
   color: #fff;
   border-left-color: #39a5dc !important;

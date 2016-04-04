@@ -7,8 +7,13 @@
 
     <div sc-sidebar-resize data-ng-class="{'collapsed': isSidebarCollapsed}" class="sidebar-pf sidebar-pf-left nav-pf-vertical nav-pf-vertical-with-secondary-nav">
       <div class="panel-group" data-ng-controller="VentaSidebarController">
+
+        <div>
+          <button type="button" data-ng-click="toggleCollapsibleSidebarMenu()" class="btn btn-link btn-lg pull-right"><i class="fa fa-angle-double-left"></i></button>
+        </div>
+
         <div class="nav-category">
-          <h2 data-ng-click="toggleCollapsibleSidebarMenu()">Caja</h2>
+          <h2>Caja</h2>
           <ul class="nav nav-pills nav-stacked list-group">
             <li class="list-group-item" ui-sref-active="active">
               <a ui-sref="venta.app.caja.abrir">
