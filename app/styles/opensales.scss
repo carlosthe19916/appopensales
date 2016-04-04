@@ -1,0 +1,60 @@
+
+/*********** OPENSALES **************/
+
+/*Error*/
+.required {
+  color: #f00;
+}
+
+.has-error {
+  color: #f05050 !important;
+
+  .form-control {
+    border-color: #f05050 !important;
+  }
+}
+
+
+
+/*Search*/
+.os-table-search {
+  margin-bottom: 0px;
+  border-bottom: 0px;
+}
+
+.os-table-search > thead > tr > th {
+  border: 0px;
+  padding: 5px 5px 5px !important;
+}
+
+/**OS Width*/
+.os-10 {
+  width: 10%;
+}
+.os-15 {
+  width: 15%;
+}
+.os-20 {
+  width: 20%;
+}
+.os-25 {
+  width: 25%;
+}
+.os-30 {
+  width: 30%;
+}
+.os-35 {
+  width: 35%;
+}
+.os-40 {
+  width: 40%;
+}
+.os-45 {
+  width: 45%;
+}
+.os-50 {
+  width: 50%;
+}
+.os-100 {
+  width: 100%;
+}
