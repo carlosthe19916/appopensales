@@ -189,6 +189,29 @@ angular.module('venta').config(['$stateProvider', '$urlRouterProvider',
           label: 'Crear caja',
           parent: 'venta.app.configuracion.puntoVenta.editar.cajas.buscar'
         }
+      })
+      .state('venta.app.configuracion.puntoVenta.editar.cajas.editar', {
+        url: '/editar/:caja',
+        templateUrl: 'modules/venta/views/configuracion/puntoVenta/editar.cajas.editar.html',
+        resolve: {
+          caja: function ($state, $stateParams, OSCaja) {
+            return OSCaja.$find($stateParams.caja);
+          }
+        },
+        controller: 'Venta.Configuracion.PuntoVenta.Caja.EditarController',
+        ncyBreadcrumb: {
+          label: 'Editar caja',
+          parent: 'venta.app.configuracion.puntoVenta.editar.cajas.buscar'
+        }
+      })
+      .state('venta.app.configuracion.puntoVenta.editar.cajas.editar.resumen', {
+        url: '/resumen',
+        templateUrl: 'modules/venta/views/configuracion/puntoVenta/editar.cajas.editar.resumen.html',
+        controller: 'Venta.Configuracion.PuntoVenta.Caja.Editar.ResumenController',
+        resolve: {},
+        ncyBreadcrumb: {
+          skip: true // Never display this state in breadcrumb.
+        }
       });
   }
 ]);
