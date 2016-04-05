@@ -13,7 +13,8 @@ angular.module('venta').controller('Venta.Configuracion.PuntoVenta.Caja.BuscarCo
     };
 
     $scope.filterOptions = {
-      filterText: undefined
+      filterText: undefined,
+      estado: true
     };
 
     $scope.gridOptions = {
@@ -21,28 +22,36 @@ angular.module('venta').controller('Venta.Configuracion.PuntoVenta.Caja.BuscarCo
       paginationPageSizes: [10, 25, 50],
       paginationPageSize: 10
     };
-    $scope.gridActions = {
-      edit: function (row) {
-        $state.go('^.edit', {form: row.id});
-      },
-      remove: function(row) {
-        SGDialog.confirmDelete(row.title, 'Encuesta', function() {
-          SCForm.$new(row.id).$remove().then(
-            function(response){
-              toastr.success('Encuesta eliminada satisfactoriamente');
-              $scope.search();
-            },
-            function error(err){
-              toastr.error(err.data.errorMessage);
-            }
-          );
-        });
-      }
-    };
 
     $scope.gridActions = {
       edit: function (row) {
         $state.go('^.editar', {caja: row.id});
+      },
+      enable: function (row) {
+        SCDialog.confirm('Guardar', 'Estas seguro de activar la caja', function(){
+          OSCaja.$new(row.id).$enable().then(
+            function (response) {
+              toastr.success('Caja activada.');
+              $scope.search();
+            },
+            function error(err) {
+              toastr.error(err.data.message);
+            }
+          );
+        });
+      },
+      disable: function (row) {
+        SCDialog.confirm('Guardar', 'Estas seguro de desactivar la caja', function(){
+          OSCaja.$new(row.id).$disable().then(
+            function (response) {
+              toastr.success('Caja desactivada.');
+              $scope.search();
+            },
+            function error(err) {
+              toastr.error(err.data.message);
+            }
+          );
+        });
       },
       remove: function (row, index) {
         SCDialog.confirmDelete(row.denominacion, 'Caja', function(){
@@ -56,16 +65,30 @@ angular.module('venta').controller('Venta.Configuracion.PuntoVenta.Caja.BuscarCo
             }
           );
         });
+      },
+      abrir: function (row) {
+        $state.go('^.editar.abrir', {caja: row.id});
+      },
+      cerrar: function (row) {
+        $state.go('^.editar.cerrar', {caja: row.id});
+      },
+      editarDatosPrincipales: function (row) {
+        $state.go('^.editar.datosPrincipales', {caja: row.id});
       }
     };
 
     $scope.search = function () {
-      $scope.view.puntoVenta.OPCaja().$getAll({estado: true}).then(function (response) {
+      $scope.view.puntoVenta.OPCaja().$getAll({estado: $scope.filterOptions.estado}).then(function (response) {
         $scope.gridOptions.data = response;
       });
     };
     $scope.search();
 
+    $scope.$watch('filterOptions.estado', function(newValue, oldValue) {
+      if(newValue !== oldValue) {
+        $scope.search();
+      }
+    }, true);
 
   }
 );

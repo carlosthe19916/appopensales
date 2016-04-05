@@ -8,6 +8,7 @@ angular.module('venta').config(['$stateProvider', '$urlRouterProvider',
     $urlRouterProvider.when('/venta/app/configuracion/puntosVenta/editar/:puntoVenta', '/venta/app/configuracion/puntosVenta/editar/:puntoVenta/resumen');
 
     $urlRouterProvider.when('/venta/app/configuracion/puntosVenta/editar/:puntoVenta/cajas', '/venta/app/configuracion/puntosVenta/editar/:puntoVenta/cajas/buscar');
+    $urlRouterProvider.when('/venta/app/configuracion/puntosVenta/editar/:puntoVenta/cajas/editar/:caja', '/venta/app/configuracion/puntosVenta/editar/:puntoVenta/cajas/editar/:caja/resumen');
 
     $stateProvider
       .state('venta', {

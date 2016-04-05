@@ -14,6 +14,10 @@
               </div>
             </div>
             <div class="pull-right">
+              <div class="btn-group">
+                <label class="btn btn-default" data-ng-model="filterOptions.estado" uib-btn-radio="true" uncheckable>Activo</label>
+                <label class="btn btn-default" data-ng-model="filterOptions.estado" uib-btn-radio="false" uncheckable>Inactivo</label>
+              </div>
               <a class="btn btn-default" href="" ui-sref="^.crear">Nuevo</a>
             </div>
           </div>
@@ -42,10 +46,13 @@
             <i class="fa fa-ellipsis-v"></i>
           </button>
           <ul class="dropdown-menu-right" uib-dropdown-menu aria-labelledby="btn-append-to-body">
-            <li role="menuitem"><a href="">Abrir</a></li>
-            <li role="menuitem"><a href="">Cerrar</a></li>
+            <li role="menuitem" data-ng-click="gridActions.abrir(item)"><a href="">Abrir</a></li>
+            <li role="menuitem" data-ng-click="gridActions.cerrar(item)"><a href="">Cerrar</a></li>
             <li class="divider"></li>
-            <li role="menuitem"><a href="#">Editar datos principales</a></li>
+            <li role="menuitem" data-ng-click="gridActions.editarDatosPrincipales(item)"><a href="">Editar datos principales</a></li>
+            <li class="divider"></li>
+            <li role="menuitem" data-ng-click="gridActions.enable(item)"><a href="">Activar</a></li>
+            <li role="menuitem" data-ng-click="gridActions.disable(item)"><a href="">Desactivar</a></li>
           </ul>
         </td>
       </tr>
