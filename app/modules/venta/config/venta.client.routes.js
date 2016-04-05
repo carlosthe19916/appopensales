@@ -213,6 +213,33 @@ angular.module('venta').config(['$stateProvider', '$urlRouterProvider',
         ncyBreadcrumb: {
           skip: true // Never display this state in breadcrumb.
         }
+      })
+      .state('venta.app.configuracion.puntoVenta.editar.cajas.editar.datosPrincipales', {
+        url: '/datosPrincipales',
+        templateUrl: 'modules/venta/views/configuracion/puntoVenta/editar.cajas.editar.datosPrincipales.html',
+        controller: 'Venta.Configuracion.PuntoVenta.Caja.Editar.DatosPrincipalesController',
+        resolve: {},
+        ncyBreadcrumb: {
+          label: 'Datos principales'
+        }
+      })
+      .state('venta.app.configuracion.puntoVenta.editar.cajas.editar.abrir', {
+        url: '/abrir',
+        templateUrl: 'modules/venta/views/configuracion/puntoVenta/editar.cajas.editar.abrir.html',
+        controller: 'Venta.Configuracion.PuntoVenta.Caja.Editar.AbrirController',
+        resolve: {},
+        ncyBreadcrumb: {
+          label: 'Abrir caja'
+        }
+      })
+      .state('venta.app.configuracion.puntoVenta.editar.cajas.editar.cerrar', {
+        url: '/cerrar',
+        templateUrl: 'modules/venta/views/configuracion/puntoVenta/editar.cajas.editar.cerrar.html',
+        controller: 'Venta.Configuracion.PuntoVenta.Caja.Editar.CerrarController',
+        resolve: {},
+        ncyBreadcrumb: {
+          label: 'Cerrar caja'
+        }
       });
   }
 ]);
