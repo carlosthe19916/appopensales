@@ -1,0 +1,38 @@
+/*********** Overwrites header defaults ***********/
+
+.navbar-pf .navbar-brand {
+  padding: 0;
+  height: 25px;
+  line-height: 25px;
+  background-position: center center;
+  background-image: url('../images/ahren.png');
+  background-size: 100px 25px;
+  background-repeat: no-repeat;
+  width: 100px;
+
+  .navbar-utility li.dropdown {
+    /* @media (min-width: 768px) */
+    > .dropdown-toggle .pficon-user {
+      top: 22px;
+      left:20px;
+    }
+  }
+
+  .navbar-utility {
+    > li {
+      > a {
+        padding: 22px 30px 23px 40px!important;
+      }
+    }
+  }
+}
+
+.clickable {
+  cursor: pointer;
+}
+
+h1 i {
+  color: #999999;
+  font-size: 18px;
+  margin-left: 10px;
+}
