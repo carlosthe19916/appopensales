@@ -33,14 +33,14 @@ angular.module('venta').controller('Venta.Configuracion.PuntoVenta.BuscarControl
           name: 'actions',
           displayName: 'Acciones',
           cellTemplate: '' +
-          '<div class="ui-grid-action">' +
-            '<div class="ui-grid-action-cell os-45">' +
+          '<div class="os-grid-action">' +
+            '<div class="os-grid-action-cell os-45">' +
               '<button type="button" data-ng-click="grid.appScope.gridActions.edit(row.entity)" class="btn btn-default btn-block btn-sm">Editar</button>' +
             '</div>' +
-            '<div class="ui-grid-action-cell os-45">' +
+            '<div class="os-grid-action-cell os-45">' +
               '<button type="button" data-ng-click="grid.appScope.gridActions.remove(row.entity)" class="btn btn-default btn-block btn-sm">Eliminar</button>' +
             '</div>' +
-            '<div class="ui-grid-action-cell os-10">' +
+            '<div class="os-grid-action-cell os-10">' +
               '<div class="btn btn-default pull-right dropdown-kebab-pf" uib-dropdown dropdown-append-to-body>' +
                 '<button class="btn btn-link" type="button" uib-dropdown-toggle>' +
                   '<span class="fa fa-ellipsis-v"></span><br>' +
