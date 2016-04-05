@@ -1,16 +1,16 @@
 <div data-ng-controller="HeaderController">
   <div class="navbar-header">
-    <button class="navbar-toggle" type="button" data-ng-click="toggleCollapsibleMenu()">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse-1" data-ng-click="toggleCollapsibleMenu()">
       <span class="sr-only">Toggle navigation</span>
       <span class="icon-bar"></span>
       <span class="icon-bar"></span>
       <span class="icon-bar"></span>
     </button>
-    <a data-ui-sref="home" class="navbar-brand">
+    <a class="navbar-brand" data-ui-sref="home">
     </a>
   </div>
 
-  <div class="uib-collapse navbar-collapse navbar-collapse-1" uib-collapse="!isCollapsed" role="navigation">
+  <div class="navbar-collapse navbar-collapse-1" uib-collapse="!isCollapsed" role="navigation">
     <ul class="nav navbar-nav navbar-primary">
       <li data-ng-repeat="item in menu.items | orderBy: 'position'" ng-switch="item.type" data-ng-class="{ active: $state.includes(item.state), dropdown: item.type === 'uib-dropdown' }" class="{{item.class}}" uib-dropdown="item.type === 'uib-dropdown'">
         <a ng-switch-when="uib-dropdown" class="uib-dropdown-toggle" uib-dropdown-toggle role="button">{{::item.title}}&nbsp;<span class="caret"></span></a>
