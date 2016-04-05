@@ -40,16 +40,14 @@ angular.module('venta').controller('Venta.Configuracion.PuntoVenta.BuscarControl
             '<div class="os-grid-action-cell os-45">' +
               '<button type="button" data-ng-click="grid.appScope.gridActions.remove(row.entity)" class="btn btn-default btn-block btn-sm">Eliminar</button>' +
             '</div>' +
-            '<div class="os-grid-action-cell os-10">' +
-              '<div class="btn btn-default pull-right dropdown-kebab-pf" uib-dropdown dropdown-append-to-body>' +
-                '<button class="btn btn-link" type="button" uib-dropdown-toggle>' +
-                  '<span class="fa fa-ellipsis-v"></span><br>' +
+            '<div class="os-grid-action-cell os-10" uib-dropdown dropdown-append-to-body>' +
+                '<button class="btn btn-default btn-block" type="button" uib-dropdown-toggle>' +
+                  '<i class="fa fa-ellipsis-v"></i>' +
                 '</button>' +
-                '<ul class="dropdown-menu-right" uib-dropdown-menu aria-labelledby="dropdownKebabRight">' +
+                '<ul class="dropdown-menu-right" uib-dropdown-menu aria-labelledby="btn-append-to-body">' +
                   '<li><a href="" data-ng-click="grid.appScope.gridActions.enable(row.entity)">Activar</a></li>' +
                   '<li><a href="" data-ng-click="grid.appScope.gridActions.disable(row.entity)">Desactivar</a></li>' +
                 '</ul>' +
-              '</div>' +
             '</div>' +
           '</div>',
           width: '20%'
@@ -86,6 +84,7 @@ angular.module('venta').controller('Venta.Configuracion.PuntoVenta.BuscarControl
           SCDialog.confirm('Guardar', 'Esta seguro de querer activar el punto de venta' + row.nombreObra +'?.', function() {
             OSPuntoVenta.$new(row.id).$enable().then(function(response) {
               toastr.success('Punto de venta activado');
+              $scope.search();
             }, function error(err) {
               toastr.error(err.data.message);
             });
@@ -99,6 +98,7 @@ angular.module('venta').controller('Venta.Configuracion.PuntoVenta.BuscarControl
           SCDialog.confirm('Guardar', 'Esta seguro de querer desactivar el punto de venta' + row.nombreObra +'?.', function() {
             OSPuntoVenta.$new(row.id).$disable().then(function(response) {
               toastr.success('Punto de venta desactivado');
+              $scope.search();
             }, function error(err) {
               toastr.error(err.data.message);
             });
