@@ -1,6 +1,11 @@
 /*********** OPENSALES SASS **************/
 @import "bootstrap/variables";
+
+@import "opensales/variables";
+@import "opensales/header";
+@import "opensales/sidebar";
 @import "opensales/grid";
+@import "opensales/forms";
 
 body {
   @media (max-width: $screen-xs-max) {
@@ -35,7 +40,7 @@ body {
 }
 
 /*Dropdown-menu*/
-/*.btn-group {
+.btn-group {
   > ul {
     > .dropdown-menu, .dropdown {
       > .dropdown-menu, .input-group-btn {
@@ -45,7 +50,7 @@ body {
       }
     }
   }
-}*/
+}
 
 /*Vertical sidebar*/
 .nav-pf-vertical {

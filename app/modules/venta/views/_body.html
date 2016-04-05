@@ -1,56 +1,35 @@
 <div class="row">
   <div id="view">
-    <div ui-view class="container-fluid container-pf-nav-pf-vertical container-pf-nav-pf-vertical-with-secondary col-sm-push-3 col-md-push-2" style="min-height: 500px;">
+    <div ui-view class="col-sm-9 col-md-10 col-sm-push-3 col-md-push-2" style="min-height: 500px;">
 
     </div>
     <!-- /col -->
 
-    <div sc-sidebar-resize data-ng-class="{'collapsed': isSidebarCollapsed}" class="sidebar-pf sidebar-pf-left nav-pf-vertical nav-pf-vertical-with-secondary-nav">
+    <div sc-sidebar-resize class="col-sm-3 col-md-2 col-sm-pull-9 col-md-pull-10 sidebar-pf sidebar-pf-left" style="min-height: 500px;">
       <div class="panel-group" data-ng-controller="VentaSidebarController">
-
-        <!--
-        <div>
-          <button type="button" data-ng-click="toggleCollapsibleSidebarMenu()" class="btn btn-link btn-lg pull-right"><i class="fa fa-angle-double-left"></i></button>
-        </div>-->
-
         <div class="nav-category">
           <h2>Caja</h2>
-          <ul class="nav nav-pills nav-stacked list-group">
-            <li class="list-group-item" ui-sref-active="active">
-              <a ui-sref="venta.app.caja.abrir">
-                <span class="fa fa-unlock"></span>
-                <span class="list-group-item-value"> Abrir caja</span>
-              </a>
+          <ul class="nav nav-pills nav-stacked">
+            <li ui-sref-active="active">
+              <a ui-sref="venta.app.caja.abrir"><span class="fa fa-lock"></span> Abrir caja</a>
             </li>
-            <li class="list-group-item" ui-sref-active="active">
-              <a ui-sref="venta.app.caja.cerrar">
-                <span class="fa fa-lock"></span>
-                <span class="list-group-item-value"> Cerrar caja</span>
-              </a>
+            <li ui-sref-active="active">
+              <a ui-sref="venta.app.caja.cerrar"><span class="fa fa-unlock"></span> Cerrar caja</a>
             </li>
-            <li class="list-group-item" ui-sref-active="active">
-              <a ui-sref="venta.app.caja.movimientos.buscar">
-                <span class="fa fa-exchange"></span>
-                <span class="list-group-item-value"> Movimientos</span>
-              </a>
+            <li ui-sref-active="active">
+              <a ui-sref="venta.app.caja.movimientos.buscar"><span class="fa fa-exchange"></span> Movimientos</a>
             </li>
           </ul>
           <h2>Operaciones</h2>
-          <ul class="nav nav-pills nav-stacked list-group">
-            <li class="list-group-item" ui-sref-active="active">
-              <a ui-sref="venta.app.operaciones.venta">
-                <span class="fa fa-building"></span>
-                <span class="list-group-item-value"> Vender</span>
-              </a>
+          <ul class="nav nav-pills nav-stacked">
+            <li ui-sref-active="active">
+              <a ui-sref="venta.app.operaciones.venta"><span class="fa fa-shopping-cart"></span> Vender</a>
             </li>
           </ul>
           <h2>Configuracion</h2>
-          <ul class="nav nav-pills nav-stacked list-group">
-            <li class="list-group-item" ui-sref-active="active">
-              <a ui-sref="venta.app.configuracion.puntoVenta">
-                <span class="fa fa-building"></span>
-                <span class="list-group-item-value"> Puntos de venta</span>
-              </a>
+          <ul class="nav nav-pills nav-stacked">
+            <li ui-sref-active="active">
+              <a ui-sref="venta.app.configuracion.puntoVenta"><span class="fa fa-building"></span> Puntos de venta</a>
             </li>
           </ul>
         </div>
