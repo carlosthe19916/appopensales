@@ -18,7 +18,11 @@
 
   <div class="panel panel-default">
     <div class="panel-body">
-      <div>
+      <div data-ng-mouseover="regresar = true" data-ng-mouseleave="regresar = false">
+
+        <button type="button" data-ng-show="regresar" ui-sref="^.buscar" class="btn btn-link btn-lg pull-right">
+          <i class="fa fa-backward"></i>
+        </button>
 
         <div class="tab-container">
           <ul class="nav nav-tabs">
