@@ -1,0 +1,68 @@
+<div class="row">
+  <div class="col-sm-12">
+    <table class="table table-striped table-bordered">
+      <thead>
+      <tr>
+        <th colspan="6">
+          <div class="form-inline">
+            <div class="form-group">
+              <div class="input-group">
+                <input type="text" data-ng-model="filterOptions.filterText" ui-keypress="{13:'search($event)'}" class="form-control" placeholder="Buscar..." pf-focused="true" autofocus>
+            <span class="input-group-btn">
+              <button class="btn btn-default" data-ng-click="search()" type="button"><i class="fa fa-search"></i></button>
+            </span>
+              </div>
+            </div>
+            <div class="pull-right">
+              <div class="btn-group">
+                <label class="btn btn-default" data-ng-model="filterOptions.estado" uib-btn-radio="true" uncheckable>Activo</label>
+                <label class="btn btn-default" data-ng-model="filterOptions.estado" uib-btn-radio="false" uncheckable>Inactivo</label>
+              </div>
+              <a class="btn btn-default" href="" ui-sref="^.crear">Nuevo</a>
+            </div>
+          </div>
+        </th>
+      </tr>
+      <tr data-ng-show="gridOptions.data.length > 0">
+        <th>Denominacion</th>
+        <th class="hidden-xs">Abreviatura</th>
+        <th>Estado</th>
+        <th colspan="3">Acciones</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr ng-repeat="item in gridOptions.data | filter: filterOptions.filterText">
+        <td class="clip">{{item.denominacion}}</td>
+        <td class="clip hidden-xs">{{item.abreviatura}}</td>
+        <td class="clip">{{item.estado | si_no : 'ACTIVO' | uppercase}}</td>
+        <td class="kc-action-cell">
+          <button class="btn btn-default btn-block btn-sm" data-ng-click="gridActions.edit(item)">Editar</button>
+        </td>
+        <td class="kc-action-cell">
+          <button class="btn btn-default btn-block btn-sm" data-ng-click="gridActions.remove(item, $index)">Eliminar</button>
+        </td>
+        <td class="kc-action-cell-kebab" uib-dropdown>
+          <button class="btn btn-default btn-block btn-sm" uib-dropdown-toggle>
+            <i class="fa fa-ellipsis-v"></i>
+          </button>
+          <ul class="dropdown-menu-right" uib-dropdown-menu aria-labelledby="btn-append-to-body">
+            <li role="menuitem" data-ng-click="gridActions.abrir(item)"><a href="">Abrir</a></li>
+            <li role="menuitem" data-ng-click="gridActions.cerrar(item)"><a href="">Cerrar</a></li>
+            <li class="divider"></li>
+            <li role="menuitem" data-ng-click="gridActions.editarDatosPrincipales(item)"><a href="">Editar datos principales</a></li>
+            <li class="divider"></li>
+            <li role="menuitem" data-ng-click="gridActions.enable(item)"><a href="">Activar</a></li>
+            <li role="menuitem" data-ng-click="gridActions.disable(item)"><a href="">Desactivar</a></li>
+          </ul>
+        </td>
+      </tr>
+      <tr data-ng-show="gridOptions.data.length == 0">
+        <td class="text-muted">No existen resultados que mostrar.</td>
+      </tr>
+      </tbody>
+    </table>
+
+
+
+  </div>
+</div>

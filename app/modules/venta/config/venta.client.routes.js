@@ -9,6 +9,7 @@ angular.module('venta').config(['$stateProvider', '$urlRouterProvider',
 
     $urlRouterProvider.when('/venta/app/configuracion/puntosVenta/editar/:puntoVenta/cajas', '/venta/app/configuracion/puntosVenta/editar/:puntoVenta/cajas/buscar');
     $urlRouterProvider.when('/venta/app/configuracion/puntosVenta/editar/:puntoVenta/cajas/editar/:caja', '/venta/app/configuracion/puntosVenta/editar/:puntoVenta/cajas/editar/:caja/resumen');
+    $urlRouterProvider.when('/venta/app/configuracion/puntosVenta/editar/:puntoVenta/trabajadores', '/venta/app/configuracion/puntosVenta/editar/:puntoVenta/trabajadores/buscar');
 
     $stateProvider
       .state('venta', {
@@ -239,6 +240,33 @@ angular.module('venta').config(['$stateProvider', '$urlRouterProvider',
         resolve: {},
         ncyBreadcrumb: {
           label: 'Cerrar caja'
+        }
+      })
+
+      .state('venta.app.configuracion.puntoVenta.editar.trabajadores', {
+        url: '/trabajadores',
+        template: '<div ui-view></div>',
+        ncyBreadcrumb: {
+          skip: true // Never display this state in breadcrumb.
+        }
+      })
+      .state('venta.app.configuracion.puntoVenta.editar.trabajadores.buscar', {
+        url: '/buscar',
+        templateUrl: 'modules/venta/views/configuracion/puntoVenta/editar.trabajadores.buscar.html',
+        controller: 'Venta.Configuracion.PuntoVenta.Trabajador.BuscarController',
+        resolve: {},
+        ncyBreadcrumb: {
+          label: 'Trabajadores'
+        }
+      })
+      .state('venta.app.configuracion.puntoVenta.editar.trabajadores.crear', {
+        url: '/crear',
+        templateUrl: 'modules/venta/views/configuracion/puntoVenta/editar.trabajadores.crear.html',
+        controller: 'Venta.Configuracion.PuntoVenta.Trabajador.CrearController',
+        resolve: {},
+        ncyBreadcrumb: {
+          label: 'Crear trabajador',
+          parent: 'venta.app.configuracion.puntoVenta.editar.trabajadores.buscar'
         }
       });
   }

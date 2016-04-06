@@ -22,11 +22,11 @@ angular.module('venta').controller('Venta.Configuracion.PuntoVenta.Editar.Resume
     $scope.gridOptions = {
       caja: {
         data: [],
-        totalItems: 10
+        totalItems: 5
       },
       trabajador: {
         data: [],
-        totalItems: 10
+        totalItems: 5
       }
     };
 
