@@ -78,7 +78,7 @@ angular.module('venta').controller('Venta.Configuracion.PuntoVenta.Caja.BuscarCo
     };
 
     $scope.search = function () {
-      $scope.view.puntoVenta.OPCaja().$getAll({estado: $scope.filterOptions.estado}).then(function (response) {
+      $scope.view.puntoVenta.OSCaja().$getAll({estado: $scope.filterOptions.estado}).then(function (response) {
         $scope.gridOptions.data = response;
       });
     };

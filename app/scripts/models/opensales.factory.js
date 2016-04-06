@@ -145,10 +145,16 @@ angular.module(ApplicationConfiguration.applicationModuleName).factory('OSPuntoV
   var extendedMethods = {};
   var expedientesResource = new RestObject('com.Siacpi.Ventas.Services/ExpedientesService.svc/expedientes', OpensalesRestangular, extendedMethods);
 
-  expedientesResource.OPCaja = function () {
+  expedientesResource.OSCaja = function () {
     var extendMethod = {};
     var cajaSubResource = new RestObject(this.$concatSubResourcePath('cuentas'), OpensalesRestangular, extendMethod);
     return cajaSubResource;
+  };
+
+  expedientesResource.OSTrabajador = function () {
+    var extendMethod = {};
+    var trabajadorSubResource = new RestObject(this.$concatSubResourcePath('trabajadores'), OpensalesRestangular, extendMethod);
+    return trabajadorSubResource;
   };
 
   return expedientesResource;
@@ -157,7 +163,15 @@ angular.module(ApplicationConfiguration.applicationModuleName).factory('OSPuntoV
 angular.module(ApplicationConfiguration.applicationModuleName).factory('OSCaja', ['OpensalesRestangular', function (OpensalesRestangular) {
   var extendedMethods = {};
 
-  var expedientesResource = new RestObject('com.Siacpi.Ventas.Services/CuentasService.svc/cuentas', OpensalesRestangular, extendedMethods);
+  var cuentasResource = new RestObject('com.Siacpi.Ventas.Services/CuentasService.svc/cuentas', OpensalesRestangular, extendedMethods);
 
-  return expedientesResource;
+  return cuentasResource;
+}]);
+
+angular.module(ApplicationConfiguration.applicationModuleName).factory('OSTrabajador', ['OpensalesRestangular', function (OpensalesRestangular) {
+  var extendedMethods = {};
+
+  var trabajadoresResource = new RestObject('com.Siacpi.Ventas.Services/TrabajadoresService.svc/trabajadores', OpensalesRestangular, extendedMethods);
+
+  return trabajadoresResource;
 }]);
