@@ -73,7 +73,7 @@ angular.module('venta').controller('Venta.Configuracion.PuntoVenta.BuscarControl
         SCDialog.confirmDelete('Punto de venta', row.nombreObra, function() {
           OSPuntoVenta.$new(row.id).$remove().then(function(response) {
             toastr.success('Punto de venta eliminado');
-            $scope.$search();
+            $scope.search();
           }, function error(err) {
             toastr.error(err.data.message);
           });

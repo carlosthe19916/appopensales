@@ -2,32 +2,110 @@
 
 <form name="form" class="form-horizontal" novalidate>
 
-  <div class="form-group" data-ng-class="{ 'has-error' : form.denominacion.$invalid && form.$submitted }">
-    <label class="col-sm-2 control-label"><span class="required">*</span> Denominacion:</label>
-    <div class="col-sm-3">
-      <input name="denominacion" type="text" data-ng-model="view.caja.denominacion" data-ng-minlength="1" data-ng-maxlength="60" class="form-control" pf-focused="true" autofocus required/>
-      <div data-ng-messages="form.denominacion.$error" data-ng-if="form.$submitted">
-        <div class="has-error" data-ng-message="required">Ingrese denominacion.</div>
-        <div class="has-error" data-ng-message="minlength">Ingrese denominacion.</div>
-        <div class="has-error" data-ng-message="maxlength">Denominacion muy extensa, maximo 60 caracteres.</div>
+  <fieldset class="border-top">
+    <legend><span class="text ng-scope">Lugar de trabajo <i class="fa fa-question-circle text-muted ng-scope"
+                                                            uib-tooltip="Punto de venta en el que el trabajador se desempenara."
+                                                            uib-tooltip-placement="right"></i></span></legend>
+    <div class="form-group" ng-class="{ 'has-error' : form.puntoVenta.$invalid && form.$submitted}">
+      <label class="col-sm-2 control-label"><span class="required">*</span> Punto venta:</label>
+
+      <div class="col-sm-4">
+        <ui-select name="puntoVenta" ng-model="combo.selected.puntoVenta" pf-focused="true" autofocus required>
+          <ui-select-match placeholder="Punto venta">{{$select.selected.nombreObra}}</ui-select-match>
+          <ui-select-choices repeat="item in combo.puntoVenta | filter: $select.search">
+            <div ng-bind-html="item.nombreObra | highlight: $select.search"></div>
+          </ui-select-choices>
+        </ui-select>
+        <div ng-messages="form.puntoVenta.$error" ng-if="form.$submitted">
+          <div class="has-error" ng-message="required">Ingrese punto de venta.</div>
+        </div>
       </div>
     </div>
-  </div>
-  <div class="form-group" data-ng-class="{ 'has-error' : form.abreviatura.$invalid && form.$submitted }">
-    <label class="col-sm-2 control-label"><span class="required">*</span> Abreviatura:</label>
-    <div class="col-sm-3">
-      <input name="abreviatura" type="text" data-ng-model="view.caja.abreviatura" data-ng-minlength="1" data-ng-maxlength="20" class="form-control" required/>
-      <div data-ng-messages="form.abreviatura.$error" data-ng-if="form.$submitted">
-        <div class="has-error" data-ng-message="required">Ingrese abreviatura.</div>
-        <div class="has-error" data-ng-message="minlength">Ingrese abreviatura.</div>
-        <div class="has-error" data-ng-message="maxlength">Abreviatura muy extensa, maximo 20 caracteres.</div>
+  </fieldset>
+
+  <fieldset class="border-top">
+    <legend><span class="text ng-scope">Datos personales <i class="fa fa-question-circle text-muted ng-scope"
+                                                      uib-tooltip="Defina quien es la persona que sera registrada como trabajador."
+                                                      uib-tooltip-placement="right"></i></span></legend>
+    <div class="form-group"
+         data-ng-class="{ 'has-error' : (form.tipoDocumento.$invalid || form.numeroDocumento.$invalid ) && (form.$submitted || form.numeroDocumento.$dirty )}">
+      <label class="col-sm-2 control-label"><span class="required">*</span> Persona:</label>
+
+      <div class="col-sm-3">
+        <ui-select name="tipoDocumento" data-ng-model="combo.selected.tipoDocumento" required>
+          <ui-select-match placeholder="Documento">{{$select.selected.denominacion}}</ui-select-match>
+          <ui-select-choices repeat="item in combo.tipoDocumento | filter: $select.search">
+            <div data-ng-bind-html="item.abreviatura | highlight: $select.search"></div>
+          </ui-select-choices>
+        </ui-select>
+        <div data-ng-messages="form.tipoDocumento.$error" data-ng-if="form.tipoDocumento.$touched || form.$submitted">
+          <div class="has-error" data-ng-message="required">Ingrese documento.</div>
+        </div>
+      </div>
+      <div class="col-sm-3">
+        <div class="input-group">
+          <input type="text" name="numeroDocumento" data-ng-model="view.trabajador.numeroDocumento"
+                 ui-keypress="{13:'check($event)'}" data-ng-pattern="/^[0-9]+$/" data-ng-minlength="1" data-ng-maxlength="20"
+                 class="form-control" placeholder="Numero" required/>
+                    <span class="input-group-btn">
+                      <button type="button" data-ng-click="check()" uib-tooltip="Check" tooltip-trigger="mouseenter"
+                                                          uib-tooltip-placement="bottom" class="btn btn-default"><span class="glyphicon glyphicon-check"></span>
+                      </button>
+                    </span>
+        </div>
+        <div data-ng-messages="form.numeroDocumento.$error"
+             data-ng-if="form.numeroDocumento.$dirty || form.numeroDocumento.$touched || form.$submitted">
+          <div class="has-error" data-ng-message="required">Ingrese numero documento.</div>
+          <div class="has-error" data-ng-message="minlength">Debe tener <span
+            data-ng-bind="combo.selected.tipoDocumento.cantidadCaracteres"></span> digitos.
+          </div>
+          <div class="has-error" data-ng-message="maxlength">Debe tener <span
+            data-ng-bind="combo.selected.tipoDocumento.cantidadCaracteres"></span> digitos.
+          </div>
+          <div class="has-error" data-ng-message="pattern">Numero invalido.</div>
+        </div>
+      </div>
+      <div class="col-sm-3">
+        <div class="input-group">
+          <a href="" ui-sref="persona.app.persona.natural.crear">Crear</a>&nbsp;&nbsp;
+          <a href="" ui-sref="persona.app.persona.natural.buscar">Buscar</a>
+        </div>
       </div>
     </div>
-  </div>
+    <div class="form-group">
+      <label class="col-sm-2 control-label"></label>
+
+      <div class="col-sm-8">
+        <table ng-show="view.loaded.persona" class="table table-striped table-bordered table-condensed">
+          <thead>
+          <tr>
+            <th colspan="5">Persona seleccionada</th>
+          </tr>
+          <tr>
+            <th>Documento</th>
+            <th>Numero</th>
+            <th>Apellido paterno</th>
+            <th>Apellido materno</th>
+            <th>Nombres</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td><span data-ng-bind="view.loaded.persona.tipoDocumento"></span></td>
+            <td><span data-ng-bind="view.loaded.persona.numeroDocumento"></span></td>
+            <td><span data-ng-bind="view.loaded.persona.apellidoPaterno"></span></td>
+            <td><span data-ng-bind="view.loaded.persona.apellidoMaterno"></span></td>
+            <td><span data-ng-bind="view.loaded.persona.nombres"></span></td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </fieldset>
 
   <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
-      <button sc-save ng-disabled="working">
+      <button sc-save -save ng-disabled="working">
         <span ng-show="working">Guardando...</span>
         <span ng-hide="working">Guardar</span>
       </button>

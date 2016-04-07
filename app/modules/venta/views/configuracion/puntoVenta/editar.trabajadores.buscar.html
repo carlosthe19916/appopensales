@@ -3,7 +3,7 @@
     <table class="table table-striped table-bordered">
       <thead>
       <tr>
-        <th colspan="6">
+        <th colspan="8">
           <div class="form-inline">
             <div class="form-group">
               <div class="input-group">
@@ -24,17 +24,21 @@
         </th>
       </tr>
       <tr data-ng-show="gridOptions.data.length > 0">
-        <th>Denominacion</th>
-        <th class="hidden-xs">Abreviatura</th>
-        <th>Estado</th>
+        <th>Documento</th>
+        <th>Paterno</th>
+        <th class="hidden-xs">Materno</th>
+        <th>Nombres</th>
+        <th class="hidden-xs">Estado</th>
         <th colspan="3">Acciones</th>
       </tr>
       </thead>
       <tbody>
       <tr ng-repeat="item in gridOptions.data | filter: filterOptions.filterText">
-        <td class="clip">{{item.denominacion}}</td>
-        <td class="clip hidden-xs">{{item.abreviatura}}</td>
-        <td class="clip">{{item.estado | si_no : 'ACTIVO' | uppercase}}</td>
+        <td class="clip">{{item.numeroDocumento}}</td>
+        <td class="clip">{{item.apellidoPaterno}}</td>
+        <td class="clip hidden-xs">{{item.apellidoMaterno}}</td>
+        <td class="clip">{{item.nombres}}</td>
+        <td class="clip hidden-xs">{{item.estado | si_no : 'ACTIVO' | uppercase}}</td>
         <td class="kc-action-cell">
           <button class="btn btn-default btn-block btn-sm" data-ng-click="gridActions.edit(item)">Editar</button>
         </td>
