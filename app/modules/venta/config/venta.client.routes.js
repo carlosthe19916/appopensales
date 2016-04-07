@@ -10,6 +10,7 @@ angular.module('venta').config(['$stateProvider', '$urlRouterProvider',
     $urlRouterProvider.when('/venta/app/configuracion/puntosVenta/editar/:puntoVenta/cajas', '/venta/app/configuracion/puntosVenta/editar/:puntoVenta/cajas/buscar');
     $urlRouterProvider.when('/venta/app/configuracion/puntosVenta/editar/:puntoVenta/cajas/editar/:caja', '/venta/app/configuracion/puntosVenta/editar/:puntoVenta/cajas/editar/:caja/resumen');
     $urlRouterProvider.when('/venta/app/configuracion/puntosVenta/editar/:puntoVenta/trabajadores', '/venta/app/configuracion/puntosVenta/editar/:puntoVenta/trabajadores/buscar');
+    $urlRouterProvider.when('/venta/app/configuracion/puntosVenta/editar/:puntoVenta/trabajadores/editar/:trabajador', '/venta/app/configuracion/puntosVenta/editar/:puntoVenta/trabajadores/editar/:trabajador/resumen');
 
     $stateProvider
       .state('venta', {
@@ -267,6 +268,38 @@ angular.module('venta').config(['$stateProvider', '$urlRouterProvider',
         ncyBreadcrumb: {
           label: 'Crear trabajador',
           parent: 'venta.app.configuracion.puntoVenta.editar.trabajadores.buscar'
+        }
+      })
+      .state('venta.app.configuracion.puntoVenta.editar.trabajadores.editar', {
+        url: '/editar/:trabajador',
+        templateUrl: 'modules/venta/views/configuracion/puntoVenta/editar.trabajadores.editar.html',
+        resolve: {
+          trabajador: function ($state, $stateParams, OSTrabajador) {
+            return OSTrabajador.$find($stateParams.trabajador);
+          }
+        },
+        controller: 'Venta.Configuracion.PuntoVenta.Trabajador.EditarController',
+        ncyBreadcrumb: {
+          label: 'Editar trabajador',
+          parent: 'venta.app.configuracion.puntoVenta.editar.trabajadores.buscar'
+        }
+      })
+      .state('venta.app.configuracion.puntoVenta.editar.trabajadores.editar.resumen', {
+        url: '/resumen',
+        templateUrl: 'modules/venta/views/configuracion/puntoVenta/editar.trabajadores.editar.resumen.html',
+        controller: 'Venta.Configuracion.PuntoVenta.Trabajador.Editar.ResumenController',
+        resolve: {},
+        ncyBreadcrumb: {
+          skip: true // Never display this state in breadcrumb.
+        }
+      })
+      .state('venta.app.configuracion.puntoVenta.editar.trabajadores.editar.datosPrincipales', {
+        url: '/datosPrincipales',
+        templateUrl: 'modules/venta/views/configuracion/puntoVenta/editar.trabajadores.editar.datosPrincipales.html',
+        controller: 'Venta.Configuracion.PuntoVenta.Trabajador.Editar.DatosPrincipalesController',
+        resolve: {},
+        ncyBreadcrumb: {
+          label: 'Datos principales'
         }
       });
   }
