@@ -181,6 +181,12 @@ angular.module(ApplicationConfiguration.applicationModuleName).factory('OSCaja',
 
   var cuentasResource = new RestObject('com.Siacpi.Ventas.Services/CuentasService.svc/cuentas', OpensalesRestangular, extendedMethods);
 
+  cuentasResource.OSTrabajador = function () {
+    var extendMethod = {};
+    var trabajadorSubResource = new RestObject(this.$concatSubResourcePath('trabajadores'), OpensalesRestangular, extendMethod);
+    return trabajadorSubResource;
+  };
+
   return cuentasResource;
 }]);
 
