@@ -48,21 +48,12 @@
             </tr>
             </thead>
             <tbody>
-            <tr data-ng-if="!gridOptions.trabajador.data.length">
+            <tr data-ng-if="!view.load.cajas.length">
               <td class="text-muted" colspan="6">No existen cajas que mostrar.</td>
             </tr>
-            <tr data-ng-repeat="item in gridOptions.trabajador.data">
-              <td class="clip"><span data-ng-bind="item.tipoDocumento"></span></td>
-              <td class="clip"><span data-ng-bind="item.numeroDocumento"></span></td>
-              <td class="clip"><span data-ng-bind="item.apellidoPaterno"></span></td>
-              <td class="clip"><span data-ng-bind="item.apellidoMaterno"></span></td>
-              <td class="clip"><span data-ng-bind="item.nombres"></span></td>
-              <td class="kc-action-cell">
-                <button class="btn btn-default btn-block btn-sm" data-ng-click="gridActions.trabajador.edit(item)">Editar</button>
-              </td>
-              <td class="kc-action-cell">
-                <button class="btn btn-default btn-block btn-sm" data-ng-click="gridActions.trabajador.remove(item, $index)">Eliminar</button>
-              </td>
+            <tr data-ng-repeat="item in view.load.cajas">
+              <td class="clip"><span data-ng-bind="item.denominacion"></span></td>
+              <td class="clip"><span data-ng-bind="item.abreviatura"></span></td>
             </tr>
             </tbody>
           </table>

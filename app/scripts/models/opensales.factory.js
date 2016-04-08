@@ -189,5 +189,11 @@ angular.module(ApplicationConfiguration.applicationModuleName).factory('OSTrabaj
 
   var trabajadoresResource = new RestObject('com.Siacpi.Ventas.Services/TrabajadoresService.svc/trabajadores', OpensalesRestangular, extendedMethods);
 
+  trabajadoresResource.OSCaja = function () {
+    var extendMethod = {};
+    var cajaSubResource = new RestObject(this.$concatSubResourcePath('cuentas'), OpensalesRestangular, extendMethod);
+    return cajaSubResource;
+  };
+
   return trabajadoresResource;
 }]);
