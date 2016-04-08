@@ -21,7 +21,7 @@ angular.module('venta').controller('Venta.Configuracion.PuntoVenta.Trabajador.Ed
 
     $scope.desactivar = function () {
       SCDialog.confirm('Guardar', 'Estas seguro de desactivar el Trabajador?', function () {
-        $scope.view.caja.$disable().then(function (response) {
+        $scope.view.trabajador.$disable().then(function (response) {
           toastr.success('Trabajador desactivado.');
           $state.reload();
         }, function error(err) {

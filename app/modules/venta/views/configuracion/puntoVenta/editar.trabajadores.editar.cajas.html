@@ -1,0 +1,35 @@
+
+<form name="form" class="form-horizontal" novalidate>
+
+  <fieldset class="border-top">
+    <legend><span class="text">Asignar cajas <i class="fa fa-question-circle text-muted" uib-tooltip="Asignar cajas." uib-tooltip-placement="right"></i></span></legend>
+    <div class="form-group">
+      <label class="col-md-2 control-label">Cajas asignadas:</label>
+
+      <div class="col-md-10">
+        <div class="row">
+          <div class="col-md-3">
+            <label class="control-label">Cajas disponibles <i class="fa fa-question-circle text-muted" tooltip="Cajas existentes en en punto de venta." tooltip-placement="right"></i></label>
+            <select class="form-control" multiple size="5" data-ng-multiple="true" data-ng-model="combo.selected.bovedaDisponible" data-ng-options="c.denominacion for c in combo.bovedaDisponible">
+            </select>
+            <button class="btn btn-default" type="submit" data-ng-click="addBovedas()" tooltip="Asignar bovedas" tooltip-placement="right">
+              Asignar seleccionados <i class="fa fa-angle-double-right"></i>
+            </button>
+          </div>
+          <div class="col-md-3">
+            <label class="control-label">Cajas asignadas <i class="fa fa-question-circle text-muted" tooltip="Cajas asignadas al trabajador." tooltip-placement="right"></i></label>
+            <select class="form-control" multiple size="5" data-ng-multiple="true" ng-model="combo.selected.bovedaAsignada" data-ng-options="c.boveda.denominacion for c in combo.bovedaAsignada" disabled>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+  </fieldset>
+
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <button sc-cancel ui-sref="^.buscar" data-ng-disabled="working">Cancelar</button>
+    </div>
+  </div>
+
+</form>

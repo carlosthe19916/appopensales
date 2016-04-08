@@ -301,6 +301,15 @@ angular.module('venta').config(['$stateProvider', '$urlRouterProvider',
         ncyBreadcrumb: {
           label: 'Datos principales'
         }
+      })
+      .state('venta.app.configuracion.puntoVenta.editar.trabajadores.editar.cajas', {
+        url: '/cajas',
+        templateUrl: 'modules/venta/views/configuracion/puntoVenta/editar.trabajadores.editar.cajas.html',
+        controller: 'Venta.Configuracion.PuntoVenta.Trabajador.Editar.CajasController',
+        resolve: {},
+        ncyBreadcrumb: {
+          label: 'Cajas asignadas'
+        }
       });
   }
 ]);

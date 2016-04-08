@@ -6,18 +6,23 @@
       <div class="panel-body">
         <fieldset class="border-top" data-ng-mouseover="editDatosPrincipales = true" data-ng-mouseleave="editDatosPrincipales = false">
           <legend>
-            <span class="text">Datos principales</span>
+            <span class="text">Datos personales</span>
             <a href="" data-ng-show="editDatosPrincipales" ui-sref="^.datosPrincipales" class="pull-right" type="button"><i class="pficon pficon-edit"></i></a>
           </legend>
           <dl class="dl-horizontal left">
-            <dt>Denominacion:</dt>
-            <dd data-ng-if="view.caja.denominacion" data-ng-bind="view.caja.denominacion"></dd>
-            <dd data-ng-if="!view.caja.denominacion"><em>No registrado</em></dd>
-            <dt>Abreviatura:</dt>
-            <dd data-ng-if="view.caja.abreviatura" data-ng-bind="view.caja.abreviatura"></dd>
-            <dd data-ng-if="!view.caja.abreviatura"><em>No registrado</em></dd>
+            <dt>Nro.Documento:</dt>
+            <dd data-ng-if="view.trabajador.numeroDocumento" data-ng-bind="view.trabajador.numeroDocumento"></dd>
+            <dt>Paterno:</dt>
+            <dd data-ng-if="view.trabajador.apellidoPaterno" data-ng-bind="view.trabajador.apellidoPaterno"></dd>
+            <dd data-ng-if="!view.trabajador.apellidoPaterno"><em>No registrado</em></dd>
+            <dt>Materno:</dt>
+            <dd data-ng-if="view.trabajador.apellidoMaterno" data-ng-bind="view.trabajador.apellidoMaterno"></dd>
+            <dd data-ng-if="!view.trabajador.apellidoMaterno"><em>No registrado</em></dd>
+            <dt>Nombres:</dt>
+            <dd data-ng-if="view.trabajador.nombres" data-ng-bind="view.trabajador.nombres"></dd>
+            <dd data-ng-if="!view.trabajador.nombres"><em>No registrado</em></dd>
             <dt>Estado:</dt>
-            <dd data-ng-bind="view.caja.estado | si_no : 'ACTIVO' | uppercase"></dd>
+            <dd data-ng-bind="view.trabajador.estado | si_no : 'ACTIVO' | uppercase"></dd>
           </dl>
         </fieldset>
       </div>
@@ -26,59 +31,42 @@
   <div class="col-sm-6">
     <div class="panel panel-default">
       <div class="panel-body">
-        <fieldset class="border-top">
-          <legend><span class="text">Estado actual</span></legend>
-          <dl class="dl-horizontal left">
-            <dt>Saldo actual:</dt>
-            <dd data-ng-if="view.caja.saldo" data-ng-bind="view.caja.saldo"></dd>
-            <dd data-ng-if="!view.caja.saldo"><em>No registrado</em></dd>
-            <dt>Fecha apertura:</dt>
-            <dd data-ng-if="view.caja.fechaApertura" data-ng-bind="view.caja.fechaApertura"></dd>
-            <dd data-ng-if="!view.caja.fechaApertura"><em>No registrado</em></dd>
-            <dt>Fecha cierre:</dt>
-            <dd data-ng-if="view.caja.fechaApertura" data-ng-bind="view.caja.fechaApertura"></dd>
-            <dd data-ng-if="!view.caja.fechaApertura"><em>No registrado</em></dd>
-            <dt>Estado apertura:</dt>
-            <dd data-ng-bind="view.caja.estado | si_no : 'ABIERTO' | uppercase"></dd>
-          </dl>
-        </fieldset>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="row">
-  <div class="col-sm-12">
-    <div class="panel panel-default">
-      <div class="panel-body">
-        <fieldset class="border-top">
+        <fieldset class="border-top" data-ng-mouseover="editCajas = true" data-ng-mouseleave="editCajas = false">
           <legend>
-            <span class="text">Historiales</span>
+            <span class="text">Cajas asignadas</span>
+            <div class="pull-right">
+              <a href="" data-ng-show="editCajas" ui-sref="^.cajas" type="button"><i class="pficon pficon-edit"></i></a>
+              <a href="" data-ng-show="editCajas" ui-sref="^.cajas" type="button"><i class="pficon pficon-add-circle-o"></i></a>
+            </div>
           </legend>
-          <table class="table table-striped table-bordered table-condensed">
+
+          <table class="table table-striped table-bordered">
             <thead>
             <tr>
-              <th>Fecha apertura</th>
-              <th class="w-20">Abreviatura</th>
-              <th class="w-30" colspan="2">Acciones</th>
+              <th>Denominacion</th>
+              <th class="w-15">Abreviatura</th>
             </tr>
             </thead>
             <tbody>
-            <tr data-ng-if="!view.load.cajas.length">
-              <td class="text-muted" colspan="3">No existen cajas que mostrar.</td>
+            <tr data-ng-if="!gridOptions.trabajador.data.length">
+              <td class="text-muted" colspan="6">No existen cajas que mostrar.</td>
             </tr>
-            <tr data-ng-repeat="item in view.load.cajas">
-              <td class="clip"><span data-ng-bind="item.denominacion"></span></td>
-              <td class="clip"><span data-ng-bind="item.abreviatura"></span></td>
+            <tr data-ng-repeat="item in gridOptions.trabajador.data">
+              <td class="clip"><span data-ng-bind="item.tipoDocumento"></span></td>
+              <td class="clip"><span data-ng-bind="item.numeroDocumento"></span></td>
+              <td class="clip"><span data-ng-bind="item.apellidoPaterno"></span></td>
+              <td class="clip"><span data-ng-bind="item.apellidoMaterno"></span></td>
+              <td class="clip"><span data-ng-bind="item.nombres"></span></td>
               <td class="kc-action-cell">
-                <button class="btn btn-default btn-block btn-sm" data-ng-click="editCaja(item)">Editar</button>
+                <button class="btn btn-default btn-block btn-sm" data-ng-click="gridActions.trabajador.edit(item)">Editar</button>
               </td>
               <td class="kc-action-cell">
-                <button class="btn btn-default btn-block btn-sm" data-ng-click="removeCaja(item, $index)">Eliminar</button>
+                <button class="btn btn-default btn-block btn-sm" data-ng-click="gridActions.trabajador.remove(item, $index)">Eliminar</button>
               </td>
             </tr>
             </tbody>
           </table>
+
         </fieldset>
       </div>
     </div>

@@ -42,7 +42,7 @@ angular.module('venta').controller('Venta.Configuracion.PuntoVenta.Trabajador.Bu
       },
       disable: function (row) {
         SCDialog.confirm('Guardar', 'Estas seguro de desactivar el trabajador', function(){
-          OSCaja.$new(row.id).$disable().then(
+          OSTrabajador.$new(row.id).$disable().then(
             function (response) {
               toastr.success('Trabajador desactivado.');
               $scope.search();
