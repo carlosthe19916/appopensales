@@ -177,7 +177,11 @@ angular.module(ApplicationConfiguration.applicationModuleName).factory('OSPerson
 }]);
 
 angular.module(ApplicationConfiguration.applicationModuleName).factory('OSCaja', ['OpensalesRestangular', function (OpensalesRestangular) {
-  var extendedMethods = {};
+  var extendedMethods = {
+    $abrir: function () {
+      return OpensalesRestangular.one(this.$getBasePath(), this.id).all('abrir').post();
+    }
+  };
 
   var cuentasResource = new RestObject('com.Siacpi.Ventas.Services/CuentasService.svc/cuentas', OpensalesRestangular, extendedMethods);
 
@@ -185,6 +189,12 @@ angular.module(ApplicationConfiguration.applicationModuleName).factory('OSCaja',
     var extendMethod = {};
     var trabajadorSubResource = new RestObject(this.$concatSubResourcePath('trabajadores'), OpensalesRestangular, extendMethod);
     return trabajadorSubResource;
+  };
+
+  cuentasResource.OSCajaHistorialApertura = function () {
+    var extendMethod = {};
+    var historialSubResource = new RestObject(this.$concatSubResourcePath('historiales'), OpensalesRestangular, extendMethod);
+    return historialSubResource;
   };
 
   return cuentasResource;
