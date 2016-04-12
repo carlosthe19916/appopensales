@@ -4,6 +4,12 @@
 angular.module('venta').config(['$stateProvider', '$urlRouterProvider',
   function ($stateProvider, $urlRouterProvider) {
 
+    // venta START
+    $urlRouterProvider.when('/venta/app/operaciones/venta', '/venta/app/operaciones/venta/buscar');
+    $urlRouterProvider.when('/venta/app/operaciones/venta/buscar', '/venta/app/operaciones/venta/buscar/manual');
+    // venta END
+
+    // punto de venta START
     $urlRouterProvider.when('/venta/app/configuracion/puntosVenta', '/venta/app/configuracion/puntosVenta/buscar');
     $urlRouterProvider.when('/venta/app/configuracion/puntosVenta/editar/:puntoVenta', '/venta/app/configuracion/puntosVenta/editar/:puntoVenta/resumen');
 
@@ -11,6 +17,7 @@ angular.module('venta').config(['$stateProvider', '$urlRouterProvider',
     $urlRouterProvider.when('/venta/app/configuracion/puntosVenta/editar/:puntoVenta/cajas/editar/:caja', '/venta/app/configuracion/puntosVenta/editar/:puntoVenta/cajas/editar/:caja/resumen');
     $urlRouterProvider.when('/venta/app/configuracion/puntosVenta/editar/:puntoVenta/trabajadores', '/venta/app/configuracion/puntosVenta/editar/:puntoVenta/trabajadores/buscar');
     $urlRouterProvider.when('/venta/app/configuracion/puntosVenta/editar/:puntoVenta/trabajadores/editar/:trabajador', '/venta/app/configuracion/puntosVenta/editar/:puntoVenta/trabajadores/editar/:trabajador/resumen');
+    // punto de venta END
 
     $stateProvider
       .state('venta', {
@@ -99,16 +106,43 @@ angular.module('venta').config(['$stateProvider', '$urlRouterProvider',
         }
       })
 
+      //operaciones.venta START
       .state('venta.app.operaciones.venta', {
         url: '/venta',
-        templateUrl: 'modules/venta/views/venta/venta.crear.html',
+        templateUrl: 'modules/venta/views/operaciones/venta/venta.crear.html',
         controller: 'Venta.CrearController',
         resolve: {},
         ncyBreadcrumb: {
           skip: true
         }
       })
+      .state('venta.app.operaciones.venta.busqueda', {
+        url: '/buscar',
+        templateUrl: 'modules/venta/views/operaciones/venta/venta.crear.busquedaProducto.html',
+        controller: 'Venta.Crear.BusquedaProductoController',
+        resolve: {}
+      })
+      .state('venta.app.operaciones.venta.busqueda.manual', {
+        url: '/manual',
+        templateUrl: 'modules/venta/views/operaciones/venta/venta.crear.busquedaProducto.manual.html',
+        controller: 'Venta.Busqueda.BusquedaProducto.ManualController',
+        resolve: {}
+      })
+      .state('venta.app.operaciones.venta.busqueda.escaneo', {
+        url: '/escaneo',
+        templateUrl: 'modules/venta/views/operaciones/venta/venta.crear.busquedaProducto.escaneo.html',
+        controller: 'Venta.Busqueda.BusquedaProducto.EscaneoController',
+        resolve: {}
+      })
+      .state('venta.app.operaciones.venta.busqueda.filtro', {
+        url: '/filtro',
+        templateUrl: 'modules/venta/views/operaciones/venta/venta.crear.busquedaProducto.filtro.html',
+        controller: 'Venta.Busqueda.BusquedaProducto.FiltroController',
+        resolve: {}
+      })
+      //operaciones.venta END
 
+      //configuracion.puntoVenta START
       .state('venta.app.configuracion.puntoVenta', {
         url: '/puntosVenta',
         template: '<div ui-view></div>',
@@ -311,5 +345,6 @@ angular.module('venta').config(['$stateProvider', '$urlRouterProvider',
           label: 'Cajas asignadas'
         }
       });
+    //configuracion.puntoVenta END
   }
 ]);

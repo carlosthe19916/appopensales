@@ -1,0 +1,22 @@
+<div class="row">
+  <div class="col-sm-12">
+
+    <form name="form" class="form-horizontal" novalidate>
+      <div class="form-group" data-ng-class="{ 'has-error' : form.nombreObra.$invalid && form.$submitted }">
+        <label class="col-sm-3 control-label"><span class="required">*</span> Codigo:</label>
+        <div class="col-sm-9">
+          <input name="nombreObra" type="text" data-ng-model="view.puntoVenta.nombreObra" data-ng-minlength="1" data-ng-maxlength="200" class="form-control" pf-focused="true" autofocus required/>
+          <div data-ng-messages="form.nombreObra.$error" data-ng-if="form.$submitted">
+            <div class="has-error" data-ng-message="required">Ingrese nombre obra.</div>
+            <div class="has-error" data-ng-message="minlength">Ingrese nombre obra.</div>
+            <div class="has-error" data-ng-message="maxlength">Nombre obra muy extensa, maximo 200 caracteres.</div>
+          </div>
+        </div>
+      </div>
+    </form>
+
+    <div class="text-center" style="font-size: 15em;">
+      <i class="fa fa-barcode fa-6" aria-hidden="true"></i>
+    </div>
+  </div>
+</div>

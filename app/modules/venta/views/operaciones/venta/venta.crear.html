@@ -1,38 +1,135 @@
-<div ncy-breadcrumb></div>
-
-<h1>Abrir caja.<small> Saldo inicial del dia.</small></h1>
-
-<form name="form" class="form-horizontal" novalidate>
-
-  <div class="form-group" data-ng-class="{ 'has-error' : form.abreviatura.$invalid && form.abreviatura.$dirty }">
-    <label class="col-sm-2 control-label"><span class="required">*</span> Abreviatura:</label>
-    <div class="col-sm-3">
-      <table class="table table-condensed table-bordered table-striped">
-        <thead>
-        <tr>
-          <td>Denominacion</td>
-          <td>Cantidad</td>
-          <td>Sub total</td>
-        </tr>
-        </thead>
-        <tbody>
-        <tr data-ng-repeat="item in detalle">
-          <td>{{item.denominacion}}</td>
-          <td>{{item.cantidad}}</td>
-          <td>{{item.getSubtotal()}}</td>
-        </tr>
-        </tbody>
-      </table>
+<div class="row">
+  <div class="col-sm-6 col-md-7">
+    <div class="page-header page-header-bleed-right">
+      <div class="actions pull-right">
+        <a href=""><span class="pficon pficon-refresh"></span> Limpiar</a>
+      </div>
+      <h1><strong>Registro de venta</strong></h1>
     </div>
-  </div>
 
-  <div class="form-group">
-    <div class="col-sm-offset-2 col-sm-10">
-      <button sg-save ng-disabled="working">
-        <span ng-show="working">Guardando...</span>
-        <span ng-hide="working">Guardar</span>
-      </button>
-      <button sg-cancel ng-disabled="working" ui-sref="^.buscar">Cancelar</button>
-    </div>
+    <fieldset class="border-top">
+      <legend><span class="text ng-scope">Resumen <i class="fa fa-question-circle text-muted ng-scope"
+                                                              uib-tooltip="Resumen del dinero a cobrar."
+                                                              uib-tooltip-placement="right"></i></span></legend>
+      <ul class="list-inline pull-right">
+        <li>Sub total:&nbsp;<span>S/200.412.50</span></li>
+        <li>IGV(19%):&nbsp;<span>S/.412.50</span></li>
+        <li><strong>Total:</strong>&nbsp;<span style="font-size: x-large;">S/.265,412.50</span></li>
+      </ul>
+    </fieldset>
+
+    <fieldset class="border-top">
+      <legend><span class="text ng-scope">Detalle de venta <i class="fa fa-question-circle text-muted ng-scope"
+                                                     uib-tooltip="Cliente que realiza la compra."
+                                                     uib-tooltip-placement="right"></i></span></legend>
+      <div class="row">
+        <div class="col-sm-6">
+          <form name="form" class="form-horizontal" novalidate>
+            <div class="form-group">
+              <label class="col-sm-3 control-label">Documento:</label>
+              <div class="col-sm-9">
+                <input name="nombreObra" type="text" data-ng-model="view.puntoVenta.nombreObra" data-ng-maxlength="20"
+                       class="form-control" pf-focused="true" autofocus/>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="col-sm-6">
+          <blockquote class="blockquote-reverse">
+            <footer><strong>DNI:</strong> 46779354</footer>
+            <p><span>Feria Vila Carlos Esteban</span></p>
+          </blockquote>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12">
+          <table class="table table-bordered table-striped table-condensed" style="margin-top: 0px;">
+            <thead>
+            <tr>
+              <th class="text-right">Nro</th>
+              <th class="text-left">Codigo</th>
+              <th class="text-left w-40">Descripcion</th>
+              <th class="text-right">Cantidad</th>
+              <th class="text-right">Precio unitario</th>
+              <th class="text-right">Subtotal</th>
+              <th class="text-center" colspan="2">Acciones</th>
+            </tr>
+            </thead>
+            <tfoot>
+            <tr>
+              <td class="text-right" colspan="5"><strong>Total</strong></td>
+              <td class="text-left" colspan="3"><strong>316,546.36</strong></td>
+            </tr>
+            </tfoot>
+            <tbody>
+            <tr>
+              <th class="text-right clip">1</th>
+              <td class="text-left clip">2547821</td>
+              <td class="text-left clip">Caja de llantas negras 15kg</td>
+              <td class="text-right clip">02</td>
+              <td class="text-right clip">150.50</td>
+              <td class="text-right clip">301.00</td>
+              <td class="os-action-cell">
+                <button class="btn btn-default btn-block btn-sm" data-ng-click="gridActions.trabajador.edit(item)">
+                  <i class="fa fa-pencil-square-o"></i>
+                </button>
+              </td>
+              <td class="os-action-cell">
+                <button class="btn btn-default btn-block btn-sm" data-ng-click="gridActions.trabajador.remove(item, $index)">
+                  <i class="fa fa-share"></i>
+                </button>
+              </td>
+            </tr>
+            <tr>
+              <th class="text-right clip">1</th>
+              <td class="text-left clip">2547821</td>
+              <td class="text-left clip">Caja de llantas negras 15kg</td>
+              <td class="text-right clip">02</td>
+              <td class="text-right clip">150.50</td>
+              <td class="text-right clip">301.00</td>
+              <td class="os-action-cell">
+                <button class="btn btn-default btn-block btn-sm" data-ng-click="gridActions.trabajador.edit(item)">
+                  <i class="fa fa-pencil-square-o"></i>
+                </button>
+              </td>
+              <td class="os-action-cell">
+                <button class="btn btn-default btn-block btn-sm" data-ng-click="gridActions.trabajador.remove(item, $index)">
+                  <i class="fa fa-share"></i>
+                </button>
+              </td>
+            </tr>
+            <tr>
+              <th class="text-right clip">1</th>
+              <td class="text-left clip">2547821</td>
+              <td class="text-left clip">Caja de llantas negras 15kg</td>
+              <td class="text-right clip">02</td>
+              <td class="text-right clip">150.50</td>
+              <td class="text-right clip">301.00</td>
+              <td class="os-action-cell">
+                <button class="btn btn-default btn-block btn-sm" data-ng-click="gridActions.trabajador.edit(item)">
+                  <i class="fa fa-pencil-square-o"></i>
+                </button>
+              </td>
+              <td class="os-action-cell">
+                <button class="btn btn-default btn-block btn-sm" data-ng-click="gridActions.trabajador.remove(item, $index)">
+                  <i class="fa fa-share"></i>
+                </button>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </fieldset>
+
   </div>
-</form>
+  <div class="col-sm-6 col-md-5 sidebar-pf sidebar-pf-right">
+    <div class="sidebar-header sidebar-header-bleed-left sidebar-header-bleed-right">
+      <div class="actions pull-right">
+        <a href="">Limpiar</a>
+      </div>
+      <h2 class="h5">Busqueda de productos</h2>
+    </div>
+    <div ui-view></div>
+  </div>
+</div>
