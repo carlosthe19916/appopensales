@@ -53,8 +53,7 @@
                       </button>
                     </span>
         </div>
-        <div data-ng-messages="form.numeroDocumento.$error"
-             data-ng-if="form.numeroDocumento.$dirty || form.numeroDocumento.$touched || form.$submitted">
+        <div data-ng-messages="form.numeroDocumento.$error" data-ng-if="form.numeroDocumento.$dirty || form.numeroDocumento.$touched || form.$submitted">
           <div class="has-error" data-ng-message="required">Ingrese numero documento.</div>
           <div class="has-error" data-ng-message="minlength">Debe tener <span
             data-ng-bind="combo.selected.tipoDocumento.cantidadCaracteres"></span> digitos.

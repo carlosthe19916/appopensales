@@ -1,14 +1,12 @@
 <h1>Venta manual</h1>
 
-<form name="form" class="form-horizontal" novalidate>
+<form name="form" class="form-horizontal" data-ng-submit="addProducto()" novalidate>
 
   <div class="form-group" data-ng-class="{ 'has-error' : form.codigo.$invalid && form.$submitted }">
-    <label class="col-sm-3 control-label"><span class="required">*</span> Codigo:</label>
+    <label class="col-sm-3 control-label">Codigo:</label>
     <div class="col-sm-3">
-      <input name="codigo" type="text" data-ng-model="view.producto.codigo" ui-mask="(AAA)-999-***-" data-ng-minlength="1" data-ng-maxlength="30" class="form-control" placeholder="(XXX)-574-H8P" pf-focused="true" autofocus required/>
+      <input name="codigo" type="text" data-ng-model="view.producto.codigo" ui-mask="99999" data-ng-maxlength="30" class="form-control" pf-focused="true" autofocus/>
       <div data-ng-messages="form.codigo.$error" data-ng-if="form.$submitted">
-        <div class="has-error" data-ng-message="required">Ingrese codigo.</div>
-        <div class="has-error" data-ng-message="minlength">Ingrese codigo.</div>
         <div class="has-error" data-ng-message="maxlength">Codigo muy extenso, maximo 30 caracteres.</div>
       </div>
     </div>
@@ -27,34 +25,30 @@
   <div class="form-group" data-ng-class="{ 'has-error' : form.precio.$invalid && form.$submitted }">
     <label class="col-sm-3 control-label"><span class="required">*</span> Precio unitario:</label>
     <div class="col-sm-3">
-      <input name="precio" type="text" data-ng-model="view.producto.precio" ui-number-mask="2" min="0" max="9999999" data-ng-minlength="1" data-ng-maxlength="7" placeholder="0.00" class="form-control" required/>
+      <input name="precio" type="text" data-ng-model="view.producto.precio" ui-number-mask="2" min="0" max="9999999" class="form-control" required/>
       <div data-ng-messages="form.precio.$error" data-ng-if="form.$submitted">
         <div class="has-error" data-ng-message="required">Ingrese precio.</div>
-        <div class="has-error" data-ng-message="minlength">Ingrese precio.</div>
-        <div class="has-error" data-ng-message="maxlength">Numero muy extenso, maximo 7 digitos.</div>
         <div class="has-error" data-ng-message="min">minimo 0.</div>
-        <div class="has-error" data-ng-message="max">maximo 9999999.</div>
+        <div class="has-error" data-ng-message="max">maximo 9,999,999.</div>
       </div>
     </div>
   </div>
   <div class="form-group" data-ng-class="{ 'has-error' : form.cantidad.$invalid && form.$submitted }">
     <label class="col-sm-3 control-label"><span class="required">*</span> Cantidad:</label>
     <div class="col-sm-3">
-      <input name="cantidad" type="text" data-ng-model="view.producto.cantidad" ui-number-mask="0" min="0" max="99999" data-ng-minlength="1" data-ng-maxlength="5" placeholder="0" class="form-control" required/>
+      <input name="cantidad" type="text" data-ng-model="view.producto.cantidad" ui-number-mask="0" min="0" max="99999" class="form-control" required/>
       <div data-ng-messages="form.cantidad.$error" data-ng-if="form.$submitted">
         <div class="has-error" data-ng-message="required">Ingrese cantidad.</div>
-        <div class="has-error" data-ng-message="minlength">Ingrese cantidad.</div>
-        <div class="has-error" data-ng-message="maxlength">Numero muy extenso, maximo 5 digitos.</div>
         <div class="has-error" data-ng-message="min">minimo 0.</div>
-        <div class="has-error" data-ng-message="max">maximo 99999.</div>
+        <div class="has-error" data-ng-message="max">maximo 99,999.</div>
       </div>
     </div>
   </div>
 
   <div class="form-group">
     <div class="col-sm-offset-3 col-sm-9">
-      <button type="button" class="btn btn-default">
-        <i class="fa fa-reply-all" aria-hidden="true"></i>&nbsp;A&ntilde;adir
+      <button type="submit" class="btn btn-default">
+        <i class="fa fa-reply-all"></i>&nbsp;A&ntilde;adir
       </button>
     </div>
   </div>

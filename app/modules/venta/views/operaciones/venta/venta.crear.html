@@ -12,8 +12,6 @@
                                                               uib-tooltip="Resumen del dinero a cobrar."
                                                               uib-tooltip-placement="right"></i></span></legend>
       <ul class="list-inline pull-right">
-        <li>Sub total:&nbsp;<span>S/200.412.50</span></li>
-        <li>IGV(19%):&nbsp;<span>S/.412.50</span></li>
         <li><strong>Total:</strong>&nbsp;<span style="font-size: x-large;">S/.265,412.50</span></li>
       </ul>
     </fieldset>
@@ -25,19 +23,25 @@
       <div class="row">
         <div class="col-sm-6">
           <form name="form" class="form-horizontal" novalidate>
-            <div class="form-group">
-              <label class="col-sm-3 control-label">Documento:</label>
-              <div class="col-sm-9">
-                <input name="nombreObra" type="text" data-ng-model="view.puntoVenta.nombreObra" data-ng-maxlength="20"
-                       class="form-control" pf-focused="true" autofocus/>
+            <div class="form-group" data-ng-class="{ 'has-error' : form.numeroDocumento.$invalid && (form.$submitted || form.numeroDocumento.$dirty )}">
+              <label class="col-sm-4 control-label">Cliente:</label>
+              <div class="col-sm-8">
+                <div class="input-group">
+                  <input type="text" name="numeroDocumento" data-ng-model="view.load.cliente.numeroDocumento" ui-keypress="{13:'buscarCliente($event)'}" data-ng-pattern="/^[0-9]+$/" data-ng-maxlength="20" class="form-control" placeholder="Numero"/>
+                  <span class="input-group-btn"><button type="button" data-ng-click="buscarCliente()" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button></span>
+                </div>
+                <div data-ng-messages="form.numeroDocumento.$error" data-ng-if="form.numeroDocumento.$dirty || form.numeroDocumento.$touched || form.$submitted">
+                  <div class="has-error" data-ng-message="maxlength">Debe tener 20 digitos.</div>
+                  <div class="has-error" data-ng-message="pattern">Numero invalido.</div>
+                </div>
               </div>
             </div>
           </form>
         </div>
         <div class="col-sm-6">
           <blockquote class="blockquote-reverse">
-            <footer><strong>DNI:</strong> 46779354</footer>
-            <p><span>Feria Vila Carlos Esteban</span></p>
+            <footer><strong>DNI:&nbsp;</strong><span data-ng-bind="view.load.cliente.numeroDocumento"></span></footer>
+            <p><span data-ng-bind-template="{{view.load.cliente.apellidoPaterno | lowercase }}&nbsp;{{view.load.cliente.apellidoMaterno | lowercase}},&nbsp;{{view.load.cliente.nombres | lowercase}}"></span></p>
           </blockquote>
         </div>
       </div>
@@ -55,63 +59,30 @@
               <th class="text-center" colspan="2">Acciones</th>
             </tr>
             </thead>
-            <tfoot>
+            <tfoot data-ng-if="view.productos.length">
             <tr>
               <td class="text-right" colspan="5"><strong>Total</strong></td>
               <td class="text-left" colspan="3"><strong>316,546.36</strong></td>
             </tr>
             </tfoot>
             <tbody>
-            <tr>
-              <th class="text-right clip">1</th>
-              <td class="text-left clip">2547821</td>
-              <td class="text-left clip">Caja de llantas negras 15kg</td>
-              <td class="text-right clip">02</td>
-              <td class="text-right clip">150.50</td>
-              <td class="text-right clip">301.00</td>
-              <td class="os-action-cell">
-                <button class="btn btn-default btn-block btn-sm" data-ng-click="gridActions.trabajador.edit(item)">
-                  <i class="fa fa-pencil-square-o"></i>
-                </button>
-              </td>
-              <td class="os-action-cell">
-                <button class="btn btn-default btn-block btn-sm" data-ng-click="gridActions.trabajador.remove(item, $index)">
-                  <i class="fa fa-share"></i>
-                </button>
-              </td>
+            <tr data-ng-if="!view.productos.length">
+              <td class="text-muted" colspan="7">No existen productos que mostrar.</td>
             </tr>
-            <tr>
-              <th class="text-right clip">1</th>
-              <td class="text-left clip">2547821</td>
-              <td class="text-left clip">Caja de llantas negras 15kg</td>
-              <td class="text-right clip">02</td>
-              <td class="text-right clip">150.50</td>
-              <td class="text-right clip">301.00</td>
+            <tr data-ng-repeat="item in view.productos">
+              <th class="text-right clip">{{$index+1}}</th>
+              <td class="text-left clip"><span data-ng-bind="item.codigo"></span></td>
+              <td class="text-left clip"><span data-ng-bind="item.descripcion"></span></td>
+              <td class="text-right clip"><span data-ng-bind="item.cantidad | number : 0"></span></td>
+              <td class="text-right clip"><span data-ng-bind="item.precio | number : 2"></span></td>
+              <td class="text-right clip"><span data-ng-bind="(item.precio * item.cantidad) | number : 2"></span></td>
               <td class="os-action-cell">
                 <button class="btn btn-default btn-block btn-sm" data-ng-click="gridActions.trabajador.edit(item)">
                   <i class="fa fa-pencil-square-o"></i>
                 </button>
               </td>
               <td class="os-action-cell">
-                <button class="btn btn-default btn-block btn-sm" data-ng-click="gridActions.trabajador.remove(item, $index)">
-                  <i class="fa fa-share"></i>
-                </button>
-              </td>
-            </tr>
-            <tr>
-              <th class="text-right clip">1</th>
-              <td class="text-left clip">2547821</td>
-              <td class="text-left clip">Caja de llantas negras 15kg</td>
-              <td class="text-right clip">02</td>
-              <td class="text-right clip">150.50</td>
-              <td class="text-right clip">301.00</td>
-              <td class="os-action-cell">
-                <button class="btn btn-default btn-block btn-sm" data-ng-click="gridActions.trabajador.edit(item)">
-                  <i class="fa fa-pencil-square-o"></i>
-                </button>
-              </td>
-              <td class="os-action-cell">
-                <button class="btn btn-default btn-block btn-sm" data-ng-click="gridActions.trabajador.remove(item, $index)">
+                <button class="btn btn-default btn-block btn-sm" data-ng-click="devolverProducto(item, $index)">
                   <i class="fa fa-share"></i>
                 </button>
               </td>
