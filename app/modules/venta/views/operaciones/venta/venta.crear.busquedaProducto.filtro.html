@@ -23,6 +23,9 @@
   </tr>
   </thead>
   <tbody>
+  <tr data-ng-if="!gridOptions.data.length">
+    <td colspan="4"><span class="text-muted">No existen resultados que mostrar.</span></td>
+  </tr>
   <tr data-ng-repeat="item in gridOptions.data">
     <td>{{item.denominacion}}</td>
     <td>{{item.precio}}</td>

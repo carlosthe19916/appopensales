@@ -4,7 +4,7 @@
 angular.module('venta').controller('Venta.Busqueda.BusquedaProducto.BrowseController',
   function ($scope, $state, OSProducto) {
 
-    var paginationOptions = {
+    $scope.paginationOptions = {
       page: 1,
       pageSize: 5
     };
@@ -13,8 +13,14 @@ angular.module('venta').controller('Venta.Busqueda.BusquedaProducto.BrowseContro
       filterText: undefined
     };
 
+    $scope.showMode = {
+      values: ['default', 'large', 'list'],
+      selected: 'default'
+    };
+
     $scope.gridOptions = {
       data: [],
+      totalItems: 0,
       config: {
         selectItems: false,
         multiSelect: false,
@@ -67,7 +73,7 @@ angular.module('venta').controller('Venta.Busqueda.BusquedaProducto.BrowseContro
         filterText: $scope.filterOptions.filterText,
         filters: [],
         orders: [],
-        paging: paginationOptions
+        paging: $scope.paginationOptions
       };
 
       OSProducto.$search(criteria).then(function (response) {
