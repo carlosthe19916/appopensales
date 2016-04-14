@@ -23,9 +23,9 @@
   </tr>
   </thead>
   <tbody>
-  <tr>
-    <td>Lata de leche de 15 79kg</td>
-    <td>658,258.50</td>
+  <tr data-ng-repeat="item in gridOptions.data">
+    <td>{{item.denominacion}}</td>
+    <td>{{item.precio}}</td>
     <td class="os-action-cell">
       <button class="btn btn-default btn-block btn-sm" data-ng-click="gridActions.edit(item)"><i class="fa fa-reply"></i></button>
     </td>

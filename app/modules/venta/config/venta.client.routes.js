@@ -137,7 +137,7 @@ angular.module('venta').config(['$stateProvider', '$urlRouterProvider',
       .state('venta.app.operaciones.venta.busqueda.filtro', {
         url: '/filtro',
         templateUrl: 'modules/venta/views/operaciones/venta/venta.crear.busquedaProducto.filtro.html',
-        controller: 'Venta.Busqueda.BusquedaProducto.EscaneoController',
+        controller: 'Venta.Busqueda.BusquedaProducto.FiltroController',
         resolve: {}
       })
       .state('venta.app.operaciones.venta.busqueda.browse', {
