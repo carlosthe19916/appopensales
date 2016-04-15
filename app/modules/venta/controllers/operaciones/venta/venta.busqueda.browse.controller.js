@@ -4,13 +4,15 @@
 angular.module('venta').controller('Venta.Busqueda.BusquedaProducto.BrowseController',
   function ($scope, $state, OSProducto) {
 
-    $scope.paginationOptions = {
-      page: 1,
-      pageSize: 5
+    var handleSelect = function (item, e) {};
+    var handleSelectionChange = function (selectedItems, e) {};
+    var handleClick = function (item, e) {};
+    var handleDblClick = function (item, e) {
+      $scope.addProducto(item);
     };
-
-    $scope.filterOptions = {
-      filterText: undefined
+    var handleCheckBoxChange = function (item, selected, e) {};
+    var checkDisabledItem = function (item) {
+      return !item.estado;
     };
 
     $scope.showMode = {
@@ -18,6 +20,13 @@ angular.module('venta').controller('Venta.Busqueda.BusquedaProducto.BrowseContro
       selected: 'default'
     };
 
+    $scope.paginationOptions = {
+      page: 1,
+      pageSize: 5
+    };
+    $scope.filterOptions = {
+      filterText: undefined
+    };
     $scope.gridOptions = {
       data: [],
       totalItems: 0,
@@ -37,35 +46,12 @@ angular.module('venta').controller('Venta.Busqueda.BusquedaProducto.BrowseContro
       },
       actionButtons: [],
       menuActions: [],
-      enableButtonForItemFn: function(action, item) {
+      enableButtonForItemFn: function (action, item) {
         return true;
       },
-      updateMenuActionForItemFn: function(action, item) {
+      updateMenuActionForItemFn: function (action, item) {
         action.isVisible = true;
       }
-    };
-
-    var handleSelect = function (item, e) {
-      $scope.eventText = item.name + ' selected\r\n' + $scope.eventText;
-    };
-    var handleSelectionChange = function (selectedItems, e) {
-      $scope.eventText = selectedItems.length + ' items selected\r\n' + $scope.eventText;
-    };
-    var handleClick = function (item, e) {
-      $scope.eventText = item.name + ' clicked\r\n' + $scope.eventText;
-    };
-    var handleDblClick = function (item, e) {
-      $scope.eventText = item.name + ' double clicked\r\n' + $scope.eventText;
-    };
-    var handleCheckBoxChange = function (item, selected, e) {
-      $scope.eventText = item.name + ' checked: ' + item.selected + '\r\n' + $scope.eventText;
-    };
-    var checkDisabledItem = function(item) {
-      return $scope.showDisabled && (item.name === "John Smith");
-    };
-
-    var performAction = function (action, item) {
-      $scope.eventText = item.name + " : " + action.name + "\r\n" + $scope.eventText;
     };
 
     $scope.search = function () {
@@ -82,6 +68,11 @@ angular.module('venta').controller('Venta.Busqueda.BusquedaProducto.BrowseContro
       }, function error(err) {
         toastr.error('El servidor no responde, intentelo nuevamente.');
       });
+    };
+
+    $scope.addProducto = function (item) {
+      var producto = angular.copy(item);
+      $scope.$parent.view.productos.push(producto);
     };
 
   }
