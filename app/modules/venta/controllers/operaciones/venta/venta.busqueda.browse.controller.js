@@ -2,19 +2,42 @@
 
 /* jshint -W098 */
 angular.module('venta').controller('Venta.Busqueda.BusquedaProducto.BrowseController',
-  function ($scope, $state, OSProducto) {
+  function ($scope, $state, $uibModal, SCDialog, OSProducto) {
 
-    var handleSelect = function (item, e) {};
-    var handleSelectionChange = function (selectedItems, e) {};
-    var handleClick = function (item, e) {};
-    var handleDblClick = function (item, e) {
-      $scope.addProducto(item);
+    var handleSelect = function (item, e) { return angular.noop; };
+    var handleSelectionChange = function (selectedItems, e) { return angular.noop;  };
+    var handleClick = function (item, e) { return angular.noop; };
+    var handleDblClick = function (item, e) { actionEnviar(item, e); };
+    var handleCheckBoxChange = function (item, selected, e) { return angular.noop;  };
+    var checkDisabledItem = function (item) { return (!item.estado || item.estado == '0'); };
+
+    var actionEnviar = function (item, e) {
+      var modalInstance = $uibModal.open({
+        templateUrl: 'modules/venta/views/operaciones/venta/venta.crear.modal.cantidadProducto.html',
+        controller: 'Venta.Crear.Modal.CantidadProductoController'
+      });
+      modalInstance.result.then(function (cantidad) {
+        item.cantidad = cantidad;
+        $scope.addProducto(item);
+      }, function () {});
     };
-    var handleCheckBoxChange = function (item, selected, e) {};
-    var checkDisabledItem = function (item) {
-      return !item.estado;
+    var actionVer = function (item, e) {
+      var modalInstance = $uibModal.open({
+        templateUrl: 'modules/venta/views/operaciones/venta/venta.crear.modal.verProducto.html',
+        controller: 'Venta.Crear.Modal.VerProductoController'
+      });
+      modalInstance.result.then(function (cantidad) {
+        item.cantidad = cantidad;
+        $scope.addProducto(item);
+      }, function () {});
     };
 
+    $scope.addProducto = function (item) {
+      var producto = angular.copy(item);
+      $scope.$parent.view.productos.push(producto);
+    };
+
+    /***/
     $scope.showMode = {
       values: ['default', 'large', 'list'],
       selected: 'default'
@@ -44,8 +67,25 @@ angular.module('venta').controller('Venta.Busqueda.BusquedaProducto.BrowseContro
         onClick: handleClick,
         onDblClick: handleDblClick
       },
-      actionButtons: [],
-      menuActions: [],
+      actionButtons: [
+        {
+          name: 'Enviar',
+          actionFn: actionEnviar
+        },
+        {
+          name: 'Ver',
+          actionFn: actionVer
+        }
+      ],
+      menuActions: [
+        /*{ name: 'Action', title: 'Perform an action', actionFn: angular.noop },
+        { name: 'Another Action', title: 'Do something else', actionFn: angular.noop },
+        { name: 'Disabled Action', title: 'Unavailable action', actionFn: angular.noop, isDisabled: true },
+        { name: 'Something Else', title: '', actionFn: angular.noop },
+        { isSeparator: true },
+        { name: 'Grouped Action 1', title: 'Do something',  actionFn: angular.noop },
+        { name: 'Grouped Action 2', title: 'Do something similar', actionFn: angular.noop }*/
+      ],
       enableButtonForItemFn: function (action, item) {
         return true;
       },
@@ -68,11 +108,6 @@ angular.module('venta').controller('Venta.Busqueda.BusquedaProducto.BrowseContro
       }, function error(err) {
         toastr.error('El servidor no responde, intentelo nuevamente.');
       });
-    };
-
-    $scope.addProducto = function (item) {
-      var producto = angular.copy(item);
-      $scope.$parent.view.productos.push(producto);
     };
 
   }

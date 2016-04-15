@@ -17,24 +17,38 @@
   <tr>
   <tr>
     <th class="w-60">Descripcion</th>
-    <th>Precio</th>
+    <th class="text-right">Precio</th>
+    <th class="text-right">Stock</th>
     <th colspan="2">Acciones</th>
   </tr>
   </tr>
   </thead>
   <tbody>
   <tr data-ng-if="!gridOptions.data.length">
-    <td colspan="4"><span class="text-muted">No existen resultados que mostrar.</span></td>
+    <td colspan="5"><span class="text-muted">No existen resultados que mostrar.</span></td>
   </tr>
   <tr data-ng-repeat="item in gridOptions.data">
     <td>{{item.denominacion}}</td>
-    <td>{{item.precio}}</td>
+    <td class="text-right">{{item.precio | number : 2}}</td>
+    <td class="text-right">&infin;</td>
     <td class="os-action-cell">
-      <button class="btn btn-default btn-block btn-sm" data-ng-click="gridActions.edit(item)"><i class="fa fa-reply"></i></button>
+      <button class="btn btn-default btn-block btn-sm" data-ng-click="gridActions.enviar(item)"><i class="fa fa-reply"></i></button>
     </td>
     <td class="os-action-cell">
-      <button class="btn btn-default btn-block btn-sm" data-ng-click="gridActions.remove(item)"><i class="fa fa-eye"></i></button>
+      <button class="btn btn-default btn-block btn-sm" data-ng-click="gridActions.ver(item)"><i class="fa fa-eye"></i></button>
     </td>
   </tr>
   </tbody>
+  <tfoot data-ng-show="gridOptions.data.length > 0">
+  <tr>
+    <td colspan="7">
+      <uib-pagination rotate="true" force-ellipses="false" boundary-links="true"
+                      max-size="3" items-per-page="10" total-items="gridOptions.totalItems"
+                      data-ng-model="paginationOptions.page" data-ng-change="search()"
+                      previous-text="&lsaquo;" next-text="&rsaquo;"
+                      first-text="&laquo;" last-text="&raquo;"
+                      style="margin: 5px; float: right;"></uib-pagination>
+    </td>
+  </tr>
+  </tfoot>
 </table>

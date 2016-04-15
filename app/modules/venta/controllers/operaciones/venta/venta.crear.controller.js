@@ -4,6 +4,8 @@
 angular.module('venta').controller('Venta.CrearController',
   function ($scope, $state, toastr, SCDialog, OSPersona) {
 
+    $scope.working = false;
+
     $scope.view = {
       productos: []
     };
@@ -41,6 +43,28 @@ angular.module('venta').controller('Venta.CrearController',
       SCDialog.confirm('Guardar', 'Estas seguro de devolver el producto?', function () {
         $scope.view.productos.splice($index, 1);
       });
+    };
+
+    $scope.save = function () {
+      SCDialog.confirm('Guardar', 'Estas seguro de realizar la venta?', function () {
+        $scope.working = true;
+        /*$scope.view.puntoVenta.$save().then(
+          function (response) {
+            $scope.working = false;
+            toastr.success('Punto de venta creado.');
+            $state.go('^.editar', {puntoVenta: response.id});
+          },
+          function error(err) {
+            $scope.working = false;
+            toastr.error(err.data.message);
+          }
+        );*/
+      });
+    };
+
+    $scope.limpiar = function () {
+      $scope.view.productos = [];
+      $scope.view.load.cliente = {};
     };
 
   }
