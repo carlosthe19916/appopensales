@@ -7,21 +7,23 @@ angular.module('venta').controller('Venta.Busqueda.BusquedaProducto.BrowseContro
     var handleSelect = function (item, e) { return angular.noop; };
     var handleSelectionChange = function (selectedItems, e) { return angular.noop;  };
     var handleClick = function (item, e) { return angular.noop; };
-    var handleDblClick = function (item, e) { actionEnviar(item, e); };
+    var handleDblClick = function (item, e) { actionEnviar(e, item); };
     var handleCheckBoxChange = function (item, selected, e) { return angular.noop;  };
     var checkDisabledItem = function (item) { return (!item.estado || item.estado == '0'); };
 
-    var actionEnviar = function (item, e) {
+    var actionEnviar = function (e, item) {
       var modalInstance = $uibModal.open({
         templateUrl: 'modules/venta/views/operaciones/venta/venta.crear.modal.cantidadProducto.html',
-        controller: 'Venta.Crear.Modal.CantidadProductoController'
+        controller: 'Venta.Crear.Modal.CantidadProductoController',
+        resolve: {
+          producto: item
+        }
       });
-      modalInstance.result.then(function (cantidad) {
-        item.cantidad = cantidad;
-        $scope.addProducto(item);
+      modalInstance.result.then(function (itemUpdated) {
+        $scope.addProducto(itemUpdated);
       }, function () {});
     };
-    var actionVer = function (item, e) {
+    var actionVer = function (e, item) {
       var modalInstance = $uibModal.open({
         templateUrl: 'modules/venta/views/operaciones/venta/venta.crear.modal.verProducto.html',
         controller: 'Venta.Crear.Modal.VerProductoController'

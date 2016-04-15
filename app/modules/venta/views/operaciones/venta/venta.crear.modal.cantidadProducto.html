@@ -1,9 +1,20 @@
 <div class="modal-header">
-  <h3 class="modal-title">Cantidad de productos!</h3>
+  <h3 class="modal-title">Cantidad de productos</h3>
 </div>
 <div class="modal-body">
 
   <form name="form" data-ng-submit="ok()" class="form-horizontal" novalidate>
+    <div class="form-group" data-ng-class="{ 'has-error' : form.precio.$invalid && form.$submitted }">
+      <label class="col-sm-5 control-label"><span class="required">*</span> Precio:</label>
+      <div class="col-sm-3">
+        <input name="precio" type="text" data-ng-model="view.producto.precio" ui-number-mask="2" min="0" max="9999999" class="form-control" pf-focused="true" autofocus required/>
+        <div data-ng-messages="form.precio.$error" data-ng-if="form.$submitted || form.$dirty">
+          <div class="has-error" data-ng-message="required">Ingrese precio.</div>
+          <div class="has-error" data-ng-message="min">Minimo 1.</div>
+          <div class="has-error" data-ng-message="max">Maximo 9,999,999.</div>
+        </div>
+      </div>
+    </div>
     <div class="form-group" data-ng-class="{ 'has-error' : form.cantidad.$invalid && ( form.$submitted || form.$dirty ) }">
       <label class="col-sm-5 control-label"><span class="required">*</span> Cantidad:</label>
       <div class="col-sm-3">
@@ -11,7 +22,7 @@
           <span class="input-group-btn"><button class="btn btn-default bootstrap-touchspin-down" data-ng-click="substract()" type="button">-</button></span>
           <span class="input-group-addon bootstrap-touchspin-prefix" style="display: none;"></span>
 
-          <input name="cantidad" class="bootstrap-touchspin form-control" type="text" data-ng-model="cantidad" ui-number-mask="0" min="1" max="999999" pf-focused="true" autofocus style="display: block;" required>
+          <input name="cantidad" class="bootstrap-touchspin form-control" type="text" data-ng-model="view.producto.cantidad" ui-number-mask="0" min="1" max="999999" style="display: block;" required>
 
           <span class="input-group-addon bootstrap-touchspin-postfix" style="display: none;"></span>
           <span class="input-group-btn"><button class="btn btn-default bootstrap-touchspin-up" data-ng-click="add()" type="button">+</button></span>
@@ -23,6 +34,7 @@
         </div>
       </div>
     </div>
+    <button type="submit" data-ng-show="false"></button>
   </form>
 
 </div>

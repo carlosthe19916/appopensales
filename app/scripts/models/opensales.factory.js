@@ -223,3 +223,11 @@ angular.module(ApplicationConfiguration.applicationModuleName).factory('OSProduc
 
   return productosResource;
 }]);
+
+angular.module(ApplicationConfiguration.applicationModuleName).factory('OSVenta', ['OpensalesRestangular', function (OpensalesRestangular) {
+  var extendedMethods = {};
+
+  var ventasResource = new RestObject('com.Siacpi.Ventas.Services/VentasService.svc/ventas', OpensalesRestangular, extendedMethods);
+
+  return ventasResource;
+}]);
