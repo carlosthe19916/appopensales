@@ -17,6 +17,10 @@ angular.module(ApplicationConfiguration.applicationModuleName).config(function (
   opensalesProvider.restUrl = 'http://localhost:27660';
 });
 
+angular.module(ApplicationConfiguration.applicationModuleName).config(function (repeidProvider) {
+  repeidProvider.restUrl = 'http://localhost:27660';
+});
+
 //Then define the init function for starting up the application
 angular.element(document).ready(function () {
 

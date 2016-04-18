@@ -1,8 +1,8 @@
 'use strict';
 
 /* jshint -W098 */
-angular.module('persona').controller('Persona.Natural.BuscarPersonaNaturalController',
-  function ($scope, $state, toastr, OSPersona, SCDialog) {
+angular.module('venta').controller('Operaciones.BuscarController',
+  function ($scope, $state, toastr, SCDialog, OSPuntoVenta) {
 
     var paginationOptions = {
       page: 1,
@@ -27,30 +27,28 @@ angular.module('persona').controller('Persona.Natural.BuscarPersonaNaturalContro
       useExternalSorting: true,
 
       columnDefs: [
-        {field: 'numeroDocumento', displayName: 'Numero'},
-        {field: 'apellidoPaterno', displayName: 'Ap.paterno'},
-        {field: 'apellidoMaterno', displayName: 'Ap.materno'},
-        {field: 'nombres', displayName: 'Nombres'},
+        {field: 'nombreObra', displayName: 'Denominacion'},
+        {field: 'ubicacion', displayName: 'Ubicacion', width: '20%'},
         {
           name: 'actions',
           displayName: 'Acciones',
           cellTemplate: '' +
           '<div class="os-grid-action">' +
-          '<div class="os-grid-action-cell os-45">' +
-          '<button type="button" data-ng-click="grid.appScope.gridActions.edit(row.entity)" class="btn btn-default btn-block btn-sm">Editar</button>' +
-          '</div>' +
-          '<div class="os-grid-action-cell os-45">' +
-          '<button type="button" data-ng-click="grid.appScope.gridActions.remove(row.entity)" class="btn btn-default btn-block btn-sm">Eliminar</button>' +
-          '</div>' +
-          '<div class="os-grid-action-cell os-10" uib-dropdown dropdown-append-to-body>' +
-          '<button class="btn btn-default btn-block" type="button" uib-dropdown-toggle>' +
-          '<i class="fa fa-ellipsis-v"></i>' +
-          '</button>' +
-          '<ul class="dropdown-menu-right" uib-dropdown-menu aria-labelledby="btn-append-to-body">' +
-          '<li><a href="" data-ng-click="grid.appScope.gridActions.enable(row.entity)">Activar</a></li>' +
-          '<li><a href="" data-ng-click="grid.appScope.gridActions.disable(row.entity)">Desactivar</a></li>' +
-          '</ul>' +
-          '</div>' +
+            '<div class="os-grid-action-cell os-45">' +
+              '<button type="button" data-ng-click="grid.appScope.gridActions.edit(row.entity)" class="btn btn-default btn-block btn-sm">Editar</button>' +
+            '</div>' +
+            '<div class="os-grid-action-cell os-45">' +
+              '<button type="button" data-ng-click="grid.appScope.gridActions.remove(row.entity)" class="btn btn-default btn-block btn-sm">Eliminar</button>' +
+            '</div>' +
+            '<div class="os-grid-action-cell os-10" uib-dropdown dropdown-append-to-body>' +
+                '<button class="btn btn-default btn-block" type="button" uib-dropdown-toggle>' +
+                  '<i class="fa fa-ellipsis-v"></i>' +
+                '</button>' +
+                '<ul class="dropdown-menu-right" uib-dropdown-menu aria-labelledby="btn-append-to-body">' +
+                  '<li><a href="" data-ng-click="grid.appScope.gridActions.enable(row.entity)">Activar</a></li>' +
+                  '<li><a href="" data-ng-click="grid.appScope.gridActions.disable(row.entity)">Desactivar</a></li>' +
+                '</ul>' +
+            '</div>' +
           '</div>',
           width: '20%'
         }
@@ -67,15 +65,14 @@ angular.module('persona').controller('Persona.Natural.BuscarPersonaNaturalContro
         });
       }
     };
-
     $scope.gridActions = {
       edit: function (row) {
-        $state.go('^.editar.resumen', {personaNatural: row.id});
+        $state.go('^.editar.resumen', {puntoVenta: row.id});
       },
       remove: function (row) {
-        SCDialog.confirmDelete('Persona', row.nombres, function() {
-          OSPersona.$new(row.id).$remove().then(function(response) {
-            toastr.success('Persona eliminada.');
+        SCDialog.confirmDelete('Punto de venta', row.nombreObra, function() {
+          OSPuntoVenta.$new(row.id).$remove().then(function(response) {
+            toastr.success('Punto de venta eliminado');
             $scope.search();
           }, function error(err) {
             toastr.error(err.data.message);
@@ -84,9 +81,9 @@ angular.module('persona').controller('Persona.Natural.BuscarPersonaNaturalContro
       },
       enable: function(row) {
         if(row) {
-          SCDialog.confirm('Guardar', 'Esta seguro de querer activar la persona' + row.nombres +'?.', function() {
-            OSPersona.$new(row.id).$enable().then(function(response) {
-              toastr.success('Persona activada.');
+          SCDialog.confirm('Guardar', 'Esta seguro de querer activar el punto de venta' + row.nombreObra +'?.', function() {
+            OSPuntoVenta.$new(row.id).$enable().then(function(response) {
+              toastr.success('Punto de venta activado');
               $scope.search();
             }, function error(err) {
               toastr.error(err.data.message);
@@ -98,9 +95,9 @@ angular.module('persona').controller('Persona.Natural.BuscarPersonaNaturalContro
       },
       disable : function(row) {
         if(row) {
-          SCDialog.confirm('Guardar', 'Esta seguro de querer desactivar la persona' + row.nombres +'?.', function() {
-            OSPersona.$new(row.id).$disable().then(function(response) {
-              toastr.success('Persona desactivada.');
+          SCDialog.confirm('Guardar', 'Esta seguro de querer desactivar el punto de venta' + row.nombreObra +'?.', function() {
+            OSPuntoVenta.$new(row.id).$disable().then(function(response) {
+              toastr.success('Punto de venta desactivado');
               $scope.search();
             }, function error(err) {
               toastr.error(err.data.message);
@@ -115,17 +112,19 @@ angular.module('persona').controller('Persona.Natural.BuscarPersonaNaturalContro
     $scope.search = function () {
       var criteria = {
         filterText: $scope.filterOptions.filterText,
-        filters: [{name: 'idc_tipo_persona', value: 537, operator: 'eq'}],
+        filters: [],
         orders: [],
         paging: paginationOptions
       };
       if (angular.isDefined($scope.filterOptions.estado)) {
-        criteria.filters.push({name: 'estado', value: $scope.filterOptions.estado, operator: 'bool_eq'});
+        criteria.filters = [{name: 'estado', value: $scope.filterOptions.estado, operator: 'bool_eq'}];
       }
 
-      OSPersona.$search(criteria).then(function (response) {
+      OSPuntoVenta.$search(criteria).then(function (response) {
         $scope.gridOptions.data = response.items;
         $scope.gridOptions.totalItems = response.totalSize;
+      }, function error(err) {
+        toastr.error('El servidor no responde, intentelo nuevamente.');
       });
     };
 
@@ -135,4 +134,5 @@ angular.module('persona').controller('Persona.Natural.BuscarPersonaNaturalContro
       }
     }, true);
 
-  });
+  }
+);

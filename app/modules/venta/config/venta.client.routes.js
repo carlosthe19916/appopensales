@@ -6,7 +6,7 @@ angular.module('venta').config(['$stateProvider', '$urlRouterProvider',
 
     // venta START
     $urlRouterProvider.when('/venta/app/operaciones/venta', '/venta/app/operaciones/venta/buscar');
-    $urlRouterProvider.when('/venta/app/operaciones/venta/buscar', '/venta/app/operaciones/venta/buscar/manual');
+    $urlRouterProvider.when('/venta/app/operaciones/venta/buscar', '/venta/app/operaciones/venta/buscar/browse');
     // venta END
 
     // punto de venta START
@@ -145,6 +145,16 @@ angular.module('venta').config(['$stateProvider', '$urlRouterProvider',
         templateUrl: 'modules/venta/views/operaciones/venta/venta.crear.busquedaProducto.browse.html',
         controller: 'Venta.Busqueda.BusquedaProducto.BrowseController',
         resolve: {}
+      })
+
+      .state('venta.app.operaciones.movimientos', {
+        url: '/movimientos',
+        templateUrl: 'modules/venta/views/operaciones/movimientos/buscar.html',
+        controller: 'Operaciones.BuscarController',
+        resolve: {},
+        ncyBreadcrumb: {
+          skip: true
+        }
       })
       //operaciones.venta END
 

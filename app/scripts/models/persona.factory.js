@@ -137,27 +137,27 @@ var RestObject = function (path, restangular, extendMethods) {
     return modelMethods;
 };
 
-angular.module(ApplicationConfiguration.applicationModuleName).factory('RPEstadoCivil', ['PersonaRestangular', function (PersonaRestangular) {
-    var estadosCivilesResource = new RestObject('estadosCiviles', PersonaRestangular);
+angular.module(ApplicationConfiguration.applicationModuleName).factory('RPEstadoCivil', ['RepeidRestangular', function (RepeidRestangular) {
+    var estadosCivilesResource = new RestObject('estadosCiviles', RepeidRestangular);
     return estadosCivilesResource;
 }]);
 
-angular.module(ApplicationConfiguration.applicationModuleName).factory('RPSexo', ['PersonaRestangular', function (PersonaRestangular) {
-    var sexosResource = new RestObject('sexos', PersonaRestangular);
+angular.module(ApplicationConfiguration.applicationModuleName).factory('RPSexo', ['RepeidRestangular', function (RepeidRestangular) {
+    var sexosResource = new RestObject('sexos', RepeidRestangular);
     return sexosResource;
 }]);
 
-angular.module(ApplicationConfiguration.applicationModuleName).factory('RPTipoEmpresa', ['PersonaRestangular', function (PersonaRestangular) {
-    var sexosResource = new RestObject('tiposEmpresa', PersonaRestangular);
+angular.module(ApplicationConfiguration.applicationModuleName).factory('RPTipoEmpresa', ['RepeidRestangular', function (RepeidRestangular) {
+    var sexosResource = new RestObject('tiposEmpresa', RepeidRestangular);
     return sexosResource;
 }]);
 
-angular.module(ApplicationConfiguration.applicationModuleName).factory('RPTipoPersona', ['PersonaRestangular', function (PersonaRestangular) {
-    var tiposPersonaResource = new RestObject('tiposPersona', PersonaRestangular);
+angular.module(ApplicationConfiguration.applicationModuleName).factory('RPTipoPersona', ['RepeidRestangular', function (RepeidRestangular) {
+    var tiposPersonaResource = new RestObject('tiposPersona', RepeidRestangular);
     return tiposPersonaResource;
 }]);
 
-angular.module(ApplicationConfiguration.applicationModuleName).factory('RPTipoDocumento', ['PersonaRestangular', function (PersonaRestangular) {
+angular.module(ApplicationConfiguration.applicationModuleName).factory('RPTipoDocumento', ['RepeidRestangular', function (RepeidRestangular) {
     var extendMethod = {
         $new: function (abreviatura) {
             return angular.extend({abreviatura: abreviatura}, this.$getModelMethods());
@@ -165,40 +165,40 @@ angular.module(ApplicationConfiguration.applicationModuleName).factory('RPTipoDo
         $build: function () {
             return angular.extend({abreviatura: undefined}, this.$getModelMethods(), {
                 $save: function () {
-                    return PersonaRestangular.all(this.$getBasePath()).post(this);
+                    return RepeidRestangular.all(this.$getBasePath()).post(this);
                 }
             });
         },
         $save: function () {
-            return PersonaRestangular.one(this.$getBasePath(), this.abreviatura).customPUT(PersonaRestangular.copy(this), '', {}, {});
+            return RepeidRestangular.one(this.$getBasePath(), this.abreviatura).customPUT(RepeidRestangular.copy(this), '', {}, {});
         },
         $enable: function () {
-            return PersonaRestangular.one(this.$getBasePath(), this.abreviatura).all('enable').post();
+            return RepeidRestangular.one(this.$getBasePath(), this.abreviatura).all('enable').post();
         },
         $disable: function () {
-            return PersonaRestangular.one(this.$getBasePath(), this.abreviatura).all('disable').post();
+            return RepeidRestangular.one(this.$getBasePath(), this.abreviatura).all('disable').post();
         },
         $remove: function () {
-            return PersonaRestangular.one(this.$getBasePath(), this.abreviatura).remove();
+            return RepeidRestangular.one(this.$getBasePath(), this.abreviatura).remove();
         }
     };
 
-    var tiposDocumentoResource = new RestObject('tipoDocumentos', PersonaRestangular, extendMethod);
+    var tiposDocumentoResource = new RestObject('tipoDocumentos', RepeidRestangular, extendMethod);
     return tiposDocumentoResource;
 }]);
 
-angular.module(ApplicationConfiguration.applicationModuleName).factory('RPPersonaNatural', ['PersonaRestangular', 'Upload', function (PersonaRestangular, Upload) {
+angular.module(ApplicationConfiguration.applicationModuleName).factory('RPPersonaNatural', ['RepeidRestangular', 'Upload', function (RepeidRestangular, Upload) {
 
     var extendMethod = {
         $setFoto: function (file) {
-            var urlFile = PersonaRestangular.one(this.$getBasePath(), this.id).all('foto').getRestangularUrl();
+            var urlFile = RepeidRestangular.one(this.$getBasePath(), this.id).all('foto').getRestangularUrl();
             return Upload.upload({
                 url: urlFile,
                 file: file
             });
         },
         $setFirma: function (file) {
-            var urlFile = PersonaRestangular.one(this.$getBasePath(), this.id).all('firma').getRestangularUrl();
+            var urlFile = RepeidRestangular.one(this.$getBasePath(), this.id).all('firma').getRestangularUrl();
             return Upload.upload({
                 url: urlFile,
                 file: file
@@ -206,16 +206,16 @@ angular.module(ApplicationConfiguration.applicationModuleName).factory('RPPerson
         }
     };
 
-    var personaNaturalResource = new RestObject('personas/naturales', PersonaRestangular, extendMethod);
+    var personaNaturalResource = new RestObject('personas/naturales', RepeidRestangular, extendMethod);
 
     return personaNaturalResource;
 }]);
 
-angular.module(ApplicationConfiguration.applicationModuleName).factory('RPPersonaJuridica', ['PersonaRestangular', 'Upload', function (PersonaRestangular) {
+angular.module(ApplicationConfiguration.applicationModuleName).factory('RPPersonaJuridica', ['RepeidRestangular', 'Upload', function (RepeidRestangular) {
 
     var extendMethod = {};
 
-    var personaJuridicaResource = new RestObject('personas/juridicas', PersonaRestangular, extendMethod);
+    var personaJuridicaResource = new RestObject('personas/juridicas', RepeidRestangular, extendMethod);
 
     /**
      * Accionistas*
@@ -223,7 +223,7 @@ angular.module(ApplicationConfiguration.applicationModuleName).factory('RPPerson
     personaJuridicaResource.RPAccionista = function () {
         var extendMethod = {};
 
-        var accionistaSubResource = new RestObject(this.$concatSubResourcePath('accionistas'), PersonaRestangular, extendMethod);
+        var accionistaSubResource = new RestObject(this.$concatSubResourcePath('accionistas'), RepeidRestangular, extendMethod);
 
         return accionistaSubResource;
     };
