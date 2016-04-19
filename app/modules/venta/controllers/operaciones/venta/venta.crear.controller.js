@@ -2,7 +2,7 @@
 
 /* jshint -W098 */
 angular.module('venta').controller('Venta.CrearController',
-  function ($scope, $state, toastr, SCDialog, OSVenta) {
+  function ($scope, $state, toastr, SCDialog, OSVenta, OSPersona) {
 
     $scope.working = false;
 
