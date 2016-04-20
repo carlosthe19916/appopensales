@@ -25,14 +25,18 @@
     <ul class="nav navbar-nav navbar-utility">
       <li class="dropdown">
         <a href="" class="dropdown-toggle">
-          <strong>User: </strong>
-          <span ng-bind="user.username"></span>
+          <strong>Usuario: </strong>
+          <span data-ng-bind="user.username"></span>
         </a>
       </li>
       <li class="dropdown">
-        <a href="" class="dropdown-toggle">
+        <a data-ng-if="user.roles.length" href="" class="dropdown-toggle">
           <strong>Roles: </strong>
-          <span ng-bind="user.roles"></span>
+          <span data-ng-bind="user.roles"></span>
+        </a>
+        <a data-ng-if="!user.roles.length" href="" class="dropdown-toggle">
+          <strong>Roles: </strong>
+          <span><em>No disponible</em></span>
         </a>
       </li>
       <li class="dropdown" uib-dropdown>
@@ -42,10 +46,10 @@
         </a>
         <ul uib-dropdown-menu role="menu" aria-labelledby="single-button">
           <li role="menuitem">
-            <a href="" data-ng-click="accountManagement()">Account</a>
+            <a href="" data-ng-click="accountManagement()">Administrar cuenta</a>
           </li>
           <li role="menuitem">
-            <a href="" data-ng-click="logout()">Log out</a>
+            <a href="" data-ng-click="logout()">Salir</a>
           </li>
         </ul>
       </li>

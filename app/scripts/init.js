@@ -1,7 +1,29 @@
 'use strict';
 
+var auth = {
+  test: {
+    enabled: true
+  },
+  wcf: {
+    enabled: false
+  },
+  keycloak: {
+    url: 'https://keycloak-softgreen.rhcloud.com/auth',
+    realm: 'opensales',
+    clientId: 'opensales_app',
+    enabled: false
+  }
+};
+
+var OPENSALES = {
+  baseUrl: 'http://localhost:27660'
+};
+
 var resourceRequests = 0;
 var loadingTimer = -1;
+
+
+
 
 //Start by defining the main module and adding the module dependencies
 angular.module(ApplicationConfiguration.applicationModuleName, ApplicationConfiguration.applicationModuleVendorDependencies);
@@ -14,11 +36,7 @@ angular.module(ApplicationConfiguration.applicationModuleName).config(['$locatio
 ]);
 
 angular.module(ApplicationConfiguration.applicationModuleName).config(function (opensalesProvider) {
-  opensalesProvider.restUrl = 'http://localhost:27660';
-});
-
-angular.module(ApplicationConfiguration.applicationModuleName).config(function (repeidProvider) {
-  repeidProvider.restUrl = 'http://localhost:27660';
+  opensalesProvider.restUrl = OPENSALES.baseUrl;
 });
 
 //Then define the init function for starting up the application
@@ -41,17 +59,124 @@ angular.element(document).ready(function () {
     }
   }
 
-  //Then init the app
-  angular.bootstrap(document, [ApplicationConfiguration.applicationModuleName]);
+  // KEYCLOAK START
+  var keycloakAuth = new Keycloak({
+    url: auth.keycloak.url,
+    realm: auth.keycloak.realm,
+    clientId: auth.keycloak.clientId
+  });
+  function whoAmI(success, error) {
+    keycloakAuth.loadUserProfile().success(function (data) {
+      success(data);
+    }).error(function () {
+      error();
+    });
+  }
+  function loadOpensalesSession(success, error, username) {
+    var req = new XMLHttpRequest();
+    req.open('GET', OPENSALES.baseUrl + '/com.Siacpi.Ventas.Services/AdminService.svc/whoAmI/' + username, true);
+    req.setRequestHeader('Accept', 'application/json');
+    req.onreadystatechange = function () {
+      if (req.readyState == 4) {
+        if (req.status == 200) {
+          var data = JSON.parse(req.responseText);
+          success && success(data);
+        } else {
+          error && error();
+        }
+      }
+    };
+    req.send();
+  }
+  function hasAnyAccess(user) {
+    return user && user['realm_access'];
+  }
+  keycloakAuth.onAuthLogout = function () {
+    location.reload();
+  };
+  // KEYCLOAK END
 
+  // INIT TO BOOTSTRAP ANGULAR APP
+  if (auth.test.enabled) {
+    console.log('Application is starting on test mode.');
+    var username = prompt('Please set your username', 'devCarlos');
+    angular.module(ApplicationConfiguration.applicationModuleName).factory('Auth', function () {
+      auth.authz = {
+        logout: function () {
+          alert('In test mode is not posible to logout.');
+        },
+        accountManagement: function () {
+          alert('In test mode is not posible to manage your account.');
+        }
+      };
+      auth.user = {username: username};
+      auth.roles = ['cajero'];
+      auth.loggedIn = true;
+      auth.hasAnyAccess = true;
+      return auth;
+    });
+    loadOpensalesSession(function(data) {
+      auth.opsession = data;
+      angular.module(ApplicationConfiguration.applicationModuleName).factory('OSSession', function () {
+        return auth.opsession;
+      });
+      angular.bootstrap(document, [ApplicationConfiguration.applicationModuleName]);
+      console.log('Application started.');
+    }, function () {}, username);
+
+
+  } else if (auth.wcf.enabled) {
+    console.log('Application is starting on test mode.');
+    alert('WCF Authentication not supported');
+
+
+  } else if (auth.keycloak.enabled) {
+    console.log('Application is starting on keycloak mode.');
+    keycloakAuth.init({onLoad: 'login-required'}).success(function () {
+      auth.authz = keycloakAuth;
+      var roles = [];
+      if (keycloakAuth.realmAccess) { roles = keycloakAuth.realmAccess.roles; }
+      auth.refreshPermissions = function (success, error) {
+        whoAmI(function (data) {
+          auth.user = data;
+          auth.roles = roles;
+          auth.loggedIn = true;
+          auth.hasAnyAccess = hasAnyAccess(data);
+          success();
+        }, function () {
+          error();
+        });
+      };
+      loadOpensalesSession(function(data) {
+        auth.opsession = data;
+        angular.module(ApplicationConfiguration.applicationModuleName).factory('OSSession', function () {
+          return auth.opsession;
+        });
+        auth.refreshPermissions(function () {
+          angular.module(ApplicationConfiguration.applicationModuleName).factory('Auth', function () {
+            return auth;
+          });
+          angular.bootstrap(document, [ApplicationConfiguration.applicationModuleName]);
+          console.log('Application started.');
+        });
+      }, function () {}, keycloakAuth.tokenParsed.preferred_username);
+    }).error(function () {
+      window.location.reload();
+    });
+
+
+  } else {
+    console.log('WARNING: No method for authentication was selected.');
+    angular.bootstrap(document, [ApplicationConfiguration.applicationModuleName]);
+  }
 });
 
-angular.module(ApplicationConfiguration.applicationModuleName).config(function($httpProvider) {
+angular.module(ApplicationConfiguration.applicationModuleName).config(function ($httpProvider) {
   //$httpProvider.interceptors.push('errorInterceptor');
 
-  var spinnerFunction = function(data, headersGetter) {
+  var spinnerFunction = function (data, headersGetter) {
     if (resourceRequests == 0) {
-      loadingTimer = window.setTimeout(function() {
+      loadingTimer = window.setTimeout(function () {
         $('#loading').show();
         loadingTimer = -1;
       }, 500);
@@ -66,12 +191,12 @@ angular.module(ApplicationConfiguration.applicationModuleName).config(function($
 
 });
 
-angular.module(ApplicationConfiguration.applicationModuleName).factory('spinnerInterceptor', function($q, $window, $rootScope, $location) {
+angular.module(ApplicationConfiguration.applicationModuleName).factory('spinnerInterceptor', function ($q, $window, $rootScope, $location) {
   return {
-    response: function(response) {
+    response: function (response) {
       resourceRequests--;
       if (resourceRequests == 0) {
-        if(loadingTimer != -1) {
+        if (loadingTimer != -1) {
           window.clearTimeout(loadingTimer);
           loadingTimer = -1;
         }
@@ -79,10 +204,10 @@ angular.module(ApplicationConfiguration.applicationModuleName).factory('spinnerI
       }
       return response;
     },
-    responseError: function(response) {
+    responseError: function (response) {
       resourceRequests--;
       if (resourceRequests == 0) {
-        if(loadingTimer != -1) {
+        if (loadingTimer != -1) {
           window.clearTimeout(loadingTimer);
           loadingTimer = -1;
         }
@@ -95,25 +220,25 @@ angular.module(ApplicationConfiguration.applicationModuleName).factory('spinnerI
 });
 
 /*angular.module(ApplicationConfiguration.applicationModuleName).factory('errorInterceptor', function($q, $window, $rootScope, $location, Notifications, Auth) {
-  return {
-    response: function(response) {
-      return response;
-    },
-    responseError: function(response) {
-      if (response.status == 401) {
-        Auth.authz.logout();
-      } else if (response.status == 403) {
-        $location.path('/forbidden');
-      } else if (response.status == 404) {
-        $location.path('/notfound');
-      } else if (response.status) {
-        if (response.data && response.data.errorMessage) {
-          Notifications.error(response.data.errorMessage);
-        } else {
-          Notifications.error("An unexpected server error has occurred");
-        }
-      }
-      return $q.reject(response);
-    }
-  };
-});*/
+ return {
+ response: function(response) {
+ return response;
+ },
+ responseError: function(response) {
+ if (response.status == 401) {
+ Auth.authz.logout();
+ } else if (response.status == 403) {
+ $location.path('/forbidden');
+ } else if (response.status == 404) {
+ $location.path('/notfound');
+ } else if (response.status) {
+ if (response.data && response.data.errorMessage) {
+ Notifications.error(response.data.errorMessage);
+ } else {
+ Notifications.error("An unexpected server error has occurred");
+ }
+ }
+ return $q.reject(response);
+ }
+ };
+ });*/
