@@ -19,7 +19,7 @@ angular.module('venta').controller('Venta.Configuracion.PuntoVenta.Caja.Editar.D
         },
         function error(err) {
           $scope.working = false;
-          toastr.error(err.data.message);
+          toastr.error(err.data.errorMessage);
         }
       );
     };
