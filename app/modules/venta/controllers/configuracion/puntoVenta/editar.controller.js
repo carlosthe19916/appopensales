@@ -14,7 +14,7 @@ angular.module('venta').controller('Venta.Configuracion.PuntoVenta.EditarControl
           toastr.success('Punto de venta activado.');
           $state.reload();
         }, function error(err) {
-          toastr.error(err.data.message);
+          toastr.error(err.data.errorMessage);
         });
       });
     };
@@ -25,7 +25,7 @@ angular.module('venta').controller('Venta.Configuracion.PuntoVenta.EditarControl
           toastr.success('Punto de venta desactivado.');
           $state.reload();
         }, function error(err) {
-          toastr.error(err.data.message);
+          toastr.error(err.data.errorMessage);
         });
       });
     };
@@ -36,7 +36,7 @@ angular.module('venta').controller('Venta.Configuracion.PuntoVenta.EditarControl
           toastr.success('Punto de venta eliminado.');
           $state.go('venta.app.configuracion.puntoVenta.buscar');
         }, function error(err) {
-          toastr.error(err.data.message);
+          toastr.error(err.data.errorMessage);
         });
       });
     };
