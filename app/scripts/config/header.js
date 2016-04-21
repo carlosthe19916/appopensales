@@ -1,12 +1,11 @@
 'use strict';
 
-angular.module(ApplicationConfiguration.applicationModuleName).controller('HeaderController', ['$scope', '$state', 'Menus', 'Auth',
-  function ($scope, $state, Menus, Auth) {
-
+angular.module(ApplicationConfiguration.applicationModuleName).controller('HeaderController', ['$scope', '$state', 'menuService', 'Auth',
+  function ($scope, $state, menuService, Auth) {
     /*Security information*/
     $scope.user = {
       username: Auth.user.username,
-      roles: Auth.roles
+      roles: Auth.user.roles
     };
     $scope.logout = function () {
       Auth.authz.logout();
@@ -19,7 +18,7 @@ angular.module(ApplicationConfiguration.applicationModuleName).controller('Heade
     $scope.$state = $state;
 
     // Get the topbar menu
-    $scope.menu = Menus.getMenu('topbar');
+    $scope.menu = menuService.getMenu('topbar');
 
     // Toggle the menu items
     $scope.isCollapsed = false;

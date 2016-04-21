@@ -2,7 +2,7 @@
 
 var auth = {
   test: {
-    enabled: true
+    enabled: false
   },
   wcf: {
     enabled: false
@@ -11,7 +11,7 @@ var auth = {
     url: 'https://keycloak-softgreen.rhcloud.com/auth',
     realm: 'opensales',
     clientId: 'opensales_app',
-    enabled: false
+    enabled: true
   }
 };
 
@@ -110,7 +110,7 @@ angular.element(document).ready(function () {
         }
       };
       auth.user = {username: username};
-      auth.roles = ['cajero'];
+      auth.user.roles = ['cajero'];
       auth.loggedIn = true;
       auth.hasAnyAccess = true;
       return auth;
@@ -139,7 +139,7 @@ angular.element(document).ready(function () {
       auth.refreshPermissions = function (success, error) {
         whoAmI(function (data) {
           auth.user = data;
-          auth.roles = roles;
+          auth.user.roles = roles;
           auth.loggedIn = true;
           auth.hasAnyAccess = hasAnyAccess(data);
           success();

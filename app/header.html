@@ -11,11 +11,11 @@
   </div>
 
   <div class="navbar-collapse navbar-collapse-1" uib-collapse="!isCollapsed" role="navigation">
-    <ul class="nav navbar-nav navbar-primary">
-      <li data-ng-repeat="item in menu.items | orderBy: 'position'" ng-switch="item.type" data-ng-class="{ active: $state.includes(item.state), dropdown: item.type === 'uib-dropdown' }" class="{{item.class}}" uib-dropdown="item.type === 'uib-dropdown'">
+    <ul class="nav navbar-nav navbar-primary" data-ng-if="menu.shouldRender(user);">
+      <li data-ng-repeat="item in menu.items | orderBy: 'position'" data-ng-if="item.shouldRender(user);" ng-switch="item.type" data-ng-class="{ active: $state.includes(item.state), dropdown: item.type === 'uib-dropdown' }" class="{{item.class}}" uib-dropdown="item.type === 'uib-dropdown'">
         <a ng-switch-when="uib-dropdown" class="uib-dropdown-toggle" uib-dropdown-toggle role="button">{{::item.title}}&nbsp;<span class="caret"></span></a>
         <ul ng-switch-when="uib-dropdown" class="uib-dropdown-menu">
-          <li data-ng-repeat="subitem in item.items | orderBy: 'position'" data-ui-sref-active="active">
+          <li data-ng-repeat="subitem in item.items | orderBy: 'position'" data-ng-if="subitem.shouldRender(user);" data-ui-sref-active="active">
             <a data-ui-sref="{{subitem.state}}" data-ng-bind="subitem.title"></a>
           </li>
         </ul>

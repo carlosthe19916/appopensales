@@ -1,11 +1,12 @@
 'use strict';
 
 // Configuring the Chat module
-angular.module('persona').run(['Menus',
-    function (Menus) {
-      Menus.addMenuItem('topbar', {
-        title: 'Persona',
-        state: 'persona.app'
-      });
-    }
+angular.module('persona').run(['menuService',
+  function (menuService) {
+    menuService.addMenuItem('topbar', {
+      title: 'Persona',
+      state: 'persona.app',
+      roles: ['*']
+    });
+  }
 ]);

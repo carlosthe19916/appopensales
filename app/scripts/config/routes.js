@@ -16,21 +16,24 @@ angular.module(ApplicationConfiguration.applicationModuleName).config(['$statePr
         url: '/not-found',
         templateUrl: '404.html',
         data: {
-          ignoreState: true
+          ignoreState: true,
+          pageTitle: 'Not-Found'
         }
       })
       .state('bad-request', {
         url: '/bad-request',
         templateUrl: '400.html',
         data: {
-          ignoreState: true
+          ignoreState: true,
+          pageTitle: 'Bad-Request'
         }
       })
       .state('forbidden', {
         url: '/forbidden',
         templateUrl: '403.html',
         data: {
-          ignoreState: true
+          ignoreState: true,
+          pageTitle: 'Forbidden'
         }
       });
 

@@ -1,11 +1,12 @@
 'use strict';
 
 // Configuring the Chat module
-angular.module('producto').run(['Menus',
-    function (Menus) {
-      Menus.addMenuItem('topbar', {
+angular.module('producto').run(['menuService',
+    function (menuService) {
+      menuService.addMenuItem('topbar', {
         title: 'Productos',
-        state: 'producto.app'
+        state: 'producto.app',
+        roles: ['*']
       });
     }
 ]);

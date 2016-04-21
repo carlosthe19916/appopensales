@@ -38,6 +38,9 @@ angular.module('venta').config(['$stateProvider', '$urlRouterProvider',
         template: '<div ui-view></div>',
         ncyBreadcrumb: {
           skip: true // Never display this state in breadcrumb.
+        },
+        data: {
+          pageTitle: 'Venta'
         }
       })
 
@@ -114,6 +117,10 @@ angular.module('venta').config(['$stateProvider', '$urlRouterProvider',
         resolve: {},
         ncyBreadcrumb: {
           skip: true
+        },
+        data: {
+          roles: ['cajero'],
+          pageTitle: 'Vender'
         }
       })
       .state('venta.app.operaciones.venta.busqueda', {
@@ -164,6 +171,10 @@ angular.module('venta').config(['$stateProvider', '$urlRouterProvider',
         template: '<div ui-view></div>',
         ncyBreadcrumb: {
           skip: true // Never display this state in breadcrumb.
+        },
+        data: {
+          roles: ['admin'],
+          pageTitle: 'Puntos venta'
         }
       })
       .state('venta.app.configuracion.puntoVenta.buscar', {
