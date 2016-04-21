@@ -14,7 +14,7 @@ angular.module('venta').controller('Venta.Configuracion.PuntoVenta.Trabajador.Ed
           toastr.success('Trabajador activado.');
           $state.reload();
         }, function error(err) {
-          toastr.error(err.data.message);
+          toastr.error(err.data.errorMessage);
         });
       });
     };
@@ -25,7 +25,7 @@ angular.module('venta').controller('Venta.Configuracion.PuntoVenta.Trabajador.Ed
           toastr.success('Trabajador desactivado.');
           $state.reload();
         }, function error(err) {
-          toastr.error(err.data.message);
+          toastr.error(err.data.errorMessage);
         });
       });
     };
@@ -36,7 +36,7 @@ angular.module('venta').controller('Venta.Configuracion.PuntoVenta.Trabajador.Ed
           toastr.success('Trabajador eliminado.');
           $state.go('^.^.buscar');
         }, function error(err) {
-          toastr.error(err.data.message);
+          toastr.error(err.data.errorMessage);
         });
       });
     };
