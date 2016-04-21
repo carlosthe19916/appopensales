@@ -57,7 +57,7 @@ angular.module('venta').controller('Venta.CrearController',
           },
           function error(err) {
             $scope.working = false;
-            toastr.error(err.data.message);
+            toastr.error(err.data.errorMessage);
           }
         );
       });
