@@ -75,7 +75,7 @@ angular.module('venta').controller('Venta.Configuracion.PuntoVenta.BuscarControl
             toastr.success('Punto de venta eliminado');
             $scope.search();
           }, function error(err) {
-            toastr.error(err.data.message);
+            toastr.error(err.data.errorMessage);
           });
         });
       },
@@ -86,7 +86,7 @@ angular.module('venta').controller('Venta.Configuracion.PuntoVenta.BuscarControl
               toastr.success('Punto de venta activado');
               $scope.search();
             }, function error(err) {
-              toastr.error(err.data.message);
+              toastr.error(err.data.errorMessage);
             });
           });
         } else {
@@ -100,7 +100,7 @@ angular.module('venta').controller('Venta.Configuracion.PuntoVenta.BuscarControl
               toastr.success('Punto de venta desactivado');
               $scope.search();
             }, function error(err) {
-              toastr.error(err.data.message);
+              toastr.error(err.data.errorMessage);
             });
           });
         } else {
