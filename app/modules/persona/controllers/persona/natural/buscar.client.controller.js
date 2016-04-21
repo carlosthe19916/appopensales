@@ -78,7 +78,7 @@ angular.module('persona').controller('Persona.Natural.BuscarPersonaNaturalContro
             toastr.success('Persona eliminada.');
             $scope.search();
           }, function error(err) {
-            toastr.error(err.data.message);
+            toastr.error(err.data.errorMessage);
           });
         });
       },
@@ -89,7 +89,7 @@ angular.module('persona').controller('Persona.Natural.BuscarPersonaNaturalContro
               toastr.success('Persona activada.');
               $scope.search();
             }, function error(err) {
-              toastr.error(err.data.message);
+              toastr.error(err.data.errorMessage);
             });
           });
         } else {
@@ -103,7 +103,7 @@ angular.module('persona').controller('Persona.Natural.BuscarPersonaNaturalContro
               toastr.success('Persona desactivada.');
               $scope.search();
             }, function error(err) {
-              toastr.error(err.data.message);
+              toastr.error(err.data.errorMessage);
             });
           });
         } else {
