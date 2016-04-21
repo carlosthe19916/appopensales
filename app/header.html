@@ -10,6 +10,13 @@
     </a>
   </div>
 
+  <div data-ng-if="isInvalidSession" class="alert alert-danger" style="margin-bottom: 0;">
+    <span class="pficon pficon-error-circle-o"></span>
+    <strong>Hey tenemos un problema!</strong> No podemos identificar tu caja, trabajador o punto de venta asignado. Por
+    favor vuelva a iniciar session. Haga clic en <a href="javascript:window.location.reload(true)" class="alert-link">Actualizar</a>. Si el problema persiste
+    pongase en contacto con el administrador del sistema.
+  </div>
+
   <div class="navbar-collapse navbar-collapse-1" uib-collapse="!isCollapsed" role="navigation">
     <ul class="nav navbar-nav navbar-primary" data-ng-if="menu.shouldRender(user);">
       <li data-ng-repeat="item in menu.items | orderBy: 'position'" data-ng-if="item.shouldRender(user);" ng-switch="item.type" data-ng-class="{ active: $state.includes(item.state), dropdown: item.type === 'uib-dropdown' }" class="{{item.class}}" uib-dropdown="item.type === 'uib-dropdown'">
