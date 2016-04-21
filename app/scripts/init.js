@@ -304,30 +304,33 @@ angular.module(ApplicationConfiguration.applicationModuleName).factory('spinnerI
 });
 
 /*For Token security configuration*/
-/*angular.module(ApplicationConfiguration.applicationModuleName).factory('errorInterceptor', function ($q, $window, $rootScope, $location, Notifications, Auth) {
-  return {
-    response: function (response) {
-      return response;
-    },
-    responseError: function (response) {
-      if (response.status == 401) {
-        Auth.authz.logout();
-      } else if (response.status == 403) {
-        $location.path('/forbidden');
-      } else if (response.status == 404) {
-        $location.path('/notfound');
-      } else if (response.status) {
-        if (response.data && response.data.errorMessage) {
-          Notifications.error(response.data.errorMessage);
-        } else {
-          Notifications.error("An unexpected server error has occurred");
+if(auth.keycloak.enabled) {
+  angular.module(ApplicationConfiguration.applicationModuleName).factory('errorInterceptor', function ($q, $window, $rootScope, $location, Auth) {
+    return {
+      response: function (response) {
+        return response;
+      },
+      responseError: function (response) {
+        if (response.status == 401) {
+          Auth.authz.logout();
+        } else if (response.status == 403) {
+          $location.path('/forbidden');
+        } else if (response.status == 404) {
+          $location.path('/not-found');
+        } else if (response.status) {
+          if (response.data && response.data.errorMessage) {
+            //Notifications.error(response.data.errorMessage);
+            alert(response.data.errorMessage);
+          } else {
+            //Notifications.error("An unexpected server error has occurred");
+            alert('An unexpected server error has occurred');
+          }
         }
+        return $q.reject(response);
       }
-      return $q.reject(response);
-    }
-  };
-});*/
-
+    };
+  });
+}
 /*-------------------------------------------------------------------------------------------------------*/
 /**************************************SECURITY CONFIGURATION END*****************************************/
 /*-------------------------------------------------------------------------------------------------------*/
