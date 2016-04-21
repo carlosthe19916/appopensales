@@ -35,7 +35,7 @@ angular.module('venta').controller('Venta.Configuracion.PuntoVenta.Trabajador.Bu
               $scope.search();
             },
             function error(err) {
-              toastr.error(err.data.message);
+              toastr.error(err.data.errorMessage);
             }
           );
         });
@@ -48,7 +48,7 @@ angular.module('venta').controller('Venta.Configuracion.PuntoVenta.Trabajador.Bu
               $scope.search();
             },
             function error(err) {
-              toastr.error(err.data.message);
+              toastr.error(err.data.errorMessage);
             }
           );
         });
@@ -61,7 +61,7 @@ angular.module('venta').controller('Venta.Configuracion.PuntoVenta.Trabajador.Bu
               $scope.gridOptions.data.splice(index, 1);
             },
             function error(err) {
-              toastr.error(err.data.message);
+              toastr.error(err.data.errorMessage);
             }
           );
         });
