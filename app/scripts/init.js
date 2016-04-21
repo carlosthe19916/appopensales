@@ -23,8 +23,6 @@ var resourceRequests = 0;
 var loadingTimer = -1;
 
 
-
-
 //Start by defining the main module and adding the module dependencies
 angular.module(ApplicationConfiguration.applicationModuleName, ApplicationConfiguration.applicationModuleVendorDependencies);
 
@@ -59,6 +57,35 @@ angular.element(document).ready(function () {
     }
   }
 
+
+
+  var spinnerGmailFunction = function (data, headersGetter) {
+    loadingTimer = window.setTimeout(function () {
+      $('#gmailLoader').show();
+      loadingTimer = -1;
+    }, 500);
+  };
+  var spinnerGmailResolveFunction = function (response) {
+    if (loadingTimer != -1) {
+      window.clearTimeout(loadingTimer);
+      loadingTimer = -1;
+    }
+    $('#gmailLoader').hide();
+  };
+  var spinnerGmailResolveEerrorFunction = function (response) {
+    if (loadingTimer != -1) {
+      window.clearTimeout(loadingTimer);
+      loadingTimer = -1;
+    }
+    $('#gmailLoaderIcon').removeClass().addClass('pficon-error-circle-o');
+    $('#gmailLoaderMessage').show();
+  };
+  var error503 = function () {
+    location.replace('503.html');
+  };
+
+
+
   // KEYCLOAK START
   var keycloakAuth = new Keycloak({
     url: auth.keycloak.url,
@@ -66,22 +93,30 @@ angular.element(document).ready(function () {
     clientId: auth.keycloak.clientId
   });
   function whoAmI(success, error) {
+    spinnerGmailFunction(); // start loader
     keycloakAuth.loadUserProfile().success(function (data) {
+      spinnerGmailResolveFunction(); // stop loader
       success(data);
     }).error(function () {
+      spinnerGmailResolveEerrorFunction(); // stop loader
       error();
     });
   }
-  function loadOpensalesSession(success, error, username) {
+  function loadOpensalesSession(success, error, username) {;
     var req = new XMLHttpRequest();
     req.open('GET', OPENSALES.baseUrl + '/com.Siacpi.Ventas.Services/AdminService.svc/whoAmI/' + username, true);
     req.setRequestHeader('Accept', 'application/json');
+    spinnerGmailFunction(); // start loader
     req.onreadystatechange = function () {
       if (req.readyState == 4) {
         if (req.status == 200) {
           var data = JSON.parse(req.responseText);
+          spinnerGmailResolveFunction(); // stop loader
           success && success(data);
+        } else if(req.status == 400) {
+          spinnerGmailResolveEerrorFunction(); // stop loader
         } else {
+          spinnerGmailResolveEerrorFunction(); // stop loader
           error && error();
         }
       }
@@ -95,6 +130,8 @@ angular.element(document).ready(function () {
     location.reload();
   };
   // KEYCLOAK END
+
+
 
   // INIT TO BOOTSTRAP ANGULAR APP
   if (auth.test.enabled) {
@@ -122,7 +159,7 @@ angular.element(document).ready(function () {
       });
       angular.bootstrap(document, [ApplicationConfiguration.applicationModuleName]);
       console.log('Application started.');
-    }, function () {}, username);
+    }, error503, username);
 
 
   } else if (auth.wcf.enabled) {
@@ -147,6 +184,7 @@ angular.element(document).ready(function () {
           error();
         });
       };
+
       loadOpensalesSession(function(data) {
         auth.opsession = data;
         angular.module(ApplicationConfiguration.applicationModuleName).factory('OSSession', function () {
@@ -158,8 +196,10 @@ angular.element(document).ready(function () {
           });
           angular.bootstrap(document, [ApplicationConfiguration.applicationModuleName]);
           console.log('Application started.');
-        });
-      }, function () {}, keycloakAuth.tokenParsed.preferred_username);
+        }, error503);
+      }, error503, keycloakAuth.tokenParsed.preferred_username);
+
+
     }).error(function () {
       window.location.reload();
     });

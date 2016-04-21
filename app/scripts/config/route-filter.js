@@ -8,7 +8,6 @@ angular.module(ApplicationConfiguration.applicationModuleName).run(['$rootScope'
   function stateChangeStart(event, toState, toParams, fromState, fromParams) {
     // Check Auth before changing state
     if (toState.data && toState.data.roles && toState.data.roles.length > 0) {
-      console.log('232');
       var allowed = false;
 
       for (var i = 0, roles = toState.data.roles; i < roles.length; i++) {
