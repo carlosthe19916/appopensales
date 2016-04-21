@@ -14,7 +14,7 @@ angular.module('venta').controller('Venta.Configuracion.PuntoVenta.Caja.EditarCo
           toastr.success('Caja activada.');
           $state.reload();
         }, function error(err) {
-          toastr.error(err.data.message);
+          toastr.error(err.data.errorMessage);
         });
       });
     };
@@ -25,7 +25,7 @@ angular.module('venta').controller('Venta.Configuracion.PuntoVenta.Caja.EditarCo
           toastr.success('Caja desactivada.');
           $state.reload();
         }, function error(err) {
-          toastr.error(err.data.message);
+          toastr.error(err.data.errorMessage);
         });
       });
     };
@@ -36,7 +36,7 @@ angular.module('venta').controller('Venta.Configuracion.PuntoVenta.Caja.EditarCo
           toastr.success('Caja eliminada.');
           $state.go('^.^.buscar');
         }, function error(err) {
-          toastr.error(err.data.message);
+          toastr.error(err.data.errorMessage);
         });
       });
     };
