@@ -15,11 +15,7 @@
     <!-- endbuild -->
 
     <style>
-      [ng\:cloak],
-      [ng-cloak],
-      [x-ng-cloak],
-      .ng-cloak,
-      .x-ng-cloak {
+      [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
         display: none !important;
       }
     </style>
@@ -30,20 +26,27 @@
     <![endif]-->
 
     <!-- Add your site or application content here -->
-    <nav data-ng-include="'header.html'" class="navbar navbar-default navbar-pf navbar-fixed-top"></nav>
-    <div class="container-fluid">
-      <section ui-view></section>
+    <div class="ng-cloak">
+      <!-- Add your site or application content here -->
+      <nav data-ng-include="'header.html'" class="navbar navbar-default navbar-pf navbar-fixed-top"></nav>
+      <div class="container-fluid">
+        <section ui-view></section>
+      </div>
+
+      <div id="loading" class="loading">Cargando...</div>
     </div>
 
-    <div id="loading" class="loading">Cargando...</div>
-
-    <div id="gmailLoader" class="row" style="display: none;">
+    <div id="gmailLoader" class="row">
       <div class="col-md-6 col-md-offset-3">
-        <div class="progress">
-          <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 45%">
-            <span class="sr-only">45% Complete</span>
+        <div class="progress-description">
+          <span id="gmailLoaderIcon" class="pficon pficon-server"></span> <strong>Loading:</strong>  Server data <small> segurity session and personal information.</small>
+        </div>
+        <div class="progress progress-label-top-right">
+          <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;">
+            <span>100.00% (3 of 3 Steps)</span>
           </div>
         </div>
+        <p id="gmailLoaderMessage" style="display: none;">Error interno en el sistema, haga clic en: <a href="/">Actualizar</a></p>
       </div>
     </div>
 

@@ -1,5 +1,16 @@
 'use strict';
 
+// For Spinner bottom variables
+var resourceRequests = 0;
+var loadingTimer = -1;
+
+
+
+/*********************************************************************************************************/
+/******************************************CONFIGURATION START********************************************/
+/*********************************************************************************************************/
+
+// For authentication method
 var auth = {
   test: {
     enabled: false
@@ -15,13 +26,23 @@ var auth = {
   }
 };
 
+// Base url for OPENSALES REST web services
 var OPENSALES = {
   baseUrl: 'http://localhost:27660'
 };
 
-var resourceRequests = 0;
-var loadingTimer = -1;
+/*-------------------------------------------------------------------------------------------------------*/
+/******************************************CONFIGURATION END**********************************************/
+/*-------------------------------------------------------------------------------------------------------*/
 
+
+
+
+
+
+/*********************************************************************************************************/
+/**************************************ANGULAR CONFIGURATION START****************************************/
+/*********************************************************************************************************/
 
 //Start by defining the main module and adding the module dependencies
 angular.module(ApplicationConfiguration.applicationModuleName, ApplicationConfiguration.applicationModuleVendorDependencies);
@@ -36,6 +57,20 @@ angular.module(ApplicationConfiguration.applicationModuleName).config(['$locatio
 angular.module(ApplicationConfiguration.applicationModuleName).config(function (opensalesProvider) {
   opensalesProvider.restUrl = OPENSALES.baseUrl;
 });
+
+/*-------------------------------------------------------------------------------------------------------*/
+/**************************************ANGULAR CONFIGURATION END******************************************/
+/*-------------------------------------------------------------------------------------------------------*/
+
+
+
+
+
+
+
+/*********************************************************************************************************/
+/******************************************ANGULAR BOOTSTRAP START****************************************/
+/*********************************************************************************************************/
 
 //Then define the init function for starting up the application
 angular.element(document).ready(function () {
@@ -57,34 +92,49 @@ angular.element(document).ready(function () {
     }
   }
 
-
-
-  var spinnerGmailFunction = function (data, headersGetter) {
+  var spinnerGmailFunction = function () {
     loadingTimer = window.setTimeout(function () {
       $('#gmailLoader').show();
       loadingTimer = -1;
     }, 500);
   };
-  var spinnerGmailResolveFunction = function (response) {
+  var spinnerGmailResolveFunction = function () {
     if (loadingTimer != -1) {
       window.clearTimeout(loadingTimer);
       loadingTimer = -1;
     }
     $('#gmailLoader').hide();
   };
-  var spinnerGmailResolveEerrorFunction = function (response) {
+  var spinnerGmailResolveEerrorFunction = function () {
     if (loadingTimer != -1) {
       window.clearTimeout(loadingTimer);
       loadingTimer = -1;
     }
-    $('#gmailLoaderIcon').removeClass().addClass('pficon-error-circle-o');
     $('#gmailLoaderMessage').show();
-  };
-  var error503 = function () {
-    location.replace('503.html');
+    $('#gmailLoaderIcon').removeClass().addClass('pficon-error-circle-o');
   };
 
-
+  function loadOpensalesSession(success, error, username) {
+    var req = new XMLHttpRequest();
+    req.open('GET', OPENSALES.baseUrl + '/com.Siacpi.Ventas.Services/AdminService.svc/whoAmI/' + username, true);
+    req.setRequestHeader('Accept', 'application/json');
+    spinnerGmailFunction(); // start loader
+    req.onreadystatechange = function () {
+      if (req.readyState == 4) {
+        if (req.status == 200) {
+          var data = JSON.parse(req.responseText);
+          spinnerGmailResolveFunction(); // stop loader
+          success && success(data);
+        } else if (req.status == 0){
+          location.replace('503.html');
+        } else {
+          spinnerGmailResolveEerrorFunction(); // stop loader
+          error && error();
+        }
+      }
+    };
+    req.send();
+  }
 
   // KEYCLOAK START
   var keycloakAuth = new Keycloak({
@@ -102,27 +152,6 @@ angular.element(document).ready(function () {
       error();
     });
   }
-  function loadOpensalesSession(success, error, username) {;
-    var req = new XMLHttpRequest();
-    req.open('GET', OPENSALES.baseUrl + '/com.Siacpi.Ventas.Services/AdminService.svc/whoAmI/' + username, true);
-    req.setRequestHeader('Accept', 'application/json');
-    spinnerGmailFunction(); // start loader
-    req.onreadystatechange = function () {
-      if (req.readyState == 4) {
-        if (req.status == 200) {
-          var data = JSON.parse(req.responseText);
-          spinnerGmailResolveFunction(); // stop loader
-          success && success(data);
-        } else if(req.status == 400) {
-          spinnerGmailResolveEerrorFunction(); // stop loader
-        } else {
-          spinnerGmailResolveEerrorFunction(); // stop loader
-          error && error();
-        }
-      }
-    };
-    req.send();
-  }
   function hasAnyAccess(user) {
     return user && user['realm_access'];
   }
@@ -130,7 +159,6 @@ angular.element(document).ready(function () {
     location.reload();
   };
   // KEYCLOAK END
-
 
 
   // INIT TO BOOTSTRAP ANGULAR APP
@@ -152,14 +180,14 @@ angular.element(document).ready(function () {
       auth.hasAnyAccess = true;
       return auth;
     });
-    loadOpensalesSession(function(data) {
+    loadOpensalesSession(function (data) {
       auth.opsession = data;
       angular.module(ApplicationConfiguration.applicationModuleName).factory('OSSession', function () {
         return auth.opsession;
       });
       angular.bootstrap(document, [ApplicationConfiguration.applicationModuleName]);
       console.log('Application started.');
-    }, error503, username);
+    }, function(){}, username);
 
 
   } else if (auth.wcf.enabled) {
@@ -172,7 +200,9 @@ angular.element(document).ready(function () {
     keycloakAuth.init({onLoad: 'login-required'}).success(function () {
       auth.authz = keycloakAuth;
       var roles = [];
-      if (keycloakAuth.realmAccess) { roles = keycloakAuth.realmAccess.roles; }
+      if (keycloakAuth.realmAccess) {
+        roles = keycloakAuth.realmAccess.roles;
+      }
       auth.refreshPermissions = function (success, error) {
         whoAmI(function (data) {
           auth.user = data;
@@ -185,7 +215,7 @@ angular.element(document).ready(function () {
         });
       };
 
-      loadOpensalesSession(function(data) {
+      loadOpensalesSession(function (data) {
         auth.opsession = data;
         angular.module(ApplicationConfiguration.applicationModuleName).factory('OSSession', function () {
           return auth.opsession;
@@ -196,8 +226,8 @@ angular.element(document).ready(function () {
           });
           angular.bootstrap(document, [ApplicationConfiguration.applicationModuleName]);
           console.log('Application started.');
-        }, error503);
-      }, error503, keycloakAuth.tokenParsed.preferred_username);
+        }, function(){});
+      }, function(){}, keycloakAuth.tokenParsed.preferred_username);
 
 
     }).error(function () {
@@ -211,9 +241,23 @@ angular.element(document).ready(function () {
   }
 });
 
+
+/*-------------------------------------------------------------------------------------------------------*/
+/**************************************ANGULAR BOOTSTRAP END**********************************************/
+/*-------------------------------------------------------------------------------------------------------*/
+
+
+
+
+
+
+
+/*********************************************************************************************************/
+/**************************************SECURITY CONFIGURATION START***************************************/
+/*********************************************************************************************************/
+
 angular.module(ApplicationConfiguration.applicationModuleName).config(function ($httpProvider) {
   //$httpProvider.interceptors.push('errorInterceptor');
-
   var spinnerFunction = function (data, headersGetter) {
     if (resourceRequests == 0) {
       loadingTimer = window.setTimeout(function () {
@@ -228,9 +272,9 @@ angular.module(ApplicationConfiguration.applicationModuleName).config(function (
 
   $httpProvider.interceptors.push('spinnerInterceptor');
   //$httpProvider.interceptors.push('authInterceptor');
-
 });
 
+/*For show/hide spinner*/
 angular.module(ApplicationConfiguration.applicationModuleName).factory('spinnerInterceptor', function ($q, $window, $rootScope, $location) {
   return {
     response: function (response) {
@@ -259,26 +303,31 @@ angular.module(ApplicationConfiguration.applicationModuleName).factory('spinnerI
   };
 });
 
-/*angular.module(ApplicationConfiguration.applicationModuleName).factory('errorInterceptor', function($q, $window, $rootScope, $location, Notifications, Auth) {
- return {
- response: function(response) {
- return response;
- },
- responseError: function(response) {
- if (response.status == 401) {
- Auth.authz.logout();
- } else if (response.status == 403) {
- $location.path('/forbidden');
- } else if (response.status == 404) {
- $location.path('/notfound');
- } else if (response.status) {
- if (response.data && response.data.errorMessage) {
- Notifications.error(response.data.errorMessage);
- } else {
- Notifications.error("An unexpected server error has occurred");
- }
- }
- return $q.reject(response);
- }
- };
- });*/
+/*For Token security configuration*/
+/*angular.module(ApplicationConfiguration.applicationModuleName).factory('errorInterceptor', function ($q, $window, $rootScope, $location, Notifications, Auth) {
+  return {
+    response: function (response) {
+      return response;
+    },
+    responseError: function (response) {
+      if (response.status == 401) {
+        Auth.authz.logout();
+      } else if (response.status == 403) {
+        $location.path('/forbidden');
+      } else if (response.status == 404) {
+        $location.path('/notfound');
+      } else if (response.status) {
+        if (response.data && response.data.errorMessage) {
+          Notifications.error(response.data.errorMessage);
+        } else {
+          Notifications.error("An unexpected server error has occurred");
+        }
+      }
+      return $q.reject(response);
+    }
+  };
+});*/
+
+/*-------------------------------------------------------------------------------------------------------*/
+/**************************************SECURITY CONFIGURATION END*****************************************/
+/*-------------------------------------------------------------------------------------------------------*/
