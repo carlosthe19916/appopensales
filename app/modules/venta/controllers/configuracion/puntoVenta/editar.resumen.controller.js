@@ -54,7 +54,7 @@ angular.module('venta').controller('Venta.Configuracion.PuntoVenta.Editar.Resume
                 $scope.gridOptions.caja.data.splice(index, 1);
               },
               function error(err) {
-                toastr.error(err.data.message);
+                toastr.error(err.data.errorMessage);
               }
             );
           });
@@ -72,7 +72,7 @@ angular.module('venta').controller('Venta.Configuracion.PuntoVenta.Editar.Resume
                 $scope.gridOptions.trabajador.data.splice(index, 1);
               },
               function error(err) {
-                toastr.error(err.data.message);
+                toastr.error(err.data.errorMessage);
               }
             );
           });
