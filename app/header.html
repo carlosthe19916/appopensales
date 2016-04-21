@@ -39,17 +39,25 @@
           <span><em>No disponible</em></span>
         </a>
       </li>
-      <li class="dropdown" uib-dropdown>
+      <li class="dropdown" uib-dropdown style="margin-right: 2px;">
         <a href="#" class="dropdown-toggle" uib-dropdown-toggle>
           <span class="pficon pficon-user"></span>
           <span class="username">{{user.fullName || user.metadata.name}}</span> <b class="caret"></b>
         </a>
         <ul uib-dropdown-menu role="menu" aria-labelledby="single-button">
           <li role="menuitem">
-            <a href="" data-ng-click="accountManagement()">Administrar cuenta</a>
+            <a href="" data-ng-click="accountManagement()">Manage account</a>
           </li>
           <li role="menuitem">
-            <a href="" data-ng-click="logout()">Salir</a>
+            <a href="" ui-sref="account-info">Account info</a>
+          </li>
+          <li class="divider"></li>
+          <li role="menuitem">
+            <a href="" ui-sref="server-info">Server info</a>
+          </li>
+          <li class="divider"></li>
+          <li role="menuitem">
+            <a href="" data-ng-click="logout()">Logout</a>
           </li>
         </ul>
       </li>

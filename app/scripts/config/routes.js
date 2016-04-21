@@ -35,6 +35,17 @@ angular.module(ApplicationConfiguration.applicationModuleName).config(['$statePr
           ignoreState: true,
           pageTitle: 'Forbidden'
         }
+      })
+
+      .state('account-info', {
+        url: '/account-info',
+        templateUrl: 'account-info.html',
+        controller: 'AccountInfoController'
+      })
+      .state('server-info', {
+        url: '/server-info',
+        templateUrl: 'server-info.html',
+        controller: 'ServerInfoController'
       });
 
   }
