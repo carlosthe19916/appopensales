@@ -13,7 +13,7 @@ var loadingTimer = -1;
 // For authentication method
 var auth = {
   test: {
-    enabled: true
+    enabled: false
   },
   wcf: {
     enabled: false
@@ -22,7 +22,7 @@ var auth = {
     url: 'https://keycloak-softgreen.rhcloud.com/auth',
     realm: 'opensales',
     clientId: 'opensales_app',
-    enabled: false
+    enabled: true
   }
 };
 
