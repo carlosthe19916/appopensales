@@ -331,7 +331,6 @@ angular.module(ApplicationConfiguration.applicationModuleName).factory('errorInt
 });
 
 /*For Token security configuration*/
-
 if(auth.keycloak.enabled) {
   angular.module(ApplicationConfiguration.applicationModuleName).factory('authInterceptor', function($q, Auth) {
     return {

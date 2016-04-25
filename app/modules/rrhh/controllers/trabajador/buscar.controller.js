@@ -1,7 +1,7 @@
 'use strict';
 
 /* jshint -W098 */
-angular.module('persona').controller('Rrhh.Trabajador.BuscarController',
+angular.module('rrhh').controller('Rrhh.Trabajador.BuscarController',
   function ($scope, $state, toastr, OSTrabajador, SCDialog) {
 
     var paginationOptions = {
@@ -70,7 +70,7 @@ angular.module('persona').controller('Rrhh.Trabajador.BuscarController',
 
     $scope.gridActions = {
       edit: function (row) {
-        $state.go('^.editar.resumen', {personaNatural: row.id});
+        $state.go('^.editar.resumen', {trabajador: row.id});
       },
       remove: function (row) {
         SCDialog.confirmDelete('Persona', row.nombres, function() {
