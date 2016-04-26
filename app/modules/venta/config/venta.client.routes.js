@@ -38,9 +38,6 @@ angular.module('venta').config(['$stateProvider', '$urlRouterProvider',
         template: '<div ui-view></div>',
         ncyBreadcrumb: {
           skip: true // Never display this state in breadcrumb.
-        },
-        data: {
-          pageTitle: 'Venta'
         }
       })
 
@@ -67,6 +64,10 @@ angular.module('venta').config(['$stateProvider', '$urlRouterProvider',
         resolve: {},
         ncyBreadcrumb: {
           skip: true
+        },
+        data: {
+          roles: ['cajero'],
+          pageTitle: 'Abrir caja'
         }
       })
       .state('venta.app.caja.cerrar', {
@@ -293,6 +294,10 @@ angular.module('venta').config(['$stateProvider', '$urlRouterProvider',
         resolve: {},
         ncyBreadcrumb: {
           label: 'Abrir caja'
+        },
+        data: {
+          roles: ['cajero'],
+          pageTitle: 'Abrir caja'
         }
       })
       .state('venta.app.configuracion.puntoVenta.editar.cajas.editar.cerrar', {
@@ -302,6 +307,10 @@ angular.module('venta').config(['$stateProvider', '$urlRouterProvider',
         resolve: {},
         ncyBreadcrumb: {
           label: 'Cerrar caja'
+        },
+        data: {
+          roles: ['cajero'],
+          pageTitle: 'Cerrar caja'
         }
       })
 

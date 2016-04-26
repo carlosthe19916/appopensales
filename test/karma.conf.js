@@ -21,6 +21,8 @@ module.exports = function(config) {
     files: [
       // bower:js
       'bower_components/jquery/dist/jquery.js',
+      'bower_components/jquery-ui/jquery-ui.js',
+      'bower_components/jquery.maskedinput/dist/jquery.maskedinput.js',
       'bower_components/angular/angular.js',
       'bower_components/angular-animate/angular-animate.js',
       'bower_components/angular-sanitize/angular-sanitize.js',
@@ -49,6 +51,8 @@ module.exports = function(config) {
       'bower_components/matchHeight/jquery.matchHeight-min.js',
       'bower_components/patternfly/dist/js/patternfly.js',
       'bower_components/angular-patternfly/dist/angular-patternfly.js',
+      'bower_components/angular-ui-select/dist/select.js',
+      'bower_components/angular-ui-grid/ui-grid.js',
       'bower_components/restangular/dist/restangular.js',
       'bower_components/underscore/underscore.js',
       'bower_components/bootstrap-sass/assets/javascripts/bootstrap.js',
@@ -56,12 +60,8 @@ module.exports = function(config) {
       'bower_components/moment-timezone/builds/moment-timezone-with-data-2010-2020.js',
       'bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js',
       'bower_components/patternfly-sass/assets/javascripts/patternfly.js',
-      'bower_components/jquery-ui/jquery-ui.js',
-      'bower_components/jquery.maskedinput/dist/jquery.maskedinput.js',
       'bower_components/keycloak/dist/keycloak.js',
-      'bower_components/angular-ui-select/dist/select.js',
       'bower_components/ng-file-upload/ng-file-upload.js',
-      'bower_components/angular-ui-grid/ui-grid.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       'app/scripts/**/*.js',

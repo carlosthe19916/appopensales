@@ -46,6 +46,12 @@
           <span><em>No disponible</em></span>
         </a>
       </li>
+      <li data-ng-if="ossession.cuenta" class="dropdown">
+        <a href="" class="dropdown-toggle">
+          <strong>Caja: </strong>
+          <span data-ng-bind="ossession.cuenta.abreviatura"></span>
+        </a>
+      </li>
       <li class="dropdown" uib-dropdown style="margin-right: 2px;">
         <a href="#" class="dropdown-toggle" uib-dropdown-toggle>
           <span class="pficon pficon-user"></span>

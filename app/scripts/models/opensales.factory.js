@@ -179,8 +179,8 @@ angular.module(ApplicationConfiguration.applicationModuleName).factory('OSPuntoV
 
 angular.module(ApplicationConfiguration.applicationModuleName).factory('OSCaja', ['OpensalesRestangular', function (OpensalesRestangular) {
   var extendedMethods = {
-    $abrir: function () {
-      return OpensalesRestangular.one(this.$getBasePath(), this.id).all('abrir').post();
+    $abrir: function (data) {
+      return OpensalesRestangular.one(this.$getBasePath(), this.id).all('abrir').post(data);
     }
   };
 

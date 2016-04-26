@@ -31,6 +31,10 @@ angular.module(ApplicationConfiguration.applicationModuleName).controller('Heade
       $scope.isCollapsed = false;
     });
 
+    /**Session variable*/
+    $scope.ossession = {
+      cuenta: OSSession.cuenta
+    };
 
     /*Validate session*/
     $scope.isInvalidSession = false;
@@ -47,6 +51,6 @@ angular.module(ApplicationConfiguration.applicationModuleName).controller('Heade
     if(Auth.user.roles.indexOf('cajero') != -1) {
       checkRolCajero();
     }
-    
+
   }
 ]);
