@@ -181,6 +181,9 @@ angular.module(ApplicationConfiguration.applicationModuleName).factory('OSCaja',
   var extendedMethods = {
     $abrir: function (data) {
       return OpensalesRestangular.one(this.$getBasePath(), this.id).all('abrir').post(data);
+    },
+    $cerrar: function (data) {
+      return OpensalesRestangular.one(this.$getBasePath(), this.id).all('cerrar').post(data);
     }
   };
 

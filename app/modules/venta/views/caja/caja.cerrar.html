@@ -1,38 +1,132 @@
-<div ncy-breadcrumb></div>
-
-<h1>Abrir caja.<small> Saldo inicial del dia.</small></h1>
+<h1>Cerrar caja</h1>
 
 <form name="form" class="form-horizontal" novalidate>
 
-  <div class="form-group" data-ng-class="{ 'has-error' : form.abreviatura.$invalid && form.abreviatura.$dirty }">
-    <label class="col-sm-2 control-label"><span class="required">*</span> Abreviatura:</label>
-    <div class="col-sm-3">
-      <table class="table table-condensed table-bordered table-striped">
-        <thead>
-        <tr>
-          <td>Denominacion</td>
-          <td>Cantidad</td>
-          <td>Sub total</td>
-        </tr>
-        </thead>
-        <tbody>
-        <tr data-ng-repeat="item in detalle">
-          <td>{{item.denominacion}}</td>
-          <td>{{item.cantidad}}</td>
-          <td>{{item.getSubtotal()}}</td>
-        </tr>
-        </tbody>
-      </table>
-    </div>
+  <div data-ng-if="!view.caja.abierto" class="alert alert-info">
+    <span class="pficon pficon-info"></span>
+    La caja se encuentra cerrada, no puede cerrarla nuevamente.
   </div>
+
+  <fieldset class="border-top">
+    <legend><span class="text ng-scope">Datos generales <i class="fa fa-question-circle text-muted"
+                                                           uib-tooltip="Datos generales de la ultima apertura de caja."
+                                                           uib-tooltip-placement="right"></i></span></legend>
+    <div class="form-group">
+      <label class="col-sm-2 control-label">F.Apertura
+        <i class="fa fa-info-circle text-muted" tooltip-placement="right" uib-tooltip="Fecha de apertura de caja en formato dd/MM/yyyy"></i>
+      </label>
+      <div class="col-sm-3">
+        <input data-ng-if="view.load.historial.fechaApertura" type="text" name="fechaApertura" data-ng-model="view.load.historial.fechaApertura" class="form-control" uib-datepicker-popup="dd/MM/yyyy" disabled/>
+        <input data-ng-if="!view.load.historial.fechaApertura" type="text" value="No definido" class="form-control" disabled/>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-2 control-label">F.Cierre
+        <i class="fa fa-info-circle text-muted" tooltip-placement="right" uib-tooltip="Fecha en la que se va a cerrar la caja en formato dd/MM/yyyy"></i>
+      </label>
+      <div class="col-sm-3">
+        <input data-ng-if="view.load.historial.fechaCierre" type="text" name="fechaCierre" data-ng-model="view.load.historial.fechaCierre" class="form-control" uib-datepicker-popup="dd/MM/yyyy" disabled/>
+        <input data-ng-if="!view.load.historial.fechaCierre" type="text" value="No definido" class="form-control" disabled/>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-2 control-label">Saldo
+        <i class="fa fa-info-circle text-muted" tooltip-placement="right" uib-tooltip="Saldo con el que se aperturo la caja en formato 999,999,999.99"></i>
+      </label>
+      <div class="col-sm-3">
+        <input type="text" name="saldo" data-ng-model="view.load.historial.saldo" class="form-control"
+               ui-number-mask="2" min="0" max="999999999"
+               ng-minlength="1" ng-maxlength="20"
+               placeholder="0.00" disabled/>
+      </div>
+    </div>
+  </fieldset>
+  <fieldset class="border-top">
+    <legend><span class="text ng-scope">Datos del cierre <i class="fa fa-question-circle text-muted"
+                                                             uib-tooltip="Detalle de monedas al momento del cierre."
+                                                             uib-tooltip-placement="right"></i></span></legend>
+    <div class="form-group">
+      <label class="col-sm-2 control-label">Detalle</label>
+      <div class="col-sm-10">
+        <div class="row">
+          <div class="col-sm-6">
+            <label class="control-label">Detalle inicial <i class="fa fa-info-circle text-muted" uib-tooltip="Detalle de monedas con las que empeso el dia" tooltip-placement="right"></i></label>
+            <table class="table table-bordered table-striped table-condensed">
+              <thead>
+              <tr>
+                <th class="text-right">#</th>
+                <th class="text-right">Denominacion</th>
+                <th class="text-right">Cantidad</th>
+                <th class="text-right">Subtotal</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr data-ng-repeat="item in ::view.load.detalle | orderBy: 'denominacion'">
+                <td class="text-right" width="5%" style="height: 33px;"><span data-ng-bind="$index+1"></span></td>
+                <td class="text-right"><span data-ng-bind="::item.denominacion | number: 2"></span></td>
+                <td class="text-right" width="30%"><span data-ng-bind="::item.cantidad | number: 0"></span></td>
+                <td class="text-right" width="30%"><span data-ng-bind="::item.subtotal() | number: 2"></span></td>
+              </tr>
+              </tbody>
+              <tfoot>
+              <tr>
+                <th rowspan="1" colspan="3" class="text-right">TOTAL:</th>
+                <th rowspan="1" colspan="1" class="text-right"><span data-ng-bind="::getTotal(view.load.detalle) | number : 2"></span></th>
+              </tr>
+              </tfoot>
+            </table>
+          </div>
+          <div class="col-sm-6">
+            <label class="control-label">Detalle final <i class="fa fa-info-circle text-muted" uib-tooltip="Detalle de monedas con las que desea cerrar la caja" tooltip-placement="right"></i></label>
+            <table class="table table-bordered table-striped table-condensed">
+              <thead>
+              <tr>
+                <th class="text-right">#</th>
+                <th class="text-right">Denominacion</th>
+                <th class="text-right">Cantidad</th>
+                <th class="text-right">Subtotal</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr data-ng-repeat="item in ::view.load.detalle | orderBy: 'denominacion'">
+                <td class="text-right" width="5%" style="height: 33px;"><span ng-bind="$index+1"></span></td>
+                <td class="text-right" style="height: 33px;"><span ng-bind="::item.denominacion | number: 2"></span></td>
+                <td class="text-right" width="30%">
+                  <ng-form name="form">
+                    <div class="form-group" data-ng-class="{ 'has-error' : form.cantidad.$invalid }" style="margin: 0;">
+                      <input type="text" name="cantidad" data-ng-model="item.cantidad"
+                             ui-number-mask="0" min="0" max="999999999"
+                             ng-minlength="1" ng-maxlength="11" class="form-control"
+                             placeholder="Cantidad" required
+                             uib-tooltip="Cantidad de monedas o billetes" tooltip-placement="top"
+                             style="text-align: right;"/>
+                    </div>
+                  </ng-form>
+                </td>
+                <td class="text-right" width="30%"><span ng-bind="item.subtotal() | number: 2"></span></td>
+              </tr>
+              </tbody>
+              <tfoot>
+              <tr>
+                <th rowspan="1" colspan="3" class="text-right">TOTAL:</th>
+                <th rowspan="1" colspan="1" class="text-right"><span data-ng-bind="getTotal(view.load.detalle) | number : 2"></span></th>
+              </tr>
+              </tfoot>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </fieldset>
+
 
   <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
-      <button sg-save ng-disabled="working">
-        <span ng-show="working">Guardando...</span>
-        <span ng-hide="working">Guardar</span>
+      <button sc-save data-ng-disabled="working">
+        <span data-ng-show="working">Guardando...</span>
+        <span data-ng-hide="working">Guardar</span>
       </button>
-      <button sg-cancel ng-disabled="working" ui-sref="^.buscar">Cancelar</button>
     </div>
   </div>
+  <br/>
 </form>

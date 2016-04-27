@@ -77,6 +77,10 @@ angular.module('venta').config(['$stateProvider', '$urlRouterProvider',
         resolve: {},
         ncyBreadcrumb: {
           skip: true
+        },
+        data: {
+          roles: ['cajero'],
+          pageTitle: 'Cerrar caja'
         }
       })
       .state('venta.app.caja.movimientos', {
