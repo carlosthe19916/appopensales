@@ -26,11 +26,15 @@ angular.module('venta').controller('Venta.Busqueda.BusquedaProducto.BrowseContro
     var actionVer = function (e, item) {
       var modalInstance = $uibModal.open({
         templateUrl: 'modules/venta/views/operaciones/venta/venta.crear.modal.verProducto.html',
-        controller: 'Venta.Crear.Modal.VerProductoController'
+        controller: 'Venta.Crear.Modal.VerProductoController',
+        resolve: {
+          producto: function () {
+            return item;
+          }
+        }
       });
-      modalInstance.result.then(function (cantidad) {
-        item.cantidad = cantidad;
-        $scope.addProducto(item);
+      modalInstance.result.then(function (itemUpdated) {
+        $scope.addProducto(itemUpdated);
       }, function () {});
     };
 

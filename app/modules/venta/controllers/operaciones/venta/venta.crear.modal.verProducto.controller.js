@@ -2,10 +2,23 @@
 
 /* jshint -W098 */
 angular.module('venta').controller('Venta.Crear.Modal.VerProductoController',
-  function ($scope, $uibModalInstance) {
+  function ($scope, producto, $uibModalInstance) {
+
+    $scope.view = {
+      producto: producto
+    };
+
+    $scope.view.producto.cantidad = 1;
+
+    $scope.add = function () {
+      $scope.view.producto.cantidad++;
+    };
+    $scope.substract = function () {
+      if($scope.view.producto.cantidad > 1) $scope.view.producto.cantidad--;
+    };
 
     $scope.ok = function () {
-      $uibModalInstance.close();
+      $uibModalInstance.close($scope.view.producto);
     };
 
     $scope.cancel = function () {

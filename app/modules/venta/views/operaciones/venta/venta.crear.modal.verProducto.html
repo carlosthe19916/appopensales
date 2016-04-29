@@ -1,12 +1,67 @@
 <div class="modal-header">
-  <h3 class="modal-title">I'm a modal!</h3>
+  <h3 class="modal-title">Producto</h3>
 </div>
 <div class="modal-body">
 
-  <h1>Datos detallados de un producto</h1>
+  <div class="row">
+    <div class="col-sm-7">
+      <dl class="dl-horizontal left">
+        <dt>Codigo:</dt>
+        <dd data-ng-bind="view.producto.codigo"></dd>
+        <dt>Denominacion:</dt>
+        <dd data-ng-bind="view.producto.denominacion"></dd>
+        <dt>Descripcion:</dt>
+        <dd data-ng-bind="view.producto.descripcion"></dd>
+      </dl>
+      <dl class="dl-horizontal left">
+        <dt>Precio:</dt>
+        <dd data-ng-bind="view.producto.precio | number: 2"></dd>
+      </dl>
+    </div>
+    <div class="col-sm-5">
+      <uib-carousel active="0">
+        <uib-slide data-ng-repeat="item in [0, 1, 2]" index="item">
+          <img src="http://placehold.it/240x240">
+        </uib-slide>
+      </uib-carousel>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <table class="table table-condensed table-striped table-bordered">
+        <thead>
+        <tr>
+          <td>#</td>
+          <td>Almacen</td>
+          <td>Stock</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr data-ng-repeat="item in view.producto.stock">
+          <td data-ng-bind="$index+1"></td>
+          <td data-ng-bind="item.almacen.denominacion"></td>
+          <td data-ng-bind="item.cantidad | number: 0"></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
 
 </div>
 <div class="modal-footer">
-  <button class="btn btn-default" type="button" ng-click="cancel()">Cancel</button>
-  <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
+  <div class="row">
+    <div class="col-lg-3 text-left">
+      <div class="input-group bootstrap-touchspin">
+        <span class="input-group-btn"><button class="btn btn-default bootstrap-touchspin-down" data-ng-click="substract()" type="button">-</button></span>
+        <span class="input-group-addon bootstrap-touchspin-prefix" style="display: none;"></span>
+        <input name="cantidad" class="bootstrap-touchspin form-control" type="text" data-ng-model="view.producto.cantidad" ui-number-mask="0" min="1" max="999999" style="display: block;" required>
+        <span class="input-group-addon bootstrap-touchspin-postfix" style="display: none;"></span>
+        <span class="input-group-btn"><button class="btn btn-default bootstrap-touchspin-up" data-ng-click="add()" type="button">+</button></span>
+      </div>
+    </div>
+    <div class="col-sm-9 text-right">
+      <button class="btn btn-default" type="button" ng-click="cancel()">Cancelar</button>
+      <button class="btn btn-default" type="button" ng-click="ok()">Agregar</button>
+    </div>
+  </div>
 </div>
