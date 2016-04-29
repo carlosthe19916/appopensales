@@ -2,7 +2,7 @@
 
 /* jshint -W098 */
 angular.module('venta').controller('Venta.Busqueda.BusquedaProducto.BrowseController',
-  function ($scope, $state, $uibModal, SCDialog, OSProducto) {
+  function ($scope, $state, toastr, $uibModal, SCDialog, OSProducto) {
 
     var handleSelect = function (item, e) { return angular.noop; };
     var handleSelectionChange = function (selectedItems, e) { return angular.noop;  };
@@ -70,24 +70,10 @@ angular.module('venta').controller('Venta.Busqueda.BusquedaProducto.BrowseContro
         onDblClick: handleDblClick
       },
       actionButtons: [
-        {
-          name: 'Enviar',
-          actionFn: actionEnviar
-        },
-        {
-          name: 'Ver',
-          actionFn: actionVer
-        }
+        { name: 'Enviar', actionFn: actionEnviar },
+        { name: 'Ver', actionFn: actionVer }
       ],
-      menuActions: [
-        /*{ name: 'Action', title: 'Perform an action', actionFn: angular.noop },
-        { name: 'Another Action', title: 'Do something else', actionFn: angular.noop },
-        { name: 'Disabled Action', title: 'Unavailable action', actionFn: angular.noop, isDisabled: true },
-        { name: 'Something Else', title: '', actionFn: angular.noop },
-        { isSeparator: true },
-        { name: 'Grouped Action 1', title: 'Do something',  actionFn: angular.noop },
-        { name: 'Grouped Action 2', title: 'Do something similar', actionFn: angular.noop }*/
-      ],
+      menuActions: [],
       enableButtonForItemFn: function (action, item) {
         return true;
       },
@@ -106,6 +92,23 @@ angular.module('venta').controller('Venta.Busqueda.BusquedaProducto.BrowseContro
 
       OSProducto.$search(criteria).then(function (response) {
         $scope.gridOptions.data = response.items;
+        angular.forEach($scope.gridOptions.data, function (row) {
+          row.getStockTotal = function () {
+            var i = 0;
+            row.stock.forEach(function (item) {
+              i = i + item.cantidad;
+            });
+            return i;
+          };
+          row.getDetalle = function () {
+            var result = '';
+            row.stock.forEach(function (item) {
+              result = result + item.cantidad + ':' + item.almacen.denominacion + ' ';
+            });
+            return result;
+          };
+        });
+
         $scope.gridOptions.totalItems = response.totalSize;
       }, function error(err) {
         toastr.error('El servidor no responde, intentelo nuevamente.');

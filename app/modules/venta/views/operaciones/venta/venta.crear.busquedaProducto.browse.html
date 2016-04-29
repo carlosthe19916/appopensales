@@ -9,6 +9,7 @@
       </div>
     </div>
 
+    <!--
     <div class="col-sm-2 text-left">
       <div class="form-group">
         <div class="input-group" style="font-size: 20px; line-height: 1.5em;">
@@ -31,7 +32,7 @@
           </ul>
         </div>
       </div>
-    </div>
+    </div>--><div class="col-sm-5"></div>
     <div class="col-sm-3 text-right">
       <div class="btn-group">
         <label class="btn btn-default" data-ng-model="showMode.selected" uib-btn-radio="showMode.values[0]"><i class="fa fa-th"></i></label>
@@ -81,7 +82,7 @@
         <div class="list-view-pf-left">
           <div class="list-view-pf-calendar">
             Stock
-            <strong>&infin;</strong>
+            <strong data-ng-bind="item.getStockTotal()" uib-popover="{{item.getDetalle()}}" popover-trigger="mouseenter"></strong>
           </div>
         </div>
         <div class="list-view-pf-body">
@@ -134,7 +135,7 @@
           <div class="list-view-pf-additional-info">
             <div class="list-view-pf-additional-info-item">
               <span class="fa fa-tachometer"></span>
-              <strong>&infin;</strong>
+              <strong data-ng-bind="item.getStockTotal()" uib-popover="{{item.getDetalle()}}" popover-trigger="mouseenter"></strong>
             </div>
             <div class="list-view-pf-additional-info-item">
               <span class="fa fa-money"></span>
@@ -167,7 +168,7 @@
               <strong>Codigo</strong><span data-ng-bind="item.codigo"></span>
             </div>
             <div class="list-view-pf-additional-info-item list-view-pf-additional-info-item-stacked">
-              <strong>Stock</strong> &infin;
+              <strong>Stock</strong> <span data-ng-bind="item.getStockTotal()" uib-popover="{{item.getDetalle()}}" popover-trigger="mouseenter"></span>
             </div>
             <div class="list-view-pf-additional-info-item list-view-pf-additional-info-item-stacked">
               <strong>Precio</strong><span data-ng-bind="item.precio | number : 2"></span>
