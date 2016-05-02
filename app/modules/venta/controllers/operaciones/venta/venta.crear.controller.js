@@ -2,7 +2,7 @@
 
 /* jshint -W098 */
 angular.module('venta').controller('Venta.CrearController',
-  function ($scope, $state, toastr, SCDialog, OSVenta, OSPersona) {
+  function ($scope, $state, $uibModal, toastr, SCDialog, OSVenta, OSPersona) {
 
     $scope.working = false;
 
@@ -13,6 +13,14 @@ angular.module('venta').controller('Venta.CrearController',
 
     $scope.view.load = {
       cliente: {}
+    };
+
+    $scope.getTotal = function () {
+      var result = 0;
+      $scope.view.productos.forEach(function (row) {
+        result = result + (row.cantidad * row.precio);
+      });
+      return result;
     };
 
     $scope.buscarCliente = function ($event) {
@@ -40,6 +48,18 @@ angular.module('venta').controller('Venta.CrearController',
       });
     };
 
+    $scope.editarProducto = function (item, $index) {
+      var modalInstance = $uibModal.open({
+        templateUrl: 'modules/venta/views/operaciones/venta/venta.crear.modal.cantidadProducto.html',
+        controller: 'Venta.Crear.Modal.CantidadProductoController',
+        resolve: {
+          producto: item
+        }
+      });
+      modalInstance.result.then(function (itemUpdated) {
+        $scope.view.productos[$index] = itemUpdated;
+      }, function () {});
+    };
     $scope.devolverProducto = function (item, $index) {
       SCDialog.confirm('Guardar', 'Estas seguro de devolver el producto?', function () {
         $scope.view.productos.splice($index, 1);

@@ -7,7 +7,7 @@ angular.module('venta').controller('Venta.Crear.Modal.CantidadProductoController
     $scope.view = {
       producto: producto
     };
-    $scope.view.producto.cantidad = 1;
+    $scope.view.producto.cantidad = producto.cantidad || 1;
 
     $scope.add = function () {
       $scope.view.producto.cantidad++;
