@@ -3,7 +3,7 @@
     <div class="page-header page-header-bleed-right">
       <div class="actions pull-right">
         <div class="btn-group">
-          <button type="button" class="btn btn-default btn-lg" data-ng-click="save()"><i class="fa fa-credit-card"></i></button>
+          <button type="button" data-ng-click="save()" tooltip-placement="top" uib-tooltip="Vender (Ctrl+m)" class="btn btn-default btn-lg"><i class="fa fa-credit-card"></i></button>
         </div>
         <div class="btn-group">
           <button class="btn btn-default btn-lg" data-ng-click="limpiar()"><i class="pficon pficon-refresh"></i></button>
@@ -13,11 +13,75 @@
     </div>
 
     <fieldset class="border-top">
-      <legend><span class="text ng-scope">Resumen <i class="fa fa-question-circle text-muted ng-scope"
+      <legend><span class="text ng-scope">Comprobante de pago <i class="fa fa-question-circle text-muted ng-scope"
                                                               uib-tooltip="Resumen del dinero a cobrar."
                                                               uib-tooltip-placement="right"></i></span></legend>
+      <form name="form" class="form-horizontal" novalidate style="margin-top: 0px;">
+        <div class="form-group">
+          <label class="col-sm-3 control-label">T.Compobante
+            <i class="fa fa-info-circle text-muted" tooltip-placement="right" uib-tooltip="Tipo de comprobante de pago. Boleta o Factura."></i>
+          </label>
+          <div class="col-sm-4">
+            <div class="btn-group">
+              <label class="btn btn-default" data-ng-model="combo.selected.tipoComprobante" uib-btn-radio="'BOLETA'" uib-uncheckable>BOLETA</label>
+              <label class="btn btn-default" data-ng-model="combo.selected.tipoComprobante" uib-btn-radio="'FACTURA'" uib-uncheckable>FACTURA</label>
+            </div>
+          </div>
+        </div>
+        <div class="form-group" data-ng-class="{ 'has-error' : (form.tipoDocumento.$invalid || form.numeroDocumento.$invalid ) && (form.tipoDocumento.$dirty || form.numeroDocumento.$dirty || form.$submitted) }">
+          <label class="col-sm-3 control-label">Documento identidad:
+            <i class="fa fa-info-circle text-muted" tooltip-placement="right" uib-tooltip="Tipo y numero de documento de identidad del cliente."></i>
+          </label>
+          <div class="col-sm-3">
+            <ui-select name="tipoDocumento" data-ng-model="combo.selected.tipoDocumento" required>
+              <ui-select-match placeholder="Documento">{{$select.selected.abreviatura}}</ui-select-match>
+              <ui-select-choices repeat="item in combo.tipoDocumento | filter: $select.search">
+                <div data-ng-bind-html="item.abreviatura | highlight: $select.search"></div>
+              </ui-select-choices>
+            </ui-select>
+            <div data-ng-messages="form.tipoDocumento.$error" data-ng-if="form.tipoDocumento.$touched || form.$submitted">
+              <div class="has-error" data-ng-message="required">Ingrese documento.</div>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="input-group">
+              <input type="text" name="numeroDocumento" data-ng-model="view.numeroDocumento" ui-keypress="{13:'check($event)'}" data-ng-pattern="/^[0-9]+$/" data-ng-maxlength="20" class="form-control" required/>
+              <span class="input-group-btn"><button type="button" data-ng-click="check()" uib-tooltip-placement="bottom" class="btn btn-default"><span class="fa fa-search"></span></button></span>
+            </div>
+            <div data-ng-messages="form.numeroDocumento.$error" data-ng-if="form.numeroDocumento.$dirty || form.$submitted">
+              <div class="has-error" data-ng-message="required">Ingrese numero documento.</div>
+              <div class="has-error" data-ng-message="pattern">Numero invalido.</div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group" data-ng-class="{ 'has-error' : form.cliente.$invalid && (form.$submitted || form.cliente.$dirty )}">
+          <label class="col-sm-3 control-label">Cliente
+            <i class="fa fa-info-circle text-muted" tooltip-placement="right" uib-tooltip="Nombre/Razon social del cliente"></i>
+          </label>
+          <div class="col-sm-6">
+            <input type="text" name="cliente" data-ng-model="view.nombreRazonSocial" data-ng-maxlength="200" class="form-control" placeholder="Nombre/Razon social" autocomplete="off"/>
+            <div data-ng-messages="form.cliente.$error" data-ng-if="form.cliente.$dirty || form.numeroDocumento.$touched || form.$submitted">
+              <div class="has-error" data-ng-message="maxlength">Maximo 200 caracteres.</div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group" data-ng-class="{ 'has-error' : form.igv.$invalid && form.$submitted }">
+          <label class="col-sm-3 control-label">IGV
+            <i class="fa fa-info-circle text-muted" tooltip-placement="right" uib-tooltip="IGV porcentual aplicado al total de la compra del cliente."></i>
+          </label>
+          <div class="col-sm-2">
+            <input type="text" name="igv" data-ng-model="view.igv" class="form-control" placeholder="18.00 %" ui-percentage-mask="2"/>
+            <div data-ng-messages="form.igv.$error" data-ng-if="form.igv.$dirty || form.$submitted">
+              <div class="has-error" data-ng-message="maxlength">Maximo 100.00 %.</div>
+            </div>
+          </div>
+        </div>
+      </form>
+
       <ul class="list-inline pull-right">
-        <li><strong>Total:</strong>&nbsp;<span data-ng-bind="getTotal() | number: 2" style="font-size: x-large;"></span></li>
+        <li><strong>Subtotal:</strong>&nbsp;<span data-ng-bind="getTotal() | number: 2"></span></li>
+        <li><strong>IGV:</strong>&nbsp;<span data-ng-bind="getIgv() | number: 2"></span></li>
+        <li><strong>Total:</strong>&nbsp;<span data-ng-bind="getPrecioTotal() | number: 2" style="font-size: x-large;"></span></li>
       </ul>
     </fieldset>
 
@@ -25,31 +89,6 @@
       <legend><span class="text ng-scope">Detalle de venta <i class="fa fa-question-circle text-muted ng-scope"
                                                      uib-tooltip="Cliente que realiza la compra."
                                                      uib-tooltip-placement="right"></i></span></legend>
-      <div class="row">
-        <div class="col-sm-6">
-          <form name="form" class="form-horizontal" novalidate>
-            <div class="form-group" data-ng-class="{ 'has-error' : form.numeroDocumento.$invalid && (form.$submitted || form.numeroDocumento.$dirty )}">
-              <label class="col-sm-4 control-label">Cliente:</label>
-              <div class="col-sm-8">
-                <div class="input-group">
-                  <input type="text" name="numeroDocumento" data-ng-model="view.load.cliente.numeroDocumento" ui-keypress="{13:'buscarCliente($event)'}" data-ng-pattern="/^[0-9]+$/" data-ng-maxlength="20" class="form-control" placeholder="Numero"/>
-                  <span class="input-group-btn"><button type="button" data-ng-click="buscarCliente()" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button></span>
-                </div>
-                <div data-ng-messages="form.numeroDocumento.$error" data-ng-if="form.numeroDocumento.$dirty || form.numeroDocumento.$touched || form.$submitted">
-                  <div class="has-error" data-ng-message="maxlength">Debe tener 20 digitos.</div>
-                  <div class="has-error" data-ng-message="pattern">Numero invalido.</div>
-                </div>
-              </div>
-            </div>
-          </form>
-        </div>
-        <div class="col-sm-6">
-          <blockquote class="blockquote-reverse">
-            <footer><strong>DNI:&nbsp;</strong><span data-ng-bind="view.load.cliente.numeroDocumento"></span></footer>
-            <p><span data-ng-bind-template="{{view.load.cliente.apellidoPaterno | lowercase }}&nbsp;{{view.load.cliente.apellidoMaterno | lowercase}},&nbsp;{{view.load.cliente.nombres | lowercase}}"></span></p>
-          </blockquote>
-        </div>
-      </div>
       <div class="row">
         <div class="col-sm-12">
           <table class="table table-bordered table-striped table-condensed" style="margin-top: 0px;">

@@ -5,7 +5,7 @@ angular.module('venta').controller('Venta.Crear.Modal.CantidadProductoController
   function ($scope, $uibModalInstance, producto) {
 
     $scope.view = {
-      producto: producto
+      producto: angular.copy(producto)
     };
     $scope.view.producto.cantidad = producto.cantidad || 1;
 

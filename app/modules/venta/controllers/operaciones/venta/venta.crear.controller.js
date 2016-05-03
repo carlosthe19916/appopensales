@@ -2,18 +2,39 @@
 
 /* jshint -W098 */
 angular.module('venta').controller('Venta.CrearController',
-  function ($scope, $state, $uibModal, toastr, SCDialog, OSVenta, OSPersona) {
+  function ($scope, $state, $uibModal, hotkeys, toastr, SCDialog, OSVenta, OSTipoDocumento, OSPersona) {
 
     $scope.working = false;
 
     $scope.view = {
       venta: OSVenta.$build(),
+
+      numeroDocumento: undefined,
+      nombreRazonSocial: undefined,
+      igv: 0.18,
+
       productos: []
     };
 
     $scope.view.load = {
       cliente: {}
     };
+
+    $scope.combo = {
+      tipoComprobante: ['BOLETA', 'FACTURA'],
+      tipoDocumento: undefined
+    };
+    $scope.combo.selected = {
+      tipoComprobante: 'BOLETA',
+      tipoDocumento: undefined
+    };
+
+    $scope.loadCombo = function () {
+      OSTipoDocumento.$getAll().then(function (response) {
+        $scope.combo.tipoDocumento = response;
+      });
+    };
+    $scope.loadCombo();
 
     $scope.getTotal = function () {
       var result = 0;
@@ -22,13 +43,19 @@ angular.module('venta').controller('Venta.CrearController',
       });
       return result;
     };
+    $scope.getIgv = function () {
+      return $scope.getTotal() * $scope.view.igv;
+    };
+    $scope.getPrecioTotal = function () {
+      return $scope.getTotal() + $scope.getIgv();
+    };
 
     $scope.buscarCliente = function ($event) {
       if (!angular.isUndefined($event)) {
         $event.preventDefault();
       }
 
-      if(!$scope.view.load.cliente.numeroDocumento) {
+      if (!$scope.view.load.cliente.numeroDocumento) {
         $scope.view.load.cliente = {};
         return;
       }
@@ -58,7 +85,8 @@ angular.module('venta').controller('Venta.CrearController',
       });
       modalInstance.result.then(function (itemUpdated) {
         $scope.view.productos[$index] = itemUpdated;
-      }, function () {});
+      }, function () {
+      });
     };
     $scope.devolverProducto = function (item, $index) {
       SCDialog.confirm('Guardar', 'Estas seguro de devolver el producto?', function () {
@@ -82,6 +110,15 @@ angular.module('venta').controller('Venta.CrearController',
         );
       });
     };
+    hotkeys.bindTo($scope).add({
+      combo: 'ctrl+m',
+      description: 'Realizar la venta',
+      allowIn: ['INPUT'],
+      callback: function(event, hotkey) {
+        event.preventDefault();
+        $scope.save();
+      }
+    });
 
     $scope.limpiar = function () {
       $scope.view.productos = [];

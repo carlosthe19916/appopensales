@@ -24,7 +24,8 @@ var ApplicationConfiguration = (function () {
     'ui.grid.edit',
     'ui.grid.pagination',
     'ui.grid.selection',
-    'ui.grid.autoResize'
+    'ui.grid.autoResize',
+    'cfp.hotkeys'
   ];
 
   // Add a new vertical module

@@ -62,6 +62,7 @@ module.exports = function(config) {
       'bower_components/patternfly-sass/assets/javascripts/patternfly.js',
       'bower_components/keycloak/dist/keycloak.js',
       'bower_components/ng-file-upload/ng-file-upload.js',
+      'bower_components/angular-hotkeys/build/hotkeys.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       'app/scripts/**/*.js',
