@@ -70,17 +70,19 @@ angular.module('persona').controller('Persona.Natural.BuscarPersonaNaturalContro
 
     $scope.gridActions = {
       edit: function (row) {
-        $state.go('^.editar.resumen', {personaNatural: row.id});
+        //$state.go('^.editar.resumen', {personaNatural: row.id});
+        alert('Metodo no implementado');
       },
       remove: function (row) {
-        SCDialog.confirmDelete('Persona', row.nombres, function() {
+        alert('No se pueden eliminar personas');
+        /*SCDialog.confirmDelete('Persona', row.nombres, function() {
           OSPersona.$new(row.id).$remove().then(function(response) {
             toastr.success('Persona eliminada.');
             $scope.search();
           }, function error(err) {
             toastr.error(err.data.errorMessage);
           });
-        });
+        });*/
       },
       enable: function(row) {
         if(row) {

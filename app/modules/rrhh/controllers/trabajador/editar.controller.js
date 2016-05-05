@@ -9,14 +9,15 @@ angular.module('rrhh').controller('Rrhh.Trabajador.EditarController',
     };
 
     $scope.activar = function () {
-      SCDialog.confirm('Guardar', 'Estas seguro de activar el Trabajador?', function () {
+      /*SCDialog.confirm('Guardar', 'Estas seguro de activar el Trabajador?', function () {
         $scope.view.trabajador.$enable().then(function (response) {
           toastr.success('Trabajador activado.');
           $state.reload();
         }, function error(err) {
           toastr.error(err.data.errorMessage);
         });
-      });
+      });*/
+      alert('No se permite activar trabajadores, pruebe creando uno nuevo');
     };
 
     $scope.desactivar = function () {
@@ -31,14 +32,15 @@ angular.module('rrhh').controller('Rrhh.Trabajador.EditarController',
     };
 
     $scope.remove = function () {
-      SCDialog.confirmDelete($scope.view.trabajador.nombres + ' ' + $scope.view.trabajador.apellidoPaterno, 'Trabajador', function () {
+      /*SCDialog.confirmDelete($scope.view.trabajador.nombres + ' ' + $scope.view.trabajador.apellidoPaterno, 'Trabajador', function () {
         $scope.view.trabajador.$remove().then(function (response) {
           toastr.success('Trabajador eliminado.');
           $state.go('^.^.buscar');
         }, function error(err) {
           toastr.error(err.data.errorMessage);
         });
-      });
+      });*/
+      alert('No se permite eliminar trabajadores');
     };
 
   });

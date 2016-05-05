@@ -70,14 +70,15 @@ angular.module('venta').controller('Venta.Configuracion.PuntoVenta.BuscarControl
         $state.go('^.editar.resumen', {puntoVenta: row.id});
       },
       remove: function (row) {
-        SCDialog.confirmDelete('Punto de venta', row.nombreObra, function() {
+        /*SCDialog.confirmDelete('Punto de venta', row.nombreObra, function() {
           OSPuntoVenta.$new(row.id).$remove().then(function(response) {
             toastr.success('Punto de venta eliminado');
             $scope.search();
           }, function error(err) {
             toastr.error(err.data.errorMessage);
           });
-        });
+        });*/
+        alert('No se permite eliminar puntos de venta, prueba con desactivar');
       },
       enable: function(row) {
         if(row) {

@@ -54,7 +54,7 @@ angular.module('venta').controller('Venta.Configuracion.PuntoVenta.Trabajador.Bu
         });
       },
       remove: function (row, index) {
-        SCDialog.confirmDelete(row.nombres, 'Trabajador', function(){
+        /*SCDialog.confirmDelete(row.nombres, 'Trabajador', function(){
           OSTrabajador.$new(row.id).$remove().then(
             function (response) {
               toastr.success('Trabajador eliminado.');
@@ -64,7 +64,8 @@ angular.module('venta').controller('Venta.Configuracion.PuntoVenta.Trabajador.Bu
               toastr.error(err.data.errorMessage);
             }
           );
-        });
+        });*/
+        alert('No se permite eliminar trabajadores, pruebe con desactivar');
       },
       editarDatosPrincipales: function (row) {
         $state.go('^.editar.datosPrincipales', {trabajador: row.id});

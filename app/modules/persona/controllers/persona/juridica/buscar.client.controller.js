@@ -68,17 +68,19 @@ angular.module('persona').controller('Persona.Juridica.BuscarPersonaJuridicaCont
 
     $scope.gridActions = {
       edit: function (row) {
-        $state.go('^.editar', {personaJuridica: row.id});
+        alert('Metodo no implementado');
+        //$state.go('^.editar', {personaJuridica: row.id});
       },
       remove: function (row) {
-        SCDialog.confirmDelete('Persona', row.razonSocial, function () {
+        alert('No se pueden eliminar personas');
+        /*SCDialog.confirmDelete('Persona', row.razonSocial, function () {
           OSPersona.$new(row.id).$remove().then(function (response) {
             toastr.success('Persona eliminada.');
             $scope.search();
           }, function error(err) {
             toastr.error(err.data.message);
           });
-        });
+        });*/
       },
       enable: function (row) {
         if (row) {

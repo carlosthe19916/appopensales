@@ -3,7 +3,9 @@
 <form name="form" class="form-horizontal" novalidate>
 
   <div class="form-group" data-ng-class="{ 'has-error' : form.denominacion.$invalid && form.$submitted }">
-    <label class="col-sm-2 control-label"><span class="required">*</span> Denominacion:</label>
+    <label class="col-sm-2 control-label"><span class="required">*</span> Denominacion:
+      <i class="fa fa-info-circle text-muted" tooltip-placement="right" uib-tooltip="Nombre de la caja"></i>
+    </label>
     <div class="col-sm-3">
       <input name="denominacion" type="text" data-ng-model="view.caja.denominacion" data-ng-minlength="1" data-ng-maxlength="60" class="form-control" pf-focused="true" autofocus required/>
       <div data-ng-messages="form.denominacion.$error" data-ng-if="form.$submitted">
@@ -14,7 +16,9 @@
     </div>
   </div>
   <div class="form-group" data-ng-class="{ 'has-error' : form.abreviatura.$invalid && form.$submitted }">
-    <label class="col-sm-2 control-label"><span class="required">*</span> Abreviatura:</label>
+    <label class="col-sm-2 control-label"><span class="required">*</span> Abreviatura:
+      <i class="fa fa-info-circle text-muted" tooltip-placement="right" uib-tooltip="Abreviatura de la caja"></i>
+    </label>
     <div class="col-sm-3">
       <input name="abreviatura" type="text" data-ng-model="view.caja.abreviatura" data-ng-minlength="1" data-ng-maxlength="20" class="form-control" required/>
       <div data-ng-messages="form.abreviatura.$error" data-ng-if="form.$submitted">

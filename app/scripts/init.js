@@ -319,7 +319,7 @@ angular.module(ApplicationConfiguration.applicationModuleName).factory('errorInt
       } else if (response.status) {
         if (response.data && response.data.errorMessage) {
           //Notifications.error(response.data.errorMessage);
-          alert(response.data.errorMessage);
+          //alert(response.data.errorMessage);
         } else {
           //Notifications.error("An unexpected server error has occurred");
           alert('An unexpected server error has occurred');

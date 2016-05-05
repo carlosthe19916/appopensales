@@ -5,7 +5,9 @@
 <form name="form" class="form-horizontal" novalidate>
 
   <div class="form-group" data-ng-class="{ 'has-error' : form.nombreObra.$invalid && form.$submitted }">
-    <label class="col-sm-2 control-label"><span class="required">*</span> Denominacion:</label>
+    <label class="col-sm-2 control-label"><span class="required">*</span> Denominacion:
+      <i class="fa fa-info-circle text-muted" tooltip-placement="right" uib-tooltip="Nombre que identificara al punto de venta"></i>
+    </label>
     <div class="col-sm-3">
       <input name="nombreObra" type="text" data-ng-model="view.puntoVenta.nombreObra" data-ng-minlength="1" data-ng-maxlength="200" class="form-control" pf-focused="true" autofocus required/>
       <div data-ng-messages="form.nombreObra.$error" data-ng-if="form.$submitted">
@@ -16,9 +18,11 @@
     </div>
   </div>
   <div class="form-group" data-ng-class="{ 'has-error' : form.ubicacion.$invalid && form.$submitted }">
-    <label class="col-sm-2 control-label"><span class="required">*</span> Ubicacion:</label>
+    <label class="col-sm-2 control-label">Ubicacion:
+      <i class="fa fa-info-circle text-muted" tooltip-placement="right" uib-tooltip="Direccion del punto de venta"></i>
+    </label>
     <div class="col-sm-3">
-      <input name="ubicacion" type="text" data-ng-model="view.puntoVenta.ubicacion" data-ng-minlength="1" data-ng-maxlength="20" class="form-control" required/>
+      <input name="ubicacion" type="text" data-ng-model="view.puntoVenta.ubicacion" data-ng-minlength="1" data-ng-maxlength="20" class="form-control"/>
       <div data-ng-messages="form.ubicacion.$error" data-ng-if="form.$submitted">
         <div class="has-error" data-ng-message="required">Ingrese ubicacion.</div>
         <div class="has-error" data-ng-message="minlength">Ingrese ubicacion.</div>

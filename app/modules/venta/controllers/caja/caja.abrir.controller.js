@@ -4,6 +4,8 @@
 angular.module('venta').controller('Venta.Caja.AbrirController',
   function ($scope, $state, toastr, SCDialog, OSSession, OSCaja) {
 
+    console.log(OSSession);
+
     $scope.working = false;
 
     $scope.view = {

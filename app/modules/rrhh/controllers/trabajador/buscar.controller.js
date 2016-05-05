@@ -73,37 +73,39 @@ angular.module('rrhh').controller('Rrhh.Trabajador.BuscarController',
         $state.go('^.editar.resumen', {trabajador: row.id});
       },
       remove: function (row) {
-        SCDialog.confirmDelete('Persona', row.nombres, function() {
+        /*SCDialog.confirmDelete('Persona', row.nombres, function() {
           OSPersona.$new(row.id).$remove().then(function(response) {
             toastr.success('Persona eliminada.');
             $scope.search();
           }, function error(err) {
-            toastr.error(err.data.message);
+            toastr.error(err.data.errorMessage);
           });
-        });
+        });*/
+        alert('No se puede eliminar trabajadores, pruebe desactivandolos');
       },
       enable: function(row) {
-        if(row) {
+        /*if(row) {
           SCDialog.confirm('Guardar', 'Esta seguro de querer activar la persona' + row.nombres +'?.', function() {
-            OSPersona.$new(row.id).$enable().then(function(response) {
+            OSTrabajador.$new(row.id).$enable().then(function(response) {
               toastr.success('Persona activada.');
               $scope.search();
             }, function error(err) {
-              toastr.error(err.data.message);
+              toastr.error(err.data.errorMessage);
             });
           });
         } else {
           alert('Operacion no implementada');
-        }
+        }*/
+        alert('No se permite activar trabajadores, cree uno nuevo');
       },
       disable : function(row) {
         if(row) {
           SCDialog.confirm('Guardar', 'Esta seguro de querer desactivar la persona' + row.nombres +'?.', function() {
-            OSPersona.$new(row.id).$disable().then(function(response) {
-              toastr.success('Persona desactivada.');
+            OSTrabajador.$new(row.id).$disable().then(function(response) {
+              toastr.success('Trabajador desactivado.');
               $scope.search();
             }, function error(err) {
-              toastr.error(err.data.message);
+              toastr.error(err.data.errorMessage);
             });
           });
         } else {

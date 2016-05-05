@@ -31,14 +31,15 @@ angular.module('venta').controller('Venta.Configuracion.PuntoVenta.EditarControl
     };
 
     $scope.remove = function () {
-      SCDialog.confirmDelete($scope.view.puntoVenta.nombreObra, 'Punto de Venta', function () {
+      /*SCDialog.confirmDelete($scope.view.puntoVenta.nombreObra, 'Punto de Venta', function () {
         $scope.view.puntoVenta.$remove().then(function (response) {
           toastr.success('Punto de venta eliminado.');
           $state.go('venta.app.configuracion.puntoVenta.buscar');
         }, function error(err) {
           toastr.error(err.data.errorMessage);
         });
-      });
+      });*/
+      alert('No se permite eliminar puntos de venta, prueba con desactivar');
     };
 
   }

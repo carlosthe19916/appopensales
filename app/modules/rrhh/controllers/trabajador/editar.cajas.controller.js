@@ -63,6 +63,11 @@ angular.module('rrhh').controller('Rrhh.Trabajador.Editar.CajasController',
           });
         }
 
+        if(cajas.length > 1) {
+          toastr.warning('No se puede asignar mas de una caja a un trabajador');
+          return;
+        }
+
         $scope.view.trabajador.OSCaja().$saveSent(cajas).then(
           function (response) {
             toastr.success('Cajas asignadas');
@@ -77,7 +82,7 @@ angular.module('rrhh').controller('Rrhh.Trabajador.Editar.CajasController',
             $scope.combo.cajaAsignada = $scope.combo.cajaAsignada.concat(nuevoCaja);
           },
           function error(err) {
-            toastr.error(err.data.message);
+            toastr.error(err.data.errorMessage);
           }
         );
       });

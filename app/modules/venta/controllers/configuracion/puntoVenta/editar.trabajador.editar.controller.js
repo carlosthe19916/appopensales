@@ -31,14 +31,15 @@ angular.module('venta').controller('Venta.Configuracion.PuntoVenta.Trabajador.Ed
     };
 
     $scope.remove = function () {
-      SCDialog.confirmDelete($scope.view.trabajador.nombres + ' ' + $scope.view.trabajador.apellidoPaterno, 'Trabajador', function () {
+      /*SCDialog.confirmDelete($scope.view.trabajador.nombres + ' ' + $scope.view.trabajador.apellidoPaterno, 'Trabajador', function () {
         $scope.view.trabajador.$remove().then(function (response) {
           toastr.success('Trabajador eliminado.');
           $state.go('^.^.buscar');
         }, function error(err) {
           toastr.error(err.data.errorMessage);
         });
-      });
+      });*/
+      alert('No se permite eliminar trabajadores, pruebe con desactivar');
     };
 
   }

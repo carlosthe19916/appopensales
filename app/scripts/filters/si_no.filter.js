@@ -31,7 +31,7 @@ angular.module(ApplicationConfiguration.applicationModuleName)
         }
       }
 
-      if (input) {
+      if (input == true || input == '1') {
         return result[0];
       }
       return result[1];

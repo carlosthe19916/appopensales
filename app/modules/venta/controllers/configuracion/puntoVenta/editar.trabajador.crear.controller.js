@@ -46,10 +46,19 @@ angular.module('venta').controller('Venta.Configuracion.PuntoVenta.Trabajador.Cr
       if (!angular.isUndefined($event)) {
         $event.preventDefault();
       }
+      if(!$scope.combo.selected.tipoDocumento || !$scope.view.trabajador.numeroDocumento || $scope.view.trabajador.numeroDocumento.length == 0) {
+        return;
+      }
+
       var criteria1 = {
         tipoDocumento: $scope.combo.selected.tipoDocumento.id,
         numeroDocumento: $scope.view.trabajador.numeroDocumento
       };
+      var criteria2 = {
+        tipoDocumento: $scope.combo.selected.tipoDocumento.id,
+        numeroDocumento: $scope.view.trabajador.numeroDocumento
+      };
+
       OSPersona.$getAll(criteria1).then(function (response) {
         $scope.view.loaded.persona = response[0];
         if ($scope.view.loaded.persona) {
@@ -59,15 +68,12 @@ angular.module('venta').controller('Venta.Configuracion.PuntoVenta.Trabajador.Cr
         }
       });
 
-      /*var criteria2 = {
-        filters: [
-          {name: 'tipoDocumento', value: $scope.combo.selected.tipoDocumento.abreviatura, operator: 'eq'},
-          {name: 'numeroDocumento', value: $scope.view.trabajador.numeroDocumento, operator: 'eq'}
-        ], paging: {page: 1, pageSize: 20}
-      };
-      SGTrabajador.$search(criteria2).then(function (response) {
-        $scope.view.loaded.trabajador = response.items[0];
-      });*/
+      OSTrabajador.$getAll(criteria2).then(function (response) {
+        $scope.view.loaded.trabajador = response[0];
+        if ($scope.view.loaded.trabajador) {
+          toastr.warning('Trabajador encontrado para la persona');
+        }
+      });
     };
 
     $scope.save = function () {

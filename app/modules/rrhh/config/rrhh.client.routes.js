@@ -6,6 +6,8 @@ angular.module('rrhh').config(['$stateProvider', '$urlRouterProvider',
 
     $urlRouterProvider.when('/rrhh/app/trabajadores/trabajadores', '/rrhh/app/trabajadores/trabajadores/buscar');
 
+    $urlRouterProvider.when('/rrhh/app/trabajadores/trabajadores/editar/:trabajador', '/rrhh/app/trabajadores/trabajadores/editar/:trabajador/resumen');
+
     $stateProvider
       .state('rrhh', {
         abstract: true,

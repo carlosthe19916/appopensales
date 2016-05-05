@@ -7,7 +7,9 @@
                                                             uib-tooltip="Punto de venta en el que el trabajador se desempenara."
                                                             uib-tooltip-placement="right"></i></span></legend>
     <div class="form-group" ng-class="{ 'has-error' : form.puntoVenta.$invalid && form.$submitted}">
-      <label class="col-sm-2 control-label"><span class="required">*</span> Punto venta:</label>
+      <label class="col-sm-2 control-label"><span class="required">*</span> Punto venta:
+        <i class="fa fa-info-circle text-muted" tooltip-placement="right" uib-tooltip="Punto de venta asignado al trabajador"></i>
+      </label>
 
       <div class="col-sm-4">
         <ui-select name="puntoVenta" ng-model="combo.selected.puntoVenta" pf-focused="true" autofocus required>
@@ -29,7 +31,9 @@
                                                       uib-tooltip-placement="right"></i></span></legend>
     <div class="form-group"
          data-ng-class="{ 'has-error' : (form.tipoDocumento.$invalid || form.numeroDocumento.$invalid ) && (form.$submitted || form.numeroDocumento.$dirty )}">
-      <label class="col-sm-2 control-label"><span class="required">*</span> Persona:</label>
+      <label class="col-sm-2 control-label"><span class="required">*</span> Persona:
+        <i class="fa fa-info-circle text-muted" tooltip-placement="right" uib-tooltip="Tipo y numero de documento de la persona que sera incorporada como trabajador(a)"></i>
+      </label>
 
       <div class="col-sm-3">
         <ui-select name="tipoDocumento" data-ng-model="combo.selected.tipoDocumento" required>
@@ -49,7 +53,7 @@
                  class="form-control" placeholder="Numero" required/>
                     <span class="input-group-btn">
                       <button type="button" data-ng-click="check()" uib-tooltip="Check" tooltip-trigger="mouseenter"
-                                                          uib-tooltip-placement="bottom" class="btn btn-default"><span class="glyphicon glyphicon-check"></span>
+                                                          uib-tooltip-placement="bottom" class="btn btn-default"><span class="fa fa-search"></span>
                       </button>
                     </span>
         </div>
@@ -66,7 +70,7 @@
       </div>
       <div class="col-sm-3">
         <div class="input-group">
-          <a href="" ui-sref="persona.app.persona.natural.crear">Crear</a>&nbsp;&nbsp;
+          <!--<a href="" ui-sref="persona.app.persona.natural.crear">Crear</a>&nbsp;&nbsp;-->
           <a href="" ui-sref="persona.app.persona.natural.buscar">Buscar</a>
         </div>
       </div>
@@ -81,7 +85,7 @@
             <th colspan="5">Persona seleccionada</th>
           </tr>
           <tr>
-            <th>Documento</th>
+            <!--<th>Documento</th>-->
             <th>Numero</th>
             <th>Apellido paterno</th>
             <th>Apellido materno</th>
@@ -90,7 +94,7 @@
           </thead>
           <tbody>
           <tr>
-            <td><span data-ng-bind="view.loaded.persona.tipoDocumento"></span></td>
+            <!--<td><span data-ng-bind="view.loaded.persona.tipoDocumento"></span></td>-->
             <td><span data-ng-bind="view.loaded.persona.numeroDocumento"></span></td>
             <td><span data-ng-bind="view.loaded.persona.apellidoPaterno"></span></td>
             <td><span data-ng-bind="view.loaded.persona.apellidoMaterno"></span></td>

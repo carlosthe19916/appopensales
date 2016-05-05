@@ -54,7 +54,7 @@ angular.module('venta').controller('Venta.Configuracion.PuntoVenta.Caja.BuscarCo
         });
       },
       remove: function (row, index) {
-        SCDialog.confirmDelete(row.denominacion, 'Caja', function(){
+        /*SCDialog.confirmDelete(row.denominacion, 'Caja', function(){
           OSCaja.$new(row.id).$remove().then(
             function (response) {
               toastr.success('Caja eliminada.');
@@ -64,7 +64,8 @@ angular.module('venta').controller('Venta.Configuracion.PuntoVenta.Caja.BuscarCo
               toastr.error(err.data.errorMessage);
             }
           );
-        });
+        });*/
+        alert('No se permiten eliminar cajas, pruebe desactivandolas');
       },
       abrir: function (row) {
         $state.go('^.editar.abrir', {caja: row.id});

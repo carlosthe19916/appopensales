@@ -61,7 +61,18 @@ angular.module('venta').config(['$stateProvider', '$urlRouterProvider',
         url: '/abrir',
         templateUrl: 'modules/venta/views/caja/caja.abrir.html',
         controller: 'Venta.Caja.AbrirController',
-        resolve: {},
+        resolve: {
+          check: function ($location, $timeout, $q, OSSession) {
+            var deferred = $q.defer();
+            if(!OSSession.cuenta) {
+              $timeout(deferred.reject);
+              alert('No tiene una caja asignada, no puede ingresar a esta pagina');
+              $location.path('/');
+            }
+            $timeout(deferred.resolve);
+            return deferred.promise;
+          }
+        },
         ncyBreadcrumb: {
           skip: true
         },
@@ -74,7 +85,18 @@ angular.module('venta').config(['$stateProvider', '$urlRouterProvider',
         url: '/cerrar',
         templateUrl: 'modules/venta/views/caja/caja.cerrar.html',
         controller: 'Venta.Caja.CerrarController',
-        resolve: {},
+        resolve: {
+          check: function ($location, $timeout, $q, OSSession) {
+            var deferred = $q.defer();
+            if(!OSSession.cuenta) {
+              $timeout(deferred.reject);
+              alert('No tiene una caja asignada, no puede ingresar a esta pagina');
+              $location.path('/');
+            }
+            $timeout(deferred.resolve);
+            return deferred.promise;
+          }
+        },
         ncyBreadcrumb: {
           skip: true
         },
@@ -119,7 +141,22 @@ angular.module('venta').config(['$stateProvider', '$urlRouterProvider',
         url: '/venta',
         templateUrl: 'modules/venta/views/operaciones/venta/venta.crear.html',
         controller: 'Venta.CrearController',
-        resolve: {},
+        resolve: {
+          check: function ($location, $timeout, $q, OSSession) {
+            var deferred = $q.defer();
+            if(!OSSession.cuenta) {
+              $timeout(deferred.reject);
+              alert('No tiene una caja asignada, no puede ingresar a esta pagina');
+              $location.path('/');
+            } else if(!OSSession.cuenta.abierto) {
+              $timeout(deferred.reject);
+              alert('La caja no esta abierta no puede realizar ventas');
+              $location.path('/');
+            }
+            $timeout(deferred.resolve);
+            return deferred.promise;
+          }
+        },
         ncyBreadcrumb: {
           skip: true
         },
