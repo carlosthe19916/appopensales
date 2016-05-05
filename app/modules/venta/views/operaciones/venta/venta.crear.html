@@ -106,7 +106,7 @@
             <tfoot data-ng-if="view.productos.length">
             <tr>
               <td class="text-right" colspan="5"><strong>Total</strong></td>
-              <td class="text-left" colspan="3"><strong>316,546.36</strong></td>
+              <td class="text-left" colspan="3"><strong data-ng-bind="getTotal() | number: 2"></strong></td>
             </tr>
             </tfoot>
             <tbody>

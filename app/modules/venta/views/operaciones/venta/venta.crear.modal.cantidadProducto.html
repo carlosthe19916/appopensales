@@ -5,7 +5,7 @@
 
   <form name="form" data-ng-submit="ok()" class="form-horizontal" novalidate>
     <div class="form-group" data-ng-class="{ 'has-error' : form.precio.$invalid && form.$submitted }">
-      <label class="col-sm-5 control-label"><span class="required">*</span> Precio:</label>
+      <label class="col-sm-3 control-label"><span class="required">*</span> Precio:</label>
       <div class="col-sm-3">
         <input name="precio" type="text" data-ng-model="view.producto.precio" ui-number-mask="2" min="0" max="9999999" class="form-control" pf-focused="true" autofocus required/>
         <div data-ng-messages="form.precio.$error" data-ng-if="form.$submitted || form.$dirty">
@@ -16,7 +16,7 @@
       </div>
     </div>
     <div class="form-group" data-ng-class="{ 'has-error' : form.cantidad.$invalid && ( form.$submitted || form.$dirty ) }">
-      <label class="col-sm-5 control-label"><span class="required">*</span> Cantidad:</label>
+      <label class="col-sm-3 control-label"><span class="required">*</span> Cantidad:</label>
       <div class="col-sm-3">
         <div class="input-group bootstrap-touchspin">
           <span class="input-group-btn"><button class="btn btn-default bootstrap-touchspin-down" data-ng-click="substract()" type="button">-</button></span>
@@ -31,6 +31,20 @@
           <div class="has-error" data-ng-message="required">Ingrese cantidad.</div>
           <div class="has-error" data-ng-message="min">Minimo 1.</div>
           <div class="has-error" data-ng-message="max">Maximo 999,999.</div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group" data-ng-class="{ 'has-error' : form.almacen.$invalid && form.$submitted }">
+      <label class="col-sm-3 control-label"><span class="required">*</span> Almacen:</label>
+      <div class="col-sm-8">
+        <ui-select name="almacen" data-ng-model="combo.selected.almacen" required>
+          <ui-select-match placeholder="Almacen">{{$select.selected.denominacion}}</ui-select-match>
+          <ui-select-choices repeat="item in combo.almacen | filter: $select.search">
+            <div data-ng-bind-html="item.denominacion | highlight: $select.search"></div>
+          </ui-select-choices>
+        </ui-select>
+        <div data-ng-messages="form.almacen.$error" data-ng-if="form.almacen.$dirty || form.$submitted">
+          <div class="has-error" data-ng-message="required">Ingrese almacen.</div>
         </div>
       </div>
     </div>

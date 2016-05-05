@@ -2,7 +2,7 @@
 
 /* jshint -W098 */
 angular.module('venta').controller('Venta.CrearController',
-  function ($scope, $state, $uibModal, hotkeys, toastr, SCDialog, OSVenta, OSTipoDocumento, OSPersona) {
+  function ($scope, $state, $uibModal, hotkeys, toastr, SCDialog, OSVenta, OSTipoDocumento, OSPersona, OSSession) {
 
     $scope.working = false;
 
@@ -13,11 +13,19 @@ angular.module('venta').controller('Venta.CrearController',
       nombreRazonSocial: undefined,
       igv: 0.18,
 
-      productos: []
+      productos: [],
+      vouchers: []
     };
 
     $scope.view.load = {
       cliente: {}
+    };
+
+    $scope.limpiar = function () {
+      $scope.view.venta = OSVenta.$build();
+      $scope.view.numeroDocumento = undefined;
+      $scope.view.nombreRazonSocial = undefined;
+      $scope.view.igv = 0.18;
     };
 
     $scope.combo = {
@@ -95,13 +103,39 @@ angular.module('venta').controller('Venta.CrearController',
     };
 
     $scope.save = function () {
+      var venta = angular.copy($scope.view.venta);
+      var detalle = [];
+
+      venta.idCuenta = OSSession.cuenta.id;
+      venta.comprobante = $scope.combo.selected.tipoComprobante;
+      venta.tipoDocumento = $scope.combo.selected.tipoDocumento.abreviatura;
+      venta.numeroDocumento = $scope.view.numeroDocumento;
+      venta.cliente = $scope.view.nombreRazonSocial;
+      venta.igv = $scope.view.igv;
+      venta.igvMonto = $scope.getIgv();
+      venta.totalSinIgv = $scope.getTotal();
+      venta.total = $scope.getPrecioTotal();
+
+      for(var i = 0; i < $scope.view.productos.length; i++) {
+        detalle[i] = {
+          idProducto: $scope.view.productos[i].id,
+          idAlmacen: $scope.view.productos[i].idAlmacen,
+          cantidad: $scope.view.productos[i].cantidad,
+          precio: $scope.view.productos[i].precio
+        };
+      }
+      venta.detalle = detalle;
+
       SCDialog.confirm('Guardar', 'Estas seguro de realizar la venta?', function () {
         $scope.working = true;
-        $scope.view.venta.$save().then(
+        venta.$save().then(
           function (response) {
             $scope.working = false;
             toastr.success('Venta realizada.');
-            $state.go('^.editar', {puntoVenta: response.id});
+            //$state.go('^.editar', {puntoVenta: response.id});
+            $scope.limpiar();
+            $scope.view.vouchers.push(response);
+            if($scope.view.vouchers.length > 5) $scope.view.vouchers.splice(0, 1);
           },
           function error(err) {
             $scope.working = false;
@@ -120,10 +154,7 @@ angular.module('venta').controller('Venta.CrearController',
       }
     });
 
-    $scope.limpiar = function () {
-      $scope.view.productos = [];
-      $scope.view.load.cliente = {};
-    };
+
 
   }
 );
