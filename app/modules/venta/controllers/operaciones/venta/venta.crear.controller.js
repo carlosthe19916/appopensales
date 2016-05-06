@@ -23,9 +23,12 @@ angular.module('venta').controller('Venta.CrearController',
 
     $scope.limpiar = function () {
       $scope.view.venta = OSVenta.$build();
+      $scope.combo.selected.tipoDocumento = undefined;
+      $scope.combo.selected.tipoComprobante = 'BOLETA';
       $scope.view.numeroDocumento = undefined;
       $scope.view.nombreRazonSocial = undefined;
       $scope.view.igv = 0.18;
+      $scope.view.productos = [];
     };
 
     $scope.combo = {
