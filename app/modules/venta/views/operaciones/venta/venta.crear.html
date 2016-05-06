@@ -33,7 +33,7 @@
             <i class="fa fa-info-circle text-muted" tooltip-placement="right" uib-tooltip="Tipo y numero de documento de identidad del cliente."></i>
           </label>
           <div class="col-sm-3">
-            <ui-select name="tipoDocumento" data-ng-model="combo.selected.tipoDocumento" required>
+            <ui-select name="tipoDocumento" data-ng-model="combo.selected.tipoDocumento">
               <ui-select-match placeholder="Documento">{{$select.selected.abreviatura}}</ui-select-match>
               <ui-select-choices repeat="item in combo.tipoDocumento | filter: $select.search">
                 <div data-ng-bind-html="item.abreviatura | highlight: $select.search"></div>
@@ -45,7 +45,7 @@
           </div>
           <div class="col-sm-3">
             <div class="input-group">
-              <input type="text" name="numeroDocumento" data-ng-model="view.numeroDocumento" ui-keypress="{13:'check($event)'}" data-ng-pattern="/^[0-9]+$/" data-ng-maxlength="20" class="form-control" required/>
+              <input type="text" name="numeroDocumento" data-ng-model="view.numeroDocumento" ui-keypress="{13:'check($event)'}" data-ng-pattern="/^[0-9]+$/" data-ng-maxlength="20" class="form-control"/>
               <span class="input-group-btn"><button type="button" data-ng-click="check()" uib-tooltip-placement="bottom" class="btn btn-default"><span class="fa fa-search"></span></button></span>
             </div>
             <div data-ng-messages="form.numeroDocumento.$error" data-ng-if="form.numeroDocumento.$dirty || form.$submitted">
@@ -91,34 +91,36 @@
                                                      uib-tooltip-placement="right"></i></span></legend>
       <div class="row">
         <div class="col-sm-12">
-          <table class="table table-bordered table-striped table-condensed" style="margin-top: 0px;">
+          <table class="table table-bordered table-striped table-condensed table-hover" style="margin-top: 0px;">
             <thead>
             <tr>
-              <th class="text-right">Nro</th>
               <th class="text-left">Codigo</th>
-              <th class="text-left w-40">Descripcion</th>
-              <th class="text-right">Cantidad</th>
-              <th class="text-right">Precio unitario</th>
+              <th class="text-left w-40">Denominacion</th>
+              <th class="text-right">Cant.</th>
+              <th class="text-right">P.Unit.</th>
+              <th class="text-right">Marca</th>
+              <th class="text-right">U.Med.</th>
               <th class="text-right">Subtotal</th>
               <th class="text-center" colspan="2">Acciones</th>
             </tr>
             </thead>
             <tfoot data-ng-if="view.productos.length">
             <tr>
-              <td class="text-right" colspan="5"><strong>Total</strong></td>
+              <td class="text-right" colspan="6"><strong>Total</strong></td>
               <td class="text-left" colspan="3"><strong data-ng-bind="getTotal() | number: 2"></strong></td>
             </tr>
             </tfoot>
             <tbody>
             <tr data-ng-if="!view.productos.length">
-              <td class="text-muted" colspan="7">No existen productos que mostrar.</td>
+              <td class="text-muted" colspan="9">No existen productos que mostrar.</td>
             </tr>
             <tr data-ng-repeat="item in view.productos">
-              <th class="text-right clip">{{$index+1}}</th>
               <td class="text-left clip"><span data-ng-bind="item.codigo"></span></td>
-              <td class="text-left clip"><span data-ng-bind="item.descripcion"></span></td>
+              <td class="text-left clip"><span data-ng-bind="item.denominacion"></span></td>
               <td class="text-right clip"><span data-ng-bind="item.cantidad | number : 0"></span></td>
               <td class="text-right clip"><span data-ng-bind="item.precio | number : 2"></span></td>
+              <td class="text-right clip"><span data-ng-bind="item.marca.denominacion"></span></td>
+              <td class="text-right clip"><span data-ng-bind="item.unidadMedida.denominacion"></span></td>
               <td class="text-right clip"><span data-ng-bind="(item.precio * item.cantidad) | number : 2"></span></td>
               <td class="os-action-cell">
                 <button class="btn btn-default btn-block btn-sm" data-ng-click="editarProducto(item, $index)">

@@ -63,7 +63,7 @@ angular.module('venta').controller('Venta.Caja.CerrarController',
             $scope.working = false;
             OSSession.cuenta.abierto = false;
             toastr.success('Caja cerrada.');
-            $state.go('venta.app.operaciones.venta');
+            $state.go('venta.app.configuracion.puntoVenta.buscar');
           },
           function error(err) {
             $scope.working = false;

@@ -108,7 +108,7 @@ angular.module('venta').controller('Venta.CrearController',
 
       venta.idCuenta = OSSession.cuenta.id;
       venta.comprobante = $scope.combo.selected.tipoComprobante;
-      venta.tipoDocumento = $scope.combo.selected.tipoDocumento.abreviatura;
+      venta.tipoDocumento = angular.isDefined($scope.combo.selected.tipoDocumento) ? $scope.combo.selected.tipoDocumento.abreviatura : undefined;
       venta.numeroDocumento = $scope.view.numeroDocumento;
       venta.cliente = $scope.view.nombreRazonSocial;
       venta.igv = $scope.view.igv;
@@ -119,7 +119,10 @@ angular.module('venta').controller('Venta.CrearController',
       for(var i = 0; i < $scope.view.productos.length; i++) {
         detalle[i] = {
           idProducto: $scope.view.productos[i].id,
-          idAlmacen: $scope.view.productos[i].idAlmacen,
+          idAlmacen: $scope.view.productos[i].almacen.id,
+          idProductoMarca: $scope.view.productos[i].marca.idProductoMarca,
+          idcMarca: $scope.view.productos[i].marca.valor,
+          idcUnidadMedida: $scope.view.productos[i].unidadMedida.valor,
           cantidad: $scope.view.productos[i].cantidad,
           precio: $scope.view.productos[i].precio
         };

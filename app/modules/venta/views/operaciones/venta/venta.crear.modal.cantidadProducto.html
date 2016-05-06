@@ -5,7 +5,9 @@
 
   <form name="form" data-ng-submit="ok()" class="form-horizontal" novalidate>
     <div class="form-group" data-ng-class="{ 'has-error' : form.precio.$invalid && form.$submitted }">
-      <label class="col-sm-3 control-label"><span class="required">*</span> Precio:</label>
+      <label class="col-sm-4 control-label"><span class="required">*</span> Precio:
+        <i class="fa fa-info-circle text-muted" tooltip-placement="right" uib-tooltip="Precio al que vendera el producto sin incluir impuestos"></i>
+      </label>
       <div class="col-sm-3">
         <input name="precio" type="text" data-ng-model="view.producto.precio" ui-number-mask="2" min="0" max="9999999" class="form-control" pf-focused="true" autofocus required/>
         <div data-ng-messages="form.precio.$error" data-ng-if="form.$submitted || form.$dirty">
@@ -16,7 +18,9 @@
       </div>
     </div>
     <div class="form-group" data-ng-class="{ 'has-error' : form.cantidad.$invalid && ( form.$submitted || form.$dirty ) }">
-      <label class="col-sm-3 control-label"><span class="required">*</span> Cantidad:</label>
+      <label class="col-sm-4 control-label"><span class="required">*</span> Cantidad:
+        <i class="fa fa-info-circle text-muted" tooltip-placement="right" uib-tooltip="Cantidad que desea vender"></i>
+      </label>
       <div class="col-sm-3">
         <div class="input-group bootstrap-touchspin">
           <span class="input-group-btn"><button class="btn btn-default bootstrap-touchspin-down" data-ng-click="substract()" type="button">-</button></span>
@@ -35,7 +39,9 @@
       </div>
     </div>
     <div class="form-group" data-ng-class="{ 'has-error' : form.almacen.$invalid && form.$submitted }">
-      <label class="col-sm-3 control-label"><span class="required">*</span> Almacen:</label>
+      <label class="col-sm-4 control-label"><span class="required">*</span> Almacen:
+        <i class="fa fa-info-circle text-muted" tooltip-placement="right" uib-tooltip="Almacen del cual saldra el producto. Solo se muestran almacenes de punto de venta en el que se encuentra registrado"></i>
+      </label>
       <div class="col-sm-8">
         <ui-select name="almacen" data-ng-model="combo.selected.almacen" required>
           <ui-select-match placeholder="Almacen">{{$select.selected.denominacion}}</ui-select-match>
@@ -45,6 +51,38 @@
         </ui-select>
         <div data-ng-messages="form.almacen.$error" data-ng-if="form.almacen.$dirty || form.$submitted">
           <div class="has-error" data-ng-message="required">Ingrese almacen.</div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group" data-ng-class="{ 'has-error' : form.marca.$invalid && form.$submitted }">
+      <label class="col-sm-4 control-label"><span class="required">*</span> Marca:
+        <i class="fa fa-info-circle text-muted" tooltip-placement="right" uib-tooltip="Marca del producto"></i>
+      </label>
+      <div class="col-sm-4">
+        <ui-select name="marca" data-ng-model="combo.selected.marca" required>
+          <ui-select-match placeholder="Marca">{{$select.selected.denominacion}}</ui-select-match>
+          <ui-select-choices repeat="item in combo.marca | filter: $select.search | unique:'valor'">
+            <div data-ng-bind-html="item.denominacion | highlight: $select.search"></div>
+          </ui-select-choices>
+        </ui-select>
+        <div data-ng-messages="form.marca.$error" data-ng-if="form.marca.$dirty || form.$submitted">
+          <div class="has-error" data-ng-message="required">Ingrese marca.</div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group" data-ng-class="{ 'has-error' : form.unidadMedida.$invalid && form.$submitted }">
+      <label class="col-sm-4 control-label"><span class="required">*</span> Unidad medida:
+        <i class="fa fa-info-circle text-muted" tooltip-placement="right" uib-tooltip="Unidad de medida del producto"></i>
+      </label>
+      <div class="col-sm-4">
+        <ui-select name="unidadMedida" data-ng-model="combo.selected.unidadMedida" required>
+          <ui-select-match placeholder="Unidad medida">{{$select.selected.denominacion}}</ui-select-match>
+          <ui-select-choices repeat="item in combo.unidadMedida | filter: $select.search | unique:'valor'">
+            <div data-ng-bind-html="item.denominacion | highlight: $select.search"></div>
+          </ui-select-choices>
+        </ui-select>
+        <div data-ng-messages="form.marca.$error" data-ng-if="form.marca.$dirty || form.$submitted">
+          <div class="has-error" data-ng-message="required">Ingrese unidad medida.</div>
         </div>
       </div>
     </div>

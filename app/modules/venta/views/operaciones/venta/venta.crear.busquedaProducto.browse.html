@@ -79,12 +79,22 @@
          update-menu-action-for-item-fn="gridOptions.updateMenuActionForItemFn">
 
       <div class="list-view-pf-main-info">
-        <div class="list-view-pf-left">
+        <div class="list-view-pf-left" uib-popover-template="'StockBrowsePopoverTemplate.html'" popover-title="DETALLE DE PRODUCTO" popover-trigger="mouseenter">
           <div class="list-view-pf-calendar">
             Stock
-            <strong data-ng-bind="item.getStockTotal()" uib-popover="{{item.getDetalle()}}" popover-trigger="mouseenter"></strong>
+            <strong data-ng-bind="item.getStockTotal()"></strong>
           </div>
         </div>
+        <script type="text/ng-template" id="StockBrowsePopoverTemplate.html">
+          <span class="text-muted" data-ng-if="item.stock.length < 1">No existen productos en ningun almacen</span>
+          <ol type="a">
+            <li data-ng-repeat="marca in item.stock">
+              <strong data-ng-bind="marca.almacen.denominacion"></strong>
+              <p><span data-ng-bind-template="{{marca.cantidad}}&nbsp;{{marca.unidadMedida}}"></span>&nbsp;|&nbsp;<span data-ng-bind="marca.marca"></span></p>
+            </li>
+          </ol>
+        </script>
+
         <div class="list-view-pf-body">
           <div class="list-view-pf-description">
             <div class="list-group-item-heading">

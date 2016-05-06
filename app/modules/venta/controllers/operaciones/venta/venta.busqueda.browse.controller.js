@@ -51,7 +51,11 @@ angular.module('venta').controller('Venta.Busqueda.BusquedaProducto.BrowseContro
 
     $scope.paginationOptions = {
       page: 1,
-      pageSize: 5
+      pageSize: 5,
+      refresh: function () {
+        $scope.paginationOptions.page = 1;
+        $scope.paginationOptions.pageSize = 5;
+      }
     };
     $scope.filterOptions = {
       filterText: undefined
@@ -74,7 +78,7 @@ angular.module('venta').controller('Venta.Busqueda.BusquedaProducto.BrowseContro
         onDblClick: handleDblClick
       },
       actionButtons: [
-        { name: 'Enviar', actionFn: actionEnviar },
+        { name: 'Agregar', actionFn: actionEnviar },
         { name: 'Ver', actionFn: actionVer }
       ],
       menuActions: [],
@@ -104,13 +108,13 @@ angular.module('venta').controller('Venta.Busqueda.BusquedaProducto.BrowseContro
             });
             return i;
           };
-          row.getDetalle = function () {
+          /*row.getDetalle = function () {
             var result = '';
             row.stock.forEach(function (item) {
-              result = result + item.cantidad + ':' + item.almacen.denominacion + ' ';
+              result = result + item.cantidad + ':' + item.almacen.denominacion + ' ' + 'Und.' + item.unidadMedida + 'Marca:' + item.marca;
             });
             return result;
-          };
+          };*/
         });
 
         $scope.gridOptions.totalItems = response.totalSize;
