@@ -31,6 +31,13 @@ var OPENSALES = {
   baseUrl: 'http://localhost:27660'
 };
 
+var PRINTER = {
+  default: {
+    name: undefined,
+    cookieName: 'opensalesPrinter'
+  }
+};
+
 /*-------------------------------------------------------------------------------------------------------*/
 /******************************************CONFIGURATION END**********************************************/
 /*-------------------------------------------------------------------------------------------------------*/
@@ -159,6 +166,12 @@ angular.element(document).ready(function () {
     location.reload();
   };
   // KEYCLOAK END
+
+
+
+  angular.module(ApplicationConfiguration.applicationModuleName).constant('PRINTER', PRINTER);
+
+
 
 
   // INIT TO BOOTSTRAP ANGULAR APP
@@ -358,3 +371,29 @@ if(auth.keycloak.enabled) {
 /*-------------------------------------------------------------------------------------------------------*/
 /**************************************SECURITY CONFIGURATION END*****************************************/
 /*-------------------------------------------------------------------------------------------------------*/
+
+
+angular.module(ApplicationConfiguration.applicationModuleName).run(['localStorageService', 'PRINTER', 'toastr',
+  function (localStorageService, PRINTER, toastr) {
+
+    //Load printer
+    var cookieName = PRINTER.default.cookieName;
+    var valueCookie = localStorageService.get(cookieName);
+    if(valueCookie !== null){
+      PRINTER.default.name = valueCookie;
+      findPrinter(PRINTER.default.name).then(function (data) {
+        toastr.info('IMPRESORA ' + data + ' INICIALIZADA.');
+      });
+    } else {
+      findDefaultPrinter().then(function (data) {
+        PRINTER.default.name = data;
+        toastr.info('IMPRESORA ' + data + ' INICIALIZADA.');
+      });
+    }
+
+    PRINTER.save = function (val) {
+      return localStorageService.set(PRINTER.default.cookieName, val || PRINTER.default.name);
+    };
+
+  }
+]);

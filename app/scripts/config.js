@@ -25,7 +25,8 @@ var ApplicationConfiguration = (function () {
     'ui.grid.pagination',
     'ui.grid.selection',
     'ui.grid.autoResize',
-    'cfp.hotkeys'
+    'cfp.hotkeys',
+    'LocalStorageModule'
   ];
 
   // Add a new vertical module

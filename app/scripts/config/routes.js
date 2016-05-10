@@ -46,6 +46,11 @@ angular.module(ApplicationConfiguration.applicationModuleName).config(['$statePr
         url: '/server-info',
         templateUrl: 'server-info.html',
         controller: 'ServerInfoController'
+      })
+      .state('config-printer', {
+        url: '/config-printer',
+        templateUrl: 'views/config-printer.html',
+        controller: 'ConfigPrinterController'
       });
 
   }

@@ -2,7 +2,7 @@
 
 /* jshint -W098 */
 angular.module('venta').controller('Operaciones.BuscarController',
-  function ($scope, $state, toastr, SCDialog, OSPuntoVenta) {
+  function ($scope, $state, toastr, SCDialog, OSCaja, OSSession) {
 
     var paginationOptions = {
       page: 1,
@@ -10,8 +10,7 @@ angular.module('venta').controller('Operaciones.BuscarController',
     };
 
     $scope.filterOptions = {
-      filterText: undefined,
-      estado: true
+      filterText: undefined
     };
 
     $scope.gridOptions = {
@@ -116,23 +115,17 @@ angular.module('venta').controller('Operaciones.BuscarController',
         orders: [],
         paging: paginationOptions
       };
-      if (angular.isDefined($scope.filterOptions.estado)) {
+      /*if (angular.isDefined($scope.filterOptions.estado)) {
         criteria.filters = [{name: 'estado', value: $scope.filterOptions.estado, operator: 'bool_eq'}];
-      }
+      }*/
 
-      OSPuntoVenta.$search(criteria).then(function (response) {
+      OSCaja.$new(OSSession.cuenta.id).OSMovimiento().$search(criteria).then(function (response) {
         $scope.gridOptions.data = response.items;
         $scope.gridOptions.totalItems = response.totalSize;
       }, function error(err) {
         toastr.error('El servidor no responde, intentelo nuevamente.');
       });
     };
-
-    $scope.$watch('filterOptions.estado', function(newValue, oldValue) {
-      if(newValue !== oldValue) {
-        $scope.search();
-      }
-    }, true);
 
   }
 );

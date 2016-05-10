@@ -87,7 +87,6 @@
           <table class="table table-striped table-bordered">
             <thead>
             <tr>
-              <th>Documento</th>
               <th>Numero</th>
               <th class="w-20">Paterno</th>
               <th class="w-20">Materno</th>
@@ -107,7 +106,6 @@
               <td class="text-muted" colspan="6">No existen trabajadores que mostrar.</td>
             </tr>
             <tr data-ng-repeat="item in gridOptions.trabajador.data">
-              <td class="clip"><span data-ng-bind="item.tipoDocumento"></span></td>
               <td class="clip"><span data-ng-bind="item.numeroDocumento"></span></td>
               <td class="clip"><span data-ng-bind="item.apellidoPaterno"></span></td>
               <td class="clip"><span data-ng-bind="item.apellidoMaterno"></span></td>

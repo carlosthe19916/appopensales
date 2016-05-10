@@ -201,6 +201,12 @@ angular.module(ApplicationConfiguration.applicationModuleName).factory('OSCaja',
     return historialSubResource;
   };
 
+  cuentasResource.OSMovimiento = function () {
+    var extendMethod = {};
+    var movimientoSubResource = new RestObject(this.$concatSubResourcePath('movimientos'), OpensalesRestangular, extendMethod);
+    return movimientoSubResource;
+  };
+
   return cuentasResource;
 }]);
 
