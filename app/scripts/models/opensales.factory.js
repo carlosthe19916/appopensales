@@ -234,7 +234,11 @@ angular.module(ApplicationConfiguration.applicationModuleName).factory('OSProduc
 }]);
 
 angular.module(ApplicationConfiguration.applicationModuleName).factory('OSVenta', ['OpensalesRestangular', function (OpensalesRestangular) {
-  var extendedMethods = {};
+  var extendedMethods = {
+    $voucher: function () {
+      return OpensalesRestangular.one(this.$getBasePath(), this.id).all('voucher').get();
+    }
+  };
 
   var ventasResource = new RestObject('com.Siacpi.Ventas.Services/VentasService.svc/ventas', OpensalesRestangular, extendedMethods);
 

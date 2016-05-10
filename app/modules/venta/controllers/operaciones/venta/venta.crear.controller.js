@@ -2,7 +2,7 @@
 
 /* jshint -W098 */
 angular.module('venta').controller('Venta.CrearController',
-  function ($scope, $state, $uibModal, hotkeys, toastr, SCDialog, OSVenta, OSTipoDocumento, OSPersona, OSSession) {
+  function ($scope, $state, $uibModal, hotkeys, toastr, SCDialog, OSVenta, OSTipoDocumento, OSPersona, OSSession, VoucherService) {
 
     $scope.working = false;
 
@@ -19,16 +19,6 @@ angular.module('venta').controller('Venta.CrearController',
 
     $scope.view.load = {
       cliente: {}
-    };
-
-    $scope.limpiar = function () {
-      $scope.view.venta = OSVenta.$build();
-      $scope.combo.selected.tipoDocumento = undefined;
-      $scope.combo.selected.tipoComprobante = 'BOLETA';
-      $scope.view.numeroDocumento = undefined;
-      $scope.view.nombreRazonSocial = undefined;
-      $scope.view.igv = 0.18;
-      $scope.view.productos = [];
     };
 
     $scope.combo = {
@@ -119,7 +109,7 @@ angular.module('venta').controller('Venta.CrearController',
       venta.totalSinIgv = $scope.getTotal();
       venta.total = $scope.getPrecioTotal();
 
-      for(var i = 0; i < $scope.view.productos.length; i++) {
+      for (var i = 0; i < $scope.view.productos.length; i++) {
         detalle[i] = {
           idProducto: $scope.view.productos[i].id,
           idAlmacen: $scope.view.productos[i].almacen.id,
@@ -137,11 +127,12 @@ angular.module('venta').controller('Venta.CrearController',
         venta.$save().then(
           function (response) {
             $scope.working = false;
-            toastr.success('Venta realizada.');
-            //$state.go('^.editar', {puntoVenta: response.id});
+            toastr.success('Imprimiendo...', 'Venta realizada');
             $scope.limpiar();
-            $scope.view.vouchers.push(response);
-            if($scope.view.vouchers.length > 5) $scope.view.vouchers.splice(0, 1);
+            OSVenta.$new(response.id).$voucher().then(function (voucher) {
+              $scope.view.vouchers.push(voucher);
+              if ($scope.view.vouchers.length > 5) $scope.view.vouchers.splice(0, 1);
+            });
           },
           function error(err) {
             $scope.working = false;
@@ -150,15 +141,71 @@ angular.module('venta').controller('Venta.CrearController',
         );
       });
     };
+    $scope.limpiar = function () {
+      $scope.view.venta = OSVenta.$build();
+      $scope.combo.selected.tipoDocumento = undefined;
+      $scope.combo.selected.tipoComprobante = 'BOLETA';
+      $scope.view.numeroDocumento = undefined;
+      $scope.view.nombreRazonSocial = undefined;
+      $scope.view.igv = 0.18;
+      $scope.view.productos = [];
+    };
+    $scope.verVenta = function () {
+      $state.go( 'venta.app.caja.movimientos.editar', { venta: $scope.view.vouchers[$scope.view.vouchers.length - 1].id } );
+    };
+    $scope.imprimir = function () {
+      VoucherService.imprimirVoucherCompraVenta($scope.view.vouchers[$scope.view.vouchers.length - 1]);
+    };
+
     hotkeys.bindTo($scope).add({
-      combo: 'ctrl+m',
+      combo: 'ctrl+b',
       description: 'Realizar la venta',
       allowIn: ['INPUT'],
-      callback: function(event, hotkey) {
+      callback: function (event, hotkey) {
         event.preventDefault();
         $scope.save();
       }
     });
+    hotkeys.bindTo($scope).add({
+      combo: 'ctrl+l',
+      description: 'Limpiar',
+      allowIn: ['INPUT'],
+      callback: function (event, hotkey) {
+        event.preventDefault();
+        $scope.limpiar();
+      }
+    });
+    hotkeys.bindTo($scope).add({
+      combo: 'ctrl+p',
+      description: 'Imprimir el ultimo comprobante',
+      allowIn: ['INPUT'],
+      callback: function (event, hotkey) {
+        event.preventDefault();
+        $scope.imprimir();
+      }
+    });
+
+
+
+
+
+    $scope.view.vouchers.push(
+      {
+        id: 1,
+        cliente: 'feria vila prueba',
+        comprobante: 'BOLETA',
+        detalle:null,
+        estado: true,
+        fecha: new Date(),
+        idCuenta:0,
+        igv:0.18,
+        igvMonto:18,
+        numeroDocumento: '1',
+        tipoDocumento: 'DNI',
+        total: 0,
+        totalSinIgv: 0
+      }
+    );
 
 
 
