@@ -13,7 +13,7 @@ var loadingTimer = -1;
 // For authentication method
 var auth = {
   test: {
-    enabled: false
+    enabled: true
   },
   wcf: {
     enabled: false
@@ -22,20 +22,13 @@ var auth = {
     url: 'https://keycloak-softgreen.rhcloud.com/auth',
     realm: 'opensales',
     clientId: 'opensales_app',
-    enabled: true
+    enabled: false
   }
 };
 
 // Base url for OPENSALES REST web services
 var OPENSALES = {
   baseUrl: 'http://localhost:27660'
-};
-
-var PRINTER = {
-  default: {
-    name: undefined,
-    cookieName: 'opensalesPrinter'
-  }
 };
 
 /*-------------------------------------------------------------------------------------------------------*/
@@ -58,6 +51,14 @@ angular.module(ApplicationConfiguration.applicationModuleName, ApplicationConfig
 angular.module(ApplicationConfiguration.applicationModuleName).config(['$locationProvider',
   function ($locationProvider) {
     $locationProvider.hashPrefix('!');
+  }
+]);
+
+// Printer config
+angular.module(ApplicationConfiguration.applicationModuleName).config(['QzTrayConfigProvider',
+  function (QzTrayConfigProvider) {
+    QzTrayConfigProvider.setAutoConnect(true);
+    QzTrayConfigProvider.setLocalStorage(true);
   }
 ]);
 
@@ -166,12 +167,6 @@ angular.element(document).ready(function () {
     location.reload();
   };
   // KEYCLOAK END
-
-
-
-  angular.module(ApplicationConfiguration.applicationModuleName).constant('PRINTER', PRINTER);
-
-
 
 
   // INIT TO BOOTSTRAP ANGULAR APP
@@ -373,13 +368,15 @@ if(auth.keycloak.enabled) {
 /*-------------------------------------------------------------------------------------------------------*/
 
 
-angular.module(ApplicationConfiguration.applicationModuleName).run(['localStorageService', 'PRINTER', 'toastr',
-  function (localStorageService, PRINTER, toastr) {
+angular.module(ApplicationConfiguration.applicationModuleName).run(['localStorageService', 'toastr', 'QzTrayService',
+  function (localStorageService, toastr, QzTrayService) {
 
     //Load printer
-    var cookieName = PRINTER.default.cookieName;
+    /*var cookieName = 'opensalesprinter';
     var valueCookie = localStorageService.get(cookieName);
-    if(valueCookie !== null){
+    valueCookie = angular.fromJson(valueCookie);*/
+
+    /*if(valueCookie !== null){
       PRINTER.default.name = valueCookie;
       findPrinter(PRINTER.default.name).then(function (data) {
         toastr.info('IMPRESORA ' + data + ' INICIALIZADA.');
@@ -393,7 +390,7 @@ angular.module(ApplicationConfiguration.applicationModuleName).run(['localStorag
 
     PRINTER.save = function (val) {
       return localStorageService.set(PRINTER.default.cookieName, val || PRINTER.default.name);
-    };
+    };*/
 
   }
 ]);

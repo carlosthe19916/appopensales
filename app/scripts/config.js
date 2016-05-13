@@ -26,7 +26,10 @@ var ApplicationConfiguration = (function () {
     'ui.grid.selection',
     'ui.grid.autoResize',
     'cfp.hotkeys',
-    'LocalStorageModule'
+    'LocalStorageModule',
+    'frapontillo.bootstrap-switch',
+    
+    'ng-qzTray'
   ];
 
   // Add a new vertical module

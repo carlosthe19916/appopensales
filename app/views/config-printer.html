@@ -1,40 +1,134 @@
+<h1>Configurar impresora</h1>
 <div class="row">
-  <div class="col-md-8 col-md-offset-2">
-    <h1>Configurar impresora</h1>
+  <div class="col-sm-4">
+    <fieldset class="border-top">
+      <legend>
+        <span class="text ng-scope">Estado coneccion <i class="fa fa-question-circle text-muted"
+                                                       uib-tooltip="Estado de coneccion con la impresora."
+                                                       uib-tooltip-placement="right"></i></span>
+        <div class="pull-right">
+          <input bs-switch data-ng-model="connection.enable" switch-change="connectionChange()" switch-on-text="Conectado" switch-off-text="Desconectado" type="checkbox">
+        </div>
+      </legend>
 
+      <form name="form" class="form-horizontal" data-ng-submit="saveConnection()" os-read-only="connection.enable" novalidate>
+        <div class="form-group" data-ng-class="{ 'has-error' : form.host.$invalid && form.$submitted}">
+          <label class="col-sm-3 control-label">Host
+            <i class="fa fa-info-circle text-muted" tooltip-placement="right" uib-tooltip="Host running the QZ Tray software"></i>
+          </label>
+          <div class="col-sm-4">
+            <input name="host" type="text" data-ng-model="connection.config.host" data-ng-minlength="1" data-ng-maxlength="100" class="form-control" required/>
+            <div data-ng-messages="form.host.$error" data-ng-if="form.$submitted">
+              <div class="has-error" data-ng-message="required">Ingrese host.</div>
+              <div class="has-error" data-ng-message="minlength">Ingrese host.</div>
+              <div class="has-error" data-ng-message="maxlength">Maximo 100 caracteres.</div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group" data-ng-class="{ 'has-error' : form.usingSecure.$invalid && form.$submitted}">
+          <label class="col-sm-3 control-label">Using secure
+            <i class="fa fa-info-circle text-muted" tooltip-placement="right" uib-tooltip="If the web socket should try to use secure ports for connecting"></i>
+          </label>
+          <div class="col-sm-4">
+            <input name="usingSecure" bs-switch data-ng-model="connection.config.usingSecure" switch-size="mini" switch-active="{{!connection.enable}}" type="checkbox">
+            <div data-ng-messages="form.usingSecure.$error" data-ng-if="form.$submitted">
+              <div class="has-error" data-ng-message="required">Ingrese secure.</div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group" data-ng-class="{ 'has-error' : form.keepAlive.$invalid && form.$submitted}">
+          <label class="col-sm-3 control-label">Keep alive
+            <i class="fa fa-info-circle text-muted" tooltip-placement="right" uib-tooltip="Seconds between keep-alive pings to keep connection open. Set to 0 to disable"></i>
+          </label>
+          <div class="col-sm-2">
+            <input name="keepAlive" class="form-control" type="text" data-ng-model="connection.config.keepAlive" ui-number-mask="0" min="1" max="999" required>
+            <div data-ng-messages="form.keepAlive.$error" data-ng-if="form.$submitted || form.$dirty">
+              <div class="has-error" data-ng-message="required">Ingrese keepAlive.</div>
+              <div class="has-error" data-ng-message="min">Minimo 1.</div>
+              <div class="has-error" data-ng-message="max">Maximo 999.</div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group" data-ng-class="{ 'has-error' : form.retries.$invalid && form.$submitted}">
+          <label class="col-sm-3 control-label">Retries
+            <i class="fa fa-info-circle text-muted" tooltip-placement="right" uib-tooltip="Number of times to reconnect before failing"></i>
+          </label>
+          <div class="col-sm-2">
+            <input name="retries" class="form-control" type="text" data-ng-model="connection.config.retries" ui-number-mask="0" min="0" max="20" required>
+            <div data-ng-messages="form.retries.$error" data-ng-if="form.$submitted || form.$dirty">
+              <div class="has-error" data-ng-message="required">Ingrese retries.</div>
+              <div class="has-error" data-ng-message="min">Minimo 0.</div>
+              <div class="has-error" data-ng-message="max">Maximo 20.</div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group" data-ng-class="{ 'has-error' : form.delay.$invalid && form.$submitted}">
+          <label class="col-sm-3 control-label">Delay
+            <i class="fa fa-info-circle text-muted" tooltip-placement="right" uib-tooltip="Seconds before firing a connection.  Ignored if options retries is 0"></i>
+          </label>
+          <div class="col-sm-2">
+            <input name="delay" class="form-control" type="text" data-ng-model="connection.config.delay" ui-number-mask="0" min="0" max="20" required>
+            <div data-ng-messages="form.delay.$error" data-ng-if="form.$submitted || form.$dirty">
+              <div class="has-error" data-ng-message="required">Ingrese delay.</div>
+              <div class="has-error" data-ng-message="min">Minimo 0.</div>
+              <div class="has-error" data-ng-message="max">Maximo 20.</div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-sm-offset-3 col-sm-6">
+            <button type="submit" class="btn btn-primary">
+              <span>Guardar</span>
+            </button>
+          </div>
+        </div>
+      </form>
+
+    </fieldset>
+  </div>
+
+  <div class="col-sm-4" os-read-only="!connection.enable">
     <fieldset class="border-top">
       <legend><span class="text ng-scope">Impresora <i class="fa fa-question-circle text-muted"
                                                        uib-tooltip="Configuracion de la impresora por defecto."
                                                        uib-tooltip-placement="right"></i></span></legend>
       <form name="form" class="form-horizontal" novalidate>
         <div class="form-group" ng-class="{ 'has-error' : form.printerName.$invalid && form.$submitted}">
-          <label class="col-sm-2 control-label">
-            <i class="pficon pficon-print text-muted" tooltip-placement="right" uib-tooltip="Punto de venta asignado al trabajador"></i>
-            Impresora
+          <label class="col-sm-3 control-label">Impresora
             <i class="fa fa-info-circle text-muted" tooltip-placement="right" uib-tooltip="Nombre de la impresora"></i>
           </label>
-          <div class="col-sm-4">
-            <input name="printerName" type="text" data-ng-model="view.printer.default.name" data-ng-minlength="1" data-ng-maxlength="200" class="form-control" pf-focused="true" autofocus required/>
+          <div class="col-sm-6">
+            <input name="printerName" type="text" data-ng-model="view.printer.name" data-ng-minlength="1" data-ng-maxlength="200" class="form-control"/>
             <div data-ng-messages="form.printerName.$error" data-ng-if="form.$submitted">
               <div class="has-error" data-ng-message="required">Ingrese nombre de impresora.</div>
               <div class="has-error" data-ng-message="minlength">Ingrese nombre de impresora.</div>
               <div class="has-error" data-ng-message="maxlength">Nombre muy extenso, maximo 200 caracteres.</div>
             </div>
           </div>
-          <div class="col-sm-6">
+          <div class="col-sm-3">
             <div class="btn-group">
-              <button class="btn btn-default" data-ng-click="findPrinter()"><i class="fa fa-check"></i> Check</button>
+              <button class="btn btn-default" data-ng-click="selectPrinter()"><i class="fa fa-check"></i> Seleccionar</button>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label">Seleccionado
+            <i class="fa fa-info-circle text-muted" tooltip-placement="right" uib-tooltip="Nombre de la impresora seleccionada"></i>
+          </label>
+          <div class="col-sm-6">
+            <input name="printer" type="text" data-ng-model="printer.name" class="form-control" readonly/>
+          </div>
+          <div class="col-sm-3">
+            <div class="btn-group">
               <button class="btn btn-default" data-ng-click="printTestPage()"><i class="fa fa-print"></i> Imprimir</button>
             </div>
           </div>
         </div>
         <div class="form-group">
-          <div class="col-sm-offset-2 col-sm-10">
-            <button sc-save ng-disabled="working">
-              <span ng-show="working">Guardando...</span>
-              <span ng-hide="working">Guardar</span>
+          <div class="col-sm-offset-3 col-sm-6">
+            <button type="button" data-ng-click="savePrinter()" class="btn btn-primary">
+              <span>Guardar</span>
             </button>
-            <button sc-cancel ng-disabled="working" ui-sref="^.buscar">Cancelar</button>
           </div>
         </div>
       </form>
@@ -46,29 +140,109 @@
                                                                     uib-tooltip-placement="right"></i></span></legend>
       <div class="form-horizontal">
         <div class="form-group">
-          <label class="col-sm-2 control-label">
-            Buscar impresoras
-            <i class="fa fa-info-circle text-muted" tooltip-placement="right" uib-tooltip="Busca impresoras en su computador"></i>
-          </label>
+          <label class="col-sm-2 control-label">&nbsp;</label>
           <div class="col-sm-6">
             <button type="button" class="btn btn-default" data-ng-click="findPrinters()"><i class="pficon pficon-network"></i> Buscar</button>&nbsp;
-            <span data-ng-show="!view.printers.length"  class="spinner spinner-xs spinner-inline"></span>
           </div>
         </div>
         <div class="form-group">
           <label class="col-sm-2 control-label"></label>
-          <div class="col-sm-8">
+          <div class="col-sm-7">
             <ol>
               <li data-ng-repeat="item in view.printers">
             <span>
               <i class="pficon pficon-print text-muted"></i>&nbsp;{{item}}
             </span>
-                <a href="" data-ng-click="selectPrinter(item, $index)"><i class="fa fa-reply-all"></i></a>
+                <a href="" data-ng-click="selectPrinterName(item, $index)"><i class="fa fa-reply-all"></i></a>
               </li>
             </ol>
           </div>
         </div>
       </div>
+    </fieldset>
+  </div>
+
+  <div class="col-sm-4">
+    <fieldset class="border-top">
+      <legend><span class="text ng-scope">Configuracion de la impresion <i class="fa fa-question-circle text-muted ng-scope"
+                                                                    uib-tooltip="Configuracion de impresora."
+                                                                    uib-tooltip-placement="right"></i></span></legend>
+      <table class="table table-striped table-bordered">
+        <tbody>
+        <tr>
+          <td width="20%">Alt printing</td>
+          <td><span data-ng-bind="options.altPrinting"></span></td>
+        </tr>
+        <tr>
+          <td width="20%">Color type</td>
+          <td><span data-ng-bind="options.colorType"></span></td>
+        </tr>
+        <tr>
+          <td width="20%">Copies</td>
+          <td><span data-ng-bind="options.copies"></span></td>
+        </tr>
+        <tr>
+          <td width="20%">Density</td>
+          <td><span data-ng-bind="options.density"></span></td>
+        </tr>
+        <tr>
+          <td width="20%">Duplex</td>
+          <td><span data-ng-bind="options.duplex"></span></td>
+        </tr>
+        <tr>
+          <td width="20%">Encoding</td>
+          <td><span data-ng-bind="options.encoding"></span></td>
+        </tr>
+        <tr>
+          <td width="20%">End of doc</td>
+          <td><span data-ng-bind="options.endOfDoc"></span></td>
+        </tr>
+        <tr>
+          <td width="20%">Interpolation</td>
+          <td><span data-ng-bind="options.interpolation"></span></td>
+        </tr>
+        <tr>
+          <td width="20%">Job name</td>
+          <td><span data-ng-bind="options.jobName"></span></td>
+        </tr>
+        <tr>
+          <td width="20%">Margins</td>
+          <td><span data-ng-bind="options.margins"></span></td>
+        </tr>
+        <tr>
+          <td width="20%">Orientation</td>
+          <td><span data-ng-bind="options.orientation"></span></td>
+        </tr>
+        <tr>
+          <td width="20%">Paper thickness</td>
+          <td><span data-ng-bind="options.paperThickness"></span></td>
+        </tr>
+        <tr>
+          <td width="20%">Per spool</td>
+          <td><span data-ng-bind="options.perSpool"></span></td>
+        </tr>
+        <tr>
+          <td width="20%">Printer tray</td>
+          <td><span data-ng-bind="options.printerTray"></span></td>
+        </tr>
+        <tr>
+          <td width="20%">rotation</td>
+          <td>0</td>
+        </tr>
+        <tr>
+          <td width="20%">scaleContent</td>
+          <td>true</td>
+        </tr>
+        <tr>
+          <td width="20%">size</td>
+          <td>null</td>
+        </tr>
+        <tr>
+          <td width="20%">units</td>
+          <td>in</td>
+        </tr>
+        </tbody>
+      </table>
     </fieldset>
   </div>
 </div>

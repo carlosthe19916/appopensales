@@ -154,7 +154,7 @@ angular.module('venta').controller('Venta.CrearController',
       $state.go( 'venta.app.caja.movimientos.editar', { venta: $scope.view.vouchers[$scope.view.vouchers.length - 1].id } );
     };
     $scope.imprimir = function () {
-      VoucherService.imprimirVoucherCompraVenta($scope.view.vouchers[$scope.view.vouchers.length - 1]);
+      VoucherService.imprimirPrueba($scope.view.vouchers[$scope.view.vouchers.length - 1]);
     };
 
     hotkeys.bindTo($scope).add({
