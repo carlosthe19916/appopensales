@@ -28,7 +28,7 @@ var auth = {
 
 // Base url for OPENSALES REST web services
 var OPENSALES = {
-  baseUrl: 'http://localhost:27660'
+    baseUrl: 'http://192.168.1.45:9898'
 };
 
 /*-------------------------------------------------------------------------------------------------------*/
