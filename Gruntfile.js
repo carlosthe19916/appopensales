@@ -445,13 +445,13 @@ module.exports = function (grunt) {
           dest: '<%= yeoman.dist %>'
         }, {
           expand: true,
-          cwd: 'bower_components/patternfly-sass/assets/fonts/patternfly/*',
-          src: 'fonts/*',
+          cwd: '.',
+          src: 'bower_components/patternfly-sass/assets/fonts/patternfly/*',
           dest: '<%= yeoman.dist %>'
         }, {
           expand: true,
-          cwd: 'bower_components/font-awesome-sass/assets/fonts/font-awesome/*',
-          src: 'fonts/*',
+          cwd: '.',
+          src: 'bower_components/font-awesome-sass/assets/fonts/font-awesome/*',
           dest: '<%= yeoman.dist %>'
         }, {
           expand: true,

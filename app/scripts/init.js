@@ -19,16 +19,16 @@ var auth = {
     enabled: false
   },
   keycloak: {
-    url: 'https://keycloak-softgreen.rhcloud.com/auth',
-    realm: 'opensales',
-    clientId: 'opensales_app',
+    url: 'http://192.168.1.41:7070/auth',
+    realm: 'siacpi_desarrollo',
+    clientId: 'siacpi_ventas',
     enabled: true
   }
 };
 
 // Base url for OPENSALES REST web services
 var OPENSALES = {
-    baseUrl: 'http://localhost:27660'
+    baseUrl: 'http://192.168.1.41:8787'
 };
 
 /*-------------------------------------------------------------------------------------------------------*/
