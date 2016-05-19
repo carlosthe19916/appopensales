@@ -63,11 +63,12 @@ module.exports = function(config) {
       'bower_components/keycloak/dist/keycloak.js',
       'bower_components/ng-file-upload/ng-file-upload.js',
       'bower_components/angular-hotkeys/build/hotkeys.js',
-      'bower_components/angular-local-storage/dist/angular-local-storage.js',
+      'bower_components/bluebird/js/browser/bluebird.js',
       'bower_components/qz-tray/src/dependencies/rsvp.min.js',
       'bower_components/qz-tray/src/dependencies/sha-256.min.js',
       'bower_components/qz-tray/src/dependencies/qz-tray.js',
       'bower_components/qz-tray/src/ng-qzTray.js',
+      'bower_components/angular-local-storage/dist/angular-local-storage.js',
       'bower_components/angular-bootstrap-switch/dist/angular-bootstrap-switch.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower

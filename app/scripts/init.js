@@ -13,7 +13,7 @@ var loadingTimer = -1;
 // For authentication method
 var auth = {
   test: {
-    enabled: true
+    enabled: false
   },
   wcf: {
     enabled: false
@@ -22,13 +22,13 @@ var auth = {
     url: 'https://keycloak-softgreen.rhcloud.com/auth',
     realm: 'opensales',
     clientId: 'opensales_app',
-    enabled: false
+    enabled: true
   }
 };
 
 // Base url for OPENSALES REST web services
 var OPENSALES = {
-    baseUrl: 'http://192.168.1.45:9898'
+    baseUrl: 'http://localhost:27660'
 };
 
 /*-------------------------------------------------------------------------------------------------------*/
