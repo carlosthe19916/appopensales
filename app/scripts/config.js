@@ -28,7 +28,6 @@ var ApplicationConfiguration = (function () {
     'cfp.hotkeys',
     'LocalStorageModule',
     'frapontillo.bootstrap-switch',
-    
     'ng-qzTray'
   ];
 

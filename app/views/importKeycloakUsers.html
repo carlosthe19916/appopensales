@@ -1,0 +1,124 @@
+<h1>Importer keycloak server</h1>
+<ol>
+  <ul>
+    <li>Server url: {{auth.keycloak.url}}</li>
+    <li>Realm: {{auth.keycloak.realm}}</li>
+  </ul>
+</ol>
+
+<div class="row">
+  <div class="col-sm-6">
+    <fieldset class="border-top">
+      <legend><span class="text ng-scope">Single add <i class="fa fa-question-circle text-muted"
+                                                              uib-tooltip="Asignacion simble."
+                                                              uib-tooltip-placement="right"></i></span></legend>
+      <form name="form" class="form-horizontal" novalidate>
+        <div class="form-group" data-ng-class="{ 'has-error' : form.username.$invalid && form.$submitted}">
+          <label class="col-sm-2 control-label"><span class="required">*</span> Username:
+            <i class="fa fa-info-circle text-muted" tooltip-placement="right" uib-tooltip="Username to import to keycloak"></i>
+          </label>
+          <div class="col-sm-4">
+            <input type="text" name="username" data-ng-model="user.username" data-ng-minlength="1" data-ng-maxlength="100" class="form-control" required/>
+            <div ng-messages="form.username.$error" ng-if="form.$submitted">
+              <div class="has-error" ng-message="required">Username required.</div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group" data-ng-class="{ 'has-error' : form.password.$invalid && form.$submitted}">
+          <label class="col-sm-2 control-label"><span class="required">*</span> Password:
+            <i class="fa fa-info-circle text-muted" tooltip-placement="right" uib-tooltip="Passport to import to keycloak"></i>
+          </label>
+          <div class="col-sm-4">
+            <input type="password" name="password" data-ng-model="user.password" data-ng-minlength="1" data-ng-maxlength="100" class="form-control" required/>
+            <div ng-messages="form.password.$error" ng-if="form.$submitted">
+              <div class="has-error" ng-message="required">Password required.</div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-sm-offset-2 col-sm-10">
+            <button type="button" class="btn btn-primary" data-ng-click="addUser()">
+              <span>Guardar</span>
+            </button>
+          </div>
+        </div>
+      </form>
+    </fieldset>
+
+    <fieldset class="border-top">
+      <legend><span class="text ng-scope">Multiple add <i class="fa fa-question-circle text-muted"
+                                                        uib-tooltip="Asignacion multiple."
+                                                        uib-tooltip-placement="right"></i></span></legend>
+      <form name="form" class="form-horizontal" novalidate>
+        <div class="form-group" data-ng-class="{ 'has-error' : form.usersJson.$invalid && form.$submitted}">
+          <label class="col-sm-2 control-label"><span class="required">*</span> Users json:
+            <i class="fa fa-info-circle text-muted" tooltip-placement="right" uib-tooltip="Json to import to keycloak"></i>
+          </label>
+          <div class="col-sm-4">
+            <textarea type="text" name="usersJson" data-ng-model="usersString" data-ng-minlength="1" class="form-control" required></textarea>
+            <div ng-messages="form.usersJson.$error" ng-if="form.$submitted">
+              <div class="has-error" ng-message="required">Json required.</div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-sm-offset-2 col-sm-10">
+            <button type="button" class="btn btn-primary" data-ng-click="addToJson()">
+              <span>Guardar</span>
+            </button>
+          </div>
+        </div>
+      </form>
+    </fieldset>
+  </div>
+
+  <div class="col-sm-6">
+    <fieldset class="border-top">
+      <legend><span class="text ng-scope">Multiple add <i class="fa fa-question-circle text-muted"
+                                                          uib-tooltip="Asignacion multiple."
+                                                          uib-tooltip-placement="right"></i></span></legend>
+      <form name="form" class="form-horizontal" novalidate>
+        <div class="form-group">
+          <div class="col-sm-12">
+            <button sc-save ng-disabled="working">
+              <span ng-show="working">Importando...</span>
+              <span ng-hide="working">Importar</span>
+            </button>
+          </div>
+        </div>
+        <table class="table table-bordered table-condensed table-striped">
+          <thead>
+          <tr>
+            <td>Username</td>
+            <td>Password</td>
+            <td>Creado</td>
+            <td>Actualizar password</td>
+            <td colspan="2">Acciones</td>
+          </tr>
+          </thead>
+          <tbody>
+          <tr data-ng-repeat="item in usersJson">
+            <td>{{item.username}}</td>
+            <td>{{item.password}}</td>
+            <td>{{item.createdMessage}}</td>
+            <td>{{item.credentialMessage}}</td>
+            <td class="kc-action-cell">
+              <button class="btn btn-default btn-block btn-sm" data-ng-click="singleSave($index)" ng-disabled="item.working || working">
+                <span ng-show="item.working || working">Importando...</span>
+                <span ng-hide="item.working || working">Importar</span>
+              </button>
+            </td>
+            <td class="kc-action-cell">
+              <button class="btn btn-default btn-block btn-sm" data-ng-click="removeFromJson($index)">Remover</button>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </form>
+    </fieldset>
+
+  </div>
+</div>
+
+
+

@@ -51,6 +51,12 @@ angular.module(ApplicationConfiguration.applicationModuleName).config(['$statePr
         url: '/config-printer',
         templateUrl: 'views/config-printer.html',
         controller: 'ConfigPrinterController'
+      })
+
+      .state('importKeycloakUsers', {
+        url: '/importKeycloakUsers',
+        templateUrl: 'views/importKeycloakUsers.html',
+        controller: 'ImportKeycloakUsersController'
       });
 
   }

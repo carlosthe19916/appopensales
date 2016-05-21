@@ -66,6 +66,10 @@ angular.module(ApplicationConfiguration.applicationModuleName).config(function (
   opensalesProvider.restUrl = OPENSALES.baseUrl;
 });
 
+angular.module(ApplicationConfiguration.applicationModuleName).config(function (keycloakProvider) {
+  keycloakProvider.restUrl = auth.keycloak.url +  '/admin/realms/' + auth.keycloak.realm;
+});
+
 /*-------------------------------------------------------------------------------------------------------*/
 /**************************************ANGULAR CONFIGURATION END******************************************/
 /*-------------------------------------------------------------------------------------------------------*/
@@ -340,6 +344,7 @@ angular.module(ApplicationConfiguration.applicationModuleName).factory('errorInt
 
 /*For Token security configuration*/
 if(auth.keycloak.enabled) {
+
   angular.module(ApplicationConfiguration.applicationModuleName).factory('authInterceptor', function($q, Auth) {
     return {
       request: function (config) {
@@ -362,6 +367,7 @@ if(auth.keycloak.enabled) {
       }
     };
   });
+
 }
 /*-------------------------------------------------------------------------------------------------------*/
 /**************************************SECURITY CONFIGURATION END*****************************************/
