@@ -19,7 +19,7 @@ var auth = {
     enabled: false
   },
   keycloak: {
-    url: 'http://192.168.1.41:7070/auth',
+    url: 'http://192.168.1.5:7070/auth',
     realm: 'siacpi_desarrollo',
     clientId: 'siacpi_ventas',
     enabled: true
@@ -28,7 +28,7 @@ var auth = {
 
 // Base url for OPENSALES REST web services
 var OPENSALES = {
-    baseUrl: 'http://192.168.1.41:8787'
+    baseUrl: 'http://localhost:27660'
 };
 
 /*-------------------------------------------------------------------------------------------------------*/

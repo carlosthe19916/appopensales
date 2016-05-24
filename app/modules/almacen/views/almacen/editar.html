@@ -1,0 +1,48 @@
+<div ncy-breadcrumb></div>
+
+<div class="pull-right">
+  <div class="btn-group" uib-dropdown>
+    <button type="button" class="btn btn-default">Acciones</button>
+    <button type="button" class="btn btn-default" uib-dropdown-toggle>
+      <span class="caret"></span>
+      <span class="sr-only">Acciones</span>
+    </button>
+    <ul class="dropdown-menu-right" uib-dropdown-menu aria-labelledby="split-button">
+      <li role="menuitem"><a href="" data-ng-click="activar()">Activar</a></li>
+      <li role="menuitem"><a href="" data-ng-click="desactivar()">Desactivar</a></li>
+    </ul>
+  </div>
+  <button class="btn btn-danger" data-ng-click="remove()">Eliminar</button>
+</div>
+
+<h1>
+  <strong>Editar almacen <small data-ng-bind="view.almacen.denominacion"></small></strong>
+</h1>
+
+<div class="panel panel-default">
+  <div class="panel-body">
+    <div>
+
+      <div class="tab-container">
+        <ul class="nav nav-tabs">
+          <li ui-sref-active="active">
+            <a href ui-sref=".resumen">
+              Resumen
+            </a>
+          </li>
+          <li ui-sref-active="active">
+            <a href ui-sref=".datosPrincipales">
+              Datos principales
+            </a>
+          </li>
+        </ul>
+        <div class="tab-pane">
+          <div ui-view></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+

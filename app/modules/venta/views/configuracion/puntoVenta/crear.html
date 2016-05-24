@@ -22,11 +22,11 @@
       <i class="fa fa-info-circle text-muted" tooltip-placement="right" uib-tooltip="Direccion del punto de venta"></i>
     </label>
     <div class="col-sm-3">
-      <input name="ubicacion" type="text" data-ng-model="view.puntoVenta.ubicacion" data-ng-minlength="1" data-ng-maxlength="20" class="form-control"/>
+      <input name="ubicacion" type="text" data-ng-model="view.puntoVenta.ubicacion" data-ng-minlength="1" data-ng-maxlength="200" class="form-control"/>
       <div data-ng-messages="form.ubicacion.$error" data-ng-if="form.$submitted">
         <div class="has-error" data-ng-message="required">Ingrese ubicacion.</div>
         <div class="has-error" data-ng-message="minlength">Ingrese ubicacion.</div>
-        <div class="has-error" data-ng-message="maxlength">Ubicacion muy extenso, maximo 20 caracteres.</div>
+        <div class="has-error" data-ng-message="maxlength">Ubicacion muy extenso, maximo 200 caracteres.</div>
       </div>
     </div>
   </div>

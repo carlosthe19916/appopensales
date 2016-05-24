@@ -1,0 +1,43 @@
+<br>
+
+<div class="row">
+  <div class="col-sm-6">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <fieldset class="border-top" data-ng-mouseover="editDatosPrincipales = true" data-ng-mouseleave="editDatosPrincipales = false">
+          <legend>
+            <span class="text">Datos personales</span>
+            <a href="" data-ng-show="editDatosPrincipales" ui-sref="^.datosPrincipales" class="pull-right" type="button"><i class="pficon pficon-edit"></i></a>
+          </legend>
+          <dl class="dl-horizontal left">
+            <dt>Denominacion:</dt>
+            <dd data-ng-if="view.almacen.denominacion" data-ng-bind="view.almacen.denominacion"></dd>
+            <dt>Direccion:</dt>
+            <dd data-ng-if="view.almacen.direccion" data-ng-bind="view.almacen.direccion"></dd>
+            <dd data-ng-if="!view.almacen.direccion"><em>No registrado</em></dd>
+            <dt>Estado:</dt>
+            <dd data-ng-bind="view.almacen.estado | si_no : 'ACTIVO' | uppercase"></dd>
+          </dl>
+        </fieldset>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-6">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <fieldset class="border-top">
+          <legend>
+            <span class="text">Punto de venta asignado</span>
+          </legend>
+          <dl class="dl-horizontal left">
+            <dt>Punto de venta:</dt>
+            <dd data-ng-if="view.almacen.expediente.nombreObra" data-ng-bind="view.almacen.expediente.nombreObra"></dd>
+            <dd data-ng-if="!view.almacen.expediente.nombreObra"><em>No registrado</em></dd>
+            <dt>Estado:</dt>
+            <dd data-ng-bind="view.almacen.expediente.estado | si_no : 'ACTIVO' | uppercase"></dd>
+          </dl>
+        </fieldset>
+      </div>
+    </div>
+  </div>
+</div>

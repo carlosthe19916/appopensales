@@ -177,6 +177,12 @@ angular.module(ApplicationConfiguration.applicationModuleName).factory('OSPuntoV
   return expedientesResource;
 }]);
 
+angular.module(ApplicationConfiguration.applicationModuleName).factory('OSAlmacen', ['OpensalesRestangular', function (OpensalesRestangular) {
+  var extendedMethods = {};
+  var almacenenesResource = new RestObject('com.Siacpi.Ventas.Services/AlmacenesService.svc/almacenes', OpensalesRestangular, extendedMethods);
+  return almacenenesResource;
+}]);
+
 angular.module(ApplicationConfiguration.applicationModuleName).factory('OSCaja', ['OpensalesRestangular', function (OpensalesRestangular) {
   var extendedMethods = {
     $abrir: function (data) {
