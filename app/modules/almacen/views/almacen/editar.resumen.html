@@ -1,4 +1,32 @@
 <br>
+<svg class="kube-topology" hidden>
+  <defs>
+    <g class="Node" id="vertex-Node">
+      <circle r="15"></circle>
+      <text y="9">&#xe621;</text>
+    </g>
+    <g class="Pod" id="vertex-Pod">
+      <circle r="15"></circle>
+      <text y="6" x="0.5">&#xf1b3;</text>
+    </g>
+    <g class="Service" id="vertex-Service">
+      <circle r="15"></circle>
+      <text y="10" x="-1">&#xe61e;</text>
+    </g>
+    <g class="ReplicationController" id="vertex-ReplicationController">
+      <circle r="15"></circle>
+      <text y="9">&#xe624;</text>
+    </g>
+    <g class="DeploymentConfig" id="vertex-DeploymentConfig">
+      <circle r="15"></circle>
+      <text y="8">&#xf013;</text>
+    </g>
+    <g class="Route" id="vertex-Route">
+      <circle r="15"></circle>
+      <text y="9">&#xe625;</text>
+    </g>
+  </defs>
+</svg>
 
 <div class="row">
   <div class="col-sm-6">
@@ -37,7 +65,33 @@
             <dd data-ng-bind="view.almacen.expediente.estado | si_no : 'ACTIVO' | uppercase"></dd>
           </dl>
         </fieldset>
+        <fieldset class="border-top">
+          <legend>
+            <span class="text">Representacion grafica</span>
+          </legend>
+
+          <kubernetes-topology-graph items="items" relations="relations" kinds="kinds" style="height: 100px"></kubernetes-topology-graph>
+        </fieldset>
+      </div>
+      <div class="panel-footer">
+        <div class="controls">
+          <kubernetes-topology-icon kind="Node">
+            <svg class="kube-topology">
+              <use xlink:href="#vertex-Node" x="15" y="15"></use>
+            </svg>
+          </kubernetes-topology-icon>
+          <label>Almacenes</label>
+
+          <kubernetes-topology-icon kind="Pod">
+            <svg class="kube-topology">
+              <use xlink:href="#vertex-Pod" x="15" y="15"></use>
+            </svg>
+          </kubernetes-topology-icon>
+          <label>Puntos de venta</label>
+        </div>
       </div>
     </div>
   </div>
 </div>
+
+

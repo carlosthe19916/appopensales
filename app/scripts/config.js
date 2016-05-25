@@ -17,6 +17,7 @@ var ApplicationConfiguration = (function () {
     'ui.utils.masks',
     'ui.select',
     'patternfly',
+    'patternfly.charts',
     'restangular',
     'toastr',
     'ngFileUpload',
@@ -28,6 +29,7 @@ var ApplicationConfiguration = (function () {
     'cfp.hotkeys',
     'LocalStorageModule',
     'frapontillo.bootstrap-switch',
+    'kubernetesUI',
     'ng-qzTray'
   ];
 
