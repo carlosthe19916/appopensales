@@ -1,0 +1,117 @@
+<form name="form" class="form-horizontal" novalidate>
+  <div class="form-group" data-ng-class="{ 'has-error' : form.codigo.$invalid && form.$submitted }">
+    <label class="col-sm-2 control-label">Codigo:
+      <i class="fa fa-info-circle text-muted" tooltip-placement="right" uib-tooltip="Denominacion del codigo"></i>
+    </label>
+    <div class="col-sm-2">
+      <input name="denominacion" type="text" data-ng-model="view.producto.codigo" class="form-control" disabled/>
+      <div data-ng-messages="form.codigo.$error" data-ng-if="form.$submitted">
+        <div class="has-error" data-ng-message="required">Ingrese codigo.</div>
+        <div class="has-error" data-ng-message="minlength">Ingrese codigo.</div>
+        <div class="has-error" data-ng-message="maxlength">Maximo 200 caracteres.</div>
+      </div>
+    </div>
+  </div>
+  <div class="form-group" data-ng-class="{ 'has-error' : form.denominacion.$invalid && form.$submitted }">
+    <label class="col-sm-2 control-label"><span class="required">*</span> Denominacion:
+      <i class="fa fa-info-circle text-muted" tooltip-placement="right" uib-tooltip="Denominacion del producto"></i>
+    </label>
+    <div class="col-sm-3">
+      <input name="denominacion" type="text" data-ng-model="view.producto.denominacion" data-ng-minlength="1" data-ng-maxlength="200" pf-focused="true" autofocus class="form-control" required/>
+      <div data-ng-messages="form.denominacion.$error" data-ng-if="form.$submitted">
+        <div class="has-error" data-ng-message="required">Ingrese denominacion.</div>
+        <div class="has-error" data-ng-message="minlength">Ingrese denominacion.</div>
+        <div class="has-error" data-ng-message="maxlength">Maximo 200 caracteres.</div>
+      </div>
+    </div>
+  </div>
+  <div class="form-group" data-ng-class="{ 'has-error' : (form.clase.$invalid || form.categoria.$invalid || form.grupo.$invalid ) && (form.$submitted)}">
+    <label class="col-sm-2 control-label"><span class="required">*</span> Clasificacion:
+      <i class="fa fa-info-circle text-muted" tooltip-placement="right" uib-tooltip="Clasificacion que se da al producto"></i>
+    </label>
+    <div class="col-sm-2">
+      <ui-select name="clase" data-ng-model="combo.selected.clase" required>
+        <ui-select-match placeholder="Clase">{{$select.selected.denominacion}}</ui-select-match>
+        <ui-select-choices repeat="item in combo.clase | filter: $select.search">
+          <div data-ng-bind-html="item.denominacion | highlight: $select.search"></div>
+        </ui-select-choices>
+      </ui-select>
+      <div data-ng-messages="form.clase.$error" data-ng-if="form.clase.$touched || form.$submitted">
+        <div class="has-error" data-ng-message="required">Ingrese clase.</div>
+      </div>
+    </div>
+    <div class="col-sm-2">
+      <ui-select name="categoria" data-ng-model="combo.selected.categoria" required>
+        <ui-select-match placeholder="Categoria">{{$select.selected.denominacion}}</ui-select-match>
+        <ui-select-choices repeat="item in combo.categoria | filter: $select.search">
+          <div data-ng-bind-html="item.denominacion | highlight: $select.search"></div>
+        </ui-select-choices>
+      </ui-select>
+      <div data-ng-messages="form.categoria.$error" data-ng-if="form.categoria.$touched || form.$submitted">
+        <div class="has-error" data-ng-message="required">Ingrese categoria.</div>
+      </div>
+    </div>
+    <div class="col-sm-2">
+      <ui-select name="grupo" data-ng-model="combo.selected.grupo" required>
+        <ui-select-match placeholder="Grupo">{{$select.selected.denominacion}}</ui-select-match>
+        <ui-select-choices repeat="item in combo.grupo | filter: $select.search">
+          <div data-ng-bind-html="item.denominacion | highlight: $select.search"></div>
+        </ui-select-choices>
+      </ui-select>
+      <div data-ng-messages="form.grupo.$error" data-ng-if="form.grupo.$touched || form.$submitted">
+        <div class="has-error" data-ng-message="required">Ingrese grupo.</div>
+      </div>
+    </div>
+  </div>
+  <div class="form-group" data-ng-class="{ 'has-error' : form.precioReferencial.$invalid && form.$submitted }">
+    <label class="col-sm-2 control-label"><span class="required">*</span> Precio referencial:
+      <i class="fa fa-info-circle text-muted" tooltip-placement="right" uib-tooltip="Precio referencial del producto"></i>
+    </label>
+    <div class="col-sm-2">
+      <input name="precioReferencial" type="text" data-ng-model="view.producto.precio" data-ng-minlength="1" data-ng-maxlength="30" ui-number-mask="2" min="0" max="9999999" class="form-control" required/>
+      <div data-ng-messages="form.precioReferencial.$error" data-ng-if="form.$submitted">
+        <div class="has-error" data-ng-message="required">Ingrese precio referencial.</div>
+        <div class="has-error" data-ng-message="minlength">Ingrese precio referencial.</div>
+        <div class="has-error" data-ng-message="maxlength">Maximo 30 caracteres.</div>
+        <div class="has-error" data-ng-message="min">Minimo 1.00.</div>
+        <div class="has-error" data-ng-message="max">Maximo 9,999,999.00.</div>
+      </div>
+    </div>
+  </div>
+  <div class="form-group" data-ng-class="{ 'has-error' : form.descripcion.$invalid && form.$submitted }">
+    <label class="col-sm-2 control-label">Descripcion:
+      <i class="fa fa-info-circle text-muted" tooltip-placement="right" uib-tooltip="Descripcion del almacen"></i>
+    </label>
+    <div class="col-sm-3">
+      <input name="descripcion" type="text" data-ng-model="view.producto.descripcion" data-ng-maxlength="200" class="form-control"/>
+      <div data-ng-messages="form.descripcion.$error" data-ng-if="form.$submitted">
+        <div class="has-error" data-ng-message="required">Ingrese descripcion.</div>
+        <div class="has-error" data-ng-message="minlength">Ingrese descripcion.</div>
+        <div class="has-error" data-ng-message="maxlength">Maximo 200 caracteres.</div>
+      </div>
+    </div>
+  </div>
+  <div class="form-group" data-ng-class="{ 'has-error' : form.observacion.$invalid && form.$submitted }">
+    <label class="col-sm-2 control-label">Observacion:
+      <i class="fa fa-info-circle text-muted" tooltip-placement="right" uib-tooltip="Datos adicionales que desee guardar"></i>
+    </label>
+    <div class="col-sm-3">
+      <textarea name="observacion" type="text" data-ng-model="view.producto.observacion" data-ng-maxlength="600" class="form-control"></textarea>
+      <div data-ng-messages="form.observacion.$error" data-ng-if="form.$submitted">
+        <div class="has-error" data-ng-message="required">Ingrese observacion.</div>
+        <div class="has-error" data-ng-message="minlength">Ingrese observacion.</div>
+        <div class="has-error" data-ng-message="maxlength">Maximo 600 caracteres.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <button sc-save ng-disabled="working">
+        <span ng-show="working">Guardando...</span>
+        <span ng-hide="working">Guardar</span>
+      </button>
+      <button sc-cancel ng-disabled="working" ui-sref="^.buscar">Cancelar</button>
+    </div>
+  </div>
+</form>

@@ -1,0 +1,55 @@
+<br>
+
+<div class="row">
+  <div class="col-sm-6">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <fieldset class="border-top" data-ng-mouseover="editDatosPrincipales = true" data-ng-mouseleave="editDatosPrincipales = false">
+          <legend>
+            <span class="text">Datos principales</span>
+            <a href="" data-ng-show="editDatosPrincipales" ui-sref="^.datosPrincipales" class="pull-right" type="button"><i class="pficon pficon-edit"></i></a>
+          </legend>
+          <dl class="dl-horizontal left">
+            <dt>Codigo:</dt>
+            <dd data-ng-if="view.producto.codigo" data-ng-bind="view.producto.codigo"></dd>
+            <dt>Denominacion:</dt>
+            <dd data-ng-if="view.producto.denominacion" data-ng-bind="view.producto.denominacion"></dd>
+            <dt>Descripcion:</dt>
+            <dd data-ng-if="view.producto.descripcion" data-ng-bind="view.producto.descripcion"></dd>
+            <dd data-ng-if="!view.producto.descripcion"><em>No registrado</em></dd>
+            <dt>Precio:</dt>
+            <dd data-ng-if="view.producto.precio" data-ng-bind="view.producto.precio | number: 2"></dd>
+            <dd data-ng-if="!view.producto.precio"><em>No registrado</em></dd>
+            <dt>Observacion:</dt>
+            <dd data-ng-if="view.producto.observacion" data-ng-bind="view.producto.observacion"></dd>
+            <dd data-ng-if="!view.producto.observacion"><em>No registrado</em></dd>
+            <dt>Estado:</dt>
+            <dd data-ng-bind="view.producto.estado | si_no : 'ACTIVO' | uppercase"></dd>
+          </dl>
+        </fieldset>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-6">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <fieldset class="border-top">
+          <legend>
+            <span class="text">Clasificacion</span>
+          </legend>
+          <dl class="dl-horizontal left">
+            <dt>Clase:</dt>
+            <dd data-ng-if="view.producto.clase.denominacion" data-ng-bind="view.producto.clase.denominacion"></dd>
+            <dd data-ng-if="!view.producto.clase.denominacion"><em>No registrado</em></dd>
+            <dt>Categoria:</dt>
+            <dd data-ng-if="view.producto.categoria.denominacion" data-ng-bind="view.producto.categoria.denominacion"></dd>
+            <dd data-ng-if="!view.producto.categoria.denominacion"><em>No registrado</em></dd>
+            <dt>Grupo:</dt>
+            <dd data-ng-if="view.producto.grupo.denominacion" data-ng-bind="view.producto.grupo.denominacion"></dd>
+            <dd data-ng-if="!view.producto.grupo.denominacion"><em>No registrado</em></dd>
+          </dl>
+        </fieldset>
+      </div>
+    </div>
+  </div>
+</div>

@@ -141,6 +141,24 @@ var RestObject = function (path, restangular, extendMethods) {
  return oficinasResource;
  }]);*/
 
+angular.module(ApplicationConfiguration.applicationModuleName).factory('OSCombo', ['OpensalesRestangular', function (OpensalesRestangular) {
+  var extendedMethods = {
+    $getClasesProducto: function () {
+      return OpensalesRestangular.one(this.$getBasePath(), this.id).all('claseProducto').getList();
+    },
+    $getCategoriasProducto: function () {
+      return OpensalesRestangular.one(this.$getBasePath(), this.id).all('categoriaProducto').getList();
+    },
+    $getGruposProducto: function () {
+      return OpensalesRestangular.one(this.$getBasePath(), this.id).all('grupoProducto').getList();
+    }
+  };
+
+  var combosResource = new RestObject('com.Siacpi.Ventas.Services/CombosService.svc/combos', OpensalesRestangular, extendedMethods);
+
+  return combosResource;
+}]);
+
 angular.module(ApplicationConfiguration.applicationModuleName).factory('OSTipoDocumento', ['OpensalesRestangular', function (OpensalesRestangular) {
   var extendedMethods = {};
 

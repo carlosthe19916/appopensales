@@ -7,6 +7,9 @@ angular.module('almacen').config(['$stateProvider', '$urlRouterProvider',
     $urlRouterProvider.when('/almacen/app/almacenes/almacenes', '/almacen/app/almacenes/almacenes/buscar');
     $urlRouterProvider.when('/almacen/app/almacenes/almacenes/editar/:almacen', '/almacen/app/almacenes/almacenes/editar/:almacen/resumen');
 
+    $urlRouterProvider.when('/almacen/app/productos/productos', '/almacen/app/productos/productos/buscar');
+    $urlRouterProvider.when('/almacen/app/productos/productos/editar/:producto', '/almacen/app/productos/productos/editar/:producto/resumen');
+
     $stateProvider
       .state('almacen', {
         abstract: true,
@@ -123,6 +126,51 @@ angular.module('almacen').config(['$stateProvider', '$urlRouterProvider',
         },
         data: {
           pageTitle: 'Productos'
+        }
+      })
+      .state('almacen.app.producto.producto.crear', {
+        url: '/crear',
+        templateUrl: 'modules/almacen/views/producto/crear.html',
+        controller: 'Almacen.Producto.CrearController',
+        resolve: {},
+        ncyBreadcrumb: {
+          label: 'Crear almacen',
+          parent: 'almacen.app.producto.producto.buscar'
+        }
+      })
+      .state('almacen.app.producto.producto.editar', {
+        url: '/editar/:producto',
+        templateUrl: 'modules/almacen/views/producto/editar.html',
+        resolve: {
+          producto: function ($state, $stateParams, OSProducto) {
+            return OSProducto.$find($stateParams.producto);
+          }
+        },
+        controller: 'Almacen.Producto.EditarController',
+        ncyBreadcrumb: {
+          label: 'Editar producto',
+          parent: 'almacen.app.producto.producto.buscar'
+        },
+        data: {
+          pageTitle: 'Editar producto'
+        }
+      })
+      .state('almacen.app.producto.producto.editar.resumen', {
+        url: '/resumen',
+        templateUrl: 'modules/almacen/views/producto/editar.resumen.html',
+        controller: 'Almacen.Producto.Editar.ResumenController',
+        resolve: {},
+        ncyBreadcrumb: {
+          skip: true // Never display this state in breadcrumb.
+        }
+      })
+      .state('almacen.app.producto.producto.editar.datosPrincipales', {
+        url: '/datosPrincipales',
+        templateUrl: 'modules/almacen/views/producto/editar.datosPrincipales.html',
+        controller: 'Almacen.Producto.Editar.DatosPrincipalesController',
+        resolve: {},
+        ncyBreadcrumb: {
+          label: 'Datos principales'
         }
       });
 

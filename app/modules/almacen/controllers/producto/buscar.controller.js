@@ -2,7 +2,7 @@
 
 /* jshint -W098 */
 angular.module('almacen').controller('Almacen.Producto.BuscarController',
-  function ($scope, $state, toastr, SCDialog, OSPuntoVenta) {
+  function ($scope, $state, toastr, SCDialog, OSProducto) {
 
     var paginationOptions = {
       page: 1,
@@ -27,8 +27,9 @@ angular.module('almacen').controller('Almacen.Producto.BuscarController',
       useExternalSorting: true,
 
       columnDefs: [
-        {field: 'nombreObra', displayName: 'Denominacion'},
-        {field: 'ubicacion', displayName: 'Ubicacion', width: '20%'},
+        {field: 'codigo', displayName: 'Codigo', width: '15%'},
+        {field: 'denominacion', displayName: 'Denominacion', width: '25%'},
+        {field: 'descripcion', displayName: 'Descripcion'},
         {
           name: 'actions',
           displayName: 'Acciones',
@@ -67,24 +68,24 @@ angular.module('almacen').controller('Almacen.Producto.BuscarController',
     };
     $scope.gridActions = {
       edit: function (row) {
-        $state.go('^.editar.resumen', {puntoVenta: row.id});
+        $state.go('^.editar.resumen', {producto: row.id});
       },
       remove: function (row) {
         /*SCDialog.confirmDelete('Punto de venta', row.nombreObra, function() {
-          OSPuntoVenta.$new(row.id).$remove().then(function(response) {
+          OSProducto.$new(row.id).$remove().then(function(response) {
             toastr.success('Punto de venta eliminado');
             $scope.search();
           }, function error(err) {
             toastr.error(err.data.errorMessage);
           });
         });*/
-        alert('No se permite eliminar puntos de venta, prueba con desactivar');
+        alert('No se permite eliminar productos, prueba con desactivar');
       },
       enable: function(row) {
         if(row) {
-          SCDialog.confirm('Guardar', 'Esta seguro de querer activar el punto de venta' + row.nombreObra +'?.', function() {
-            OSPuntoVenta.$new(row.id).$enable().then(function(response) {
-              toastr.success('Punto de venta activado');
+          SCDialog.confirm('Guardar', 'Esta seguro de querer activar el producto' + row.denominacion +'?.', function() {
+            OSProducto.$new(row.id).$enable().then(function(response) {
+              toastr.success('Producto activado');
               $scope.search();
             }, function error(err) {
               toastr.error(err.data.errorMessage);
@@ -96,9 +97,9 @@ angular.module('almacen').controller('Almacen.Producto.BuscarController',
       },
       disable : function(row) {
         if(row) {
-          SCDialog.confirm('Guardar', 'Esta seguro de querer desactivar el punto de venta' + row.nombreObra +'?.', function() {
-            OSPuntoVenta.$new(row.id).$disable().then(function(response) {
-              toastr.success('Punto de venta desactivado');
+          SCDialog.confirm('Guardar', 'Esta seguro de querer desactivar el producto' + row.denominacion +'?.', function() {
+            OSProducto.$new(row.id).$disable().then(function(response) {
+              toastr.success('Producto desactivado');
               $scope.search();
             }, function error(err) {
               toastr.error(err.data.errorMessage);
@@ -121,7 +122,7 @@ angular.module('almacen').controller('Almacen.Producto.BuscarController',
         criteria.filters = [{name: 'estado', value: $scope.filterOptions.estado, operator: 'bool_eq'}];
       }
 
-      OSPuntoVenta.$search(criteria).then(function (response) {
+      OSProducto.$search(criteria).then(function (response) {
         $scope.gridOptions.data = response.items;
         $scope.gridOptions.totalItems = response.totalSize;
       }, function error(err) {
