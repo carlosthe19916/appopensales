@@ -107,6 +107,15 @@ angular.module('almacen').config(['$stateProvider', '$urlRouterProvider',
           label: 'Datos principales'
         }
       })
+      .state('almacen.app.almacen.almacen.editar.productos', {
+        url: '/productos',
+        templateUrl: 'modules/almacen/views/almacen/editar.productos.html',
+        controller: 'Almacen.Almacen.Editar.ProductosController',
+        resolve: {},
+        ncyBreadcrumb: {
+          label: 'Productos'
+        }
+      })
 
 
       .state('almacen.app.producto.producto', {
