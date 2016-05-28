@@ -57,7 +57,7 @@ angular.module(ApplicationConfiguration.applicationModuleName).config(['$locatio
 // Printer config
 angular.module(ApplicationConfiguration.applicationModuleName).config(['QzTrayConfigProvider',
   function (QzTrayConfigProvider) {
-    QzTrayConfigProvider.setAutoConnect(true);
+    QzTrayConfigProvider.setAutoConnect(false);
     QzTrayConfigProvider.setLocalStorage(true);
   }
 ]);

@@ -250,7 +250,14 @@ angular.module(ApplicationConfiguration.applicationModuleName).factory('OSTrabaj
 
 
 angular.module(ApplicationConfiguration.applicationModuleName).factory('OSProducto', ['OpensalesRestangular', function (OpensalesRestangular) {
-  var extendedMethods = {};
+  var extendedMethods = {
+    $searchStock: function (data) {
+      return OpensalesRestangular.all(this.$getBasePath()).all('search/stock').post(data);
+    },
+    $searchMovimientos: function (data) {
+      return OpensalesRestangular.all(this.$getBasePath()).all('search/movimientos').post(data);
+    }
+  };
 
   var productosResource = new RestObject('com.Siacpi.Ventas.Services/ProductosService.svc/productos', OpensalesRestangular, extendedMethods);
 

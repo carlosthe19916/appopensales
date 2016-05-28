@@ -9,6 +9,8 @@ angular.module('almacen').config(['$stateProvider', '$urlRouterProvider',
 
     $urlRouterProvider.when('/almacen/app/productos/productos', '/almacen/app/productos/productos/buscar');
     $urlRouterProvider.when('/almacen/app/productos/productos/editar/:producto', '/almacen/app/productos/productos/editar/:producto/resumen');
+    $urlRouterProvider.when('/almacen/app/almacenes/almacenes/editar/:producto/productos', '/almacen/app/almacenes/almacenes/editar/:producto/productos/stock');
+    $urlRouterProvider.when('/almacen/app/almacenes/almacenes/editar/:producto/productos/movimientos', '/almacen/app/almacenes/almacenes/editar/:producto/productos/movimientos/list');
 
     $stateProvider
       .state('almacen', {
@@ -114,6 +116,51 @@ angular.module('almacen').config(['$stateProvider', '$urlRouterProvider',
         resolve: {},
         ncyBreadcrumb: {
           label: 'Productos'
+        }
+      })
+      .state('almacen.app.almacen.almacen.editar.productos.stock', {
+        url: '/stock',
+        templateUrl: 'modules/almacen/views/almacen/editar.productos.stock.html',
+        controller: 'Almacen.Almacen.Editar.Productos.StockController',
+        resolve: {},
+        ncyBreadcrumb: {
+          label: 'Stock'
+        }
+      })
+      .state('almacen.app.almacen.almacen.editar.productos.movimientos', {
+        url: '/movimientos',
+        templateUrl: 'modules/almacen/views/almacen/editar.productos.movimientos.html',
+        controller: 'Almacen.Almacen.Editar.Productos.MovimientosController',
+        resolve: {},
+        ncyBreadcrumb: {
+          label: 'Movimientos'
+        }
+      })
+      .state('almacen.app.almacen.almacen.editar.productos.movimientos.list', {
+        url: '/list',
+        templateUrl: 'modules/almacen/views/almacen/editar.productos.movimientos.list.html',
+        controller: 'Almacen.Almacen.Editar.Productos.Movimientos.ListController',
+        resolve: {},
+        ncyBreadcrumb: {
+          skip: true
+        }
+      })
+      .state('almacen.app.almacen.almacen.editar.productos.movimientos.table', {
+        url: '/table',
+        templateUrl: 'modules/almacen/views/almacen/editar.productos.movimientos.table.html',
+        controller: 'Almacen.Almacen.Editar.Productos.Movimientos.TableController',
+        resolve: {},
+        ncyBreadcrumb: {
+          skip: true
+        }
+      })
+      .state('almacen.app.almacen.almacen.editar.productos.movimientos.browse', {
+        url: '/browse',
+        templateUrl: 'modules/almacen/views/almacen/editar.productos.movimientos.browse.html',
+        controller: 'Almacen.Almacen.Editar.Productos.Movimientos.BrowseController',
+        resolve: {},
+        ncyBreadcrumb: {
+          skip: true
         }
       })
 

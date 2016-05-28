@@ -1,0 +1,55 @@
+<div class="row">
+  <div class="col-sm-6">
+    <div class="row">
+      <div class="col-sm-12">
+        <h3>Entradas</h3>
+        <table class="table table-striped table-bordered os-table-search">
+          <thead>
+          <tr>
+            <th>
+              <div class="form-inline">
+                <div class="form-group">
+                  <div class="input-group">
+                    <input type="text" data-ng-model="filterOptionsEntrada.filterText" ui-keypress="{13:'searchEntrada($event)'}" class="form-control" placeholder="Buscar..." pf-focused="true" autofocus>
+            <span class="input-group-btn">
+              <button class="btn btn-default" data-ng-click="searchEntrada()" type="button"><i class="fa fa-search"></i></button>
+            </span>
+                  </div>
+                </div>
+              </div>
+            </th>
+          </tr>
+          </thead>
+        </table>
+        <div ui-grid="gridOptionsEntrada" external-scopes="gridActionsEntrada" ui-grid-selection ui-grid-pagination ui-grid-auto-resize class="os-grid"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sm-6">
+    <div class="row">
+      <div class="col-sm-12">
+        <h3>Salidas</h3>
+        <table class="table table-striped table-bordered os-table-search">
+          <thead>
+          <tr>
+            <th>
+              <div class="form-inline">
+                <div class="form-group">
+                  <div class="input-group">
+                    <input type="text" data-ng-model="filterOptionsSalida.filterText" ui-keypress="{13:'searchSalida($event)'}" class="form-control" placeholder="Buscar..." pf-focused="true" autofocus>
+            <span class="input-group-btn">
+              <button class="btn btn-default" data-ng-click="searchSalida()" type="button"><i class="fa fa-search"></i></button>
+            </span>
+                  </div>
+                </div>
+              </div>
+            </th>
+          </tr>
+          </thead>
+        </table>
+        <div ui-grid="gridOptionsSalida" external-scopes="gridActionsSalida" ui-grid-selection ui-grid-pagination ui-grid-auto-resize class="os-grid"></div>
+      </div>
+    </div>
+  </div>
+</div>

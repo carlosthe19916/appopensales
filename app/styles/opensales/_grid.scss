@@ -3,6 +3,10 @@
 $opensales-ui-grid-default-height: 380px;
 $opensales-ui-grid-border-color: #d1d1d1;
 
+.ui-grid-danger {
+  background-color: #fbe7e7 !important;
+}
+
 /*Search table*/
 table.os-table-search {
   margin-bottom: 0px;

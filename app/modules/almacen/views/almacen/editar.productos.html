@@ -1,47 +1,8 @@
-<form name="form" class="form-horizontal" novalidate>
-
-  <div class="form-group">
-    <label class="col-sm-2 control-label"><span class="required">*</span> Punto venta:
-      <i class="fa fa-info-circle text-muted" tooltip-placement="right" uib-tooltip="Punto de venta asignado al almacen"></i>
-    </label>
-    <div class="col-sm-4">
-      <input name="puntoVenta" type="text" data-ng-model="view.almacen.expediente.nombreObra" data-ng-minlength="1" class="form-control" disabled/>
-    </div>
-  </div>
-  <div class="form-group" data-ng-class="{ 'has-error' : form.nombreObra.$invalid && form.$submitted }">
-    <label class="col-sm-2 control-label"><span class="required">*</span> Denominacion:
-      <i class="fa fa-info-circle text-muted" tooltip-placement="right" uib-tooltip="Nombre que identificara al almacen"></i>
-    </label>
-    <div class="col-sm-3">
-      <input name="nombreObra" type="text" data-ng-model="view.almacen.denominacion" data-ng-minlength="1" data-ng-maxlength="200" class="form-control" required/>
-      <div data-ng-messages="form.nombreObra.$error" data-ng-if="form.$submitted">
-        <div class="has-error" data-ng-message="required">Ingrese denominacion.</div>
-        <div class="has-error" data-ng-message="minlength">Ingrese denominacion.</div>
-        <div class="has-error" data-ng-message="maxlength">Denominacion obra muy extensa, maximo 200 caracteres.</div>
-      </div>
-    </div>
-  </div>
-  <div class="form-group" data-ng-class="{ 'has-error' : form.direccion.$invalid && form.$submitted }">
-    <label class="col-sm-2 control-label">Direccion:
-      <i class="fa fa-info-circle text-muted" tooltip-placement="right" uib-tooltip="Direccion del almacen"></i>
-    </label>
-    <div class="col-sm-3">
-      <input name="direccion" type="text" data-ng-model="view.almacen.direccion" data-ng-minlength="1" data-ng-maxlength="200" class="form-control"/>
-      <div data-ng-messages="form.direccion.$error" data-ng-if="form.$submitted">
-        <div class="has-error" data-ng-message="required">Ingrese direccion.</div>
-        <div class="has-error" data-ng-message="minlength">Ingrese direccion.</div>
-        <div class="has-error" data-ng-message="maxlength">Direccion muy extenso, maximo 200 caracteres.</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="form-group">
-    <div class="col-sm-offset-2 col-sm-10">
-      <button sc-save ng-disabled="working">
-        <span ng-show="working">Guardando...</span>
-        <span ng-hide="working">Guardar</span>
-      </button>
-      <button sc-cancel ng-disabled="working" ui-sref="^.buscar">Cancelar</button>
-    </div>
-  </div>
-</form>
+<div class="nav-tabs" style="border: 0px;"></div>
+<ul class="nav nav-tabs nav-tabs-pf">
+  <li ui-sref-active="active"><a href="" href ui-sref=".stock">Stock</a></li>
+  <li ui-sref-active="active"><a href="" href ui-sref=".movimientos">Movimientos</a></li>
+</ul>
+<div class="tab-pane">
+  <div ui-view></div>
+</div>
