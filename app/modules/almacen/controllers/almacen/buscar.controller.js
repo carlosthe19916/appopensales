@@ -8,6 +8,7 @@ angular.module('almacen').controller('Almacen.Almacen.BuscarController',
       page: 1,
       pageSize: 10
     };
+    var sortOptions = [];
 
     $scope.filterOptions = {
       filterText: undefined,
@@ -56,7 +57,13 @@ angular.module('almacen').controller('Almacen.Almacen.BuscarController',
       onRegisterApi: function (gridApi) {
         $scope.gridApi = gridApi;
         $scope.gridApi.core.on.sortChanged($scope, function (grid, sortColumns) {
-          console.log('Order by. Not available.');
+          sortOptions = [];
+          for(var i = 0; i < sortColumns.length; i++) {
+            if(sortColumns[i].name !== 'actions') {
+              sortOptions.push({name: sortColumns[i].name, ascending: sortColumns[i].sort.direction === 'asc'});
+              $scope.search();
+            }
+          }
         });
         gridApi.pagination.on.paginationChanged($scope, function (newPage, pageSize) {
           paginationOptions.page = newPage;
@@ -114,7 +121,7 @@ angular.module('almacen').controller('Almacen.Almacen.BuscarController',
       var criteria = {
         filterText: $scope.filterOptions.filterText,
         filters: [],
-        orders: [],
+        orders: sortOptions,
         paging: paginationOptions
       };
       if (angular.isDefined($scope.filterOptions.estado)) {

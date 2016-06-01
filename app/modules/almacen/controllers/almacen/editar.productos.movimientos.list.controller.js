@@ -116,6 +116,13 @@ angular.module('almacen').controller('Almacen.Almacen.Editar.Productos.Movimient
         orders: [],
         paging: paginationOptions
       };
+      if($scope.$parent.filterOptions.periodo.value.desde) {
+        criteria.filters.push({name: 'fecha_registro', value: $scope.$parent.filterOptions.periodo.value.desde, operator: 'gte'});
+      }
+      if($scope.$parent.filterOptions.periodo.value.hasta) {
+        criteria.filters.push({name: 'fecha_registro', value: $scope.$parent.filterOptions.periodo.value.hasta, operator: 'lte'});
+      }
+
       OSProducto.$searchMovimientos(criteria).then(function (response) {
         $scope.gridOptions.data = response.items;
         $scope.gridOptions.totalItems = response.totalSize;
@@ -125,6 +132,8 @@ angular.module('almacen').controller('Almacen.Almacen.Editar.Productos.Movimient
     };
     $scope.search();
 
-
+    $scope.$watch('$parent.filterOptions.periodo.value', function (newVal, oldVal) {
+      $scope.search();
+    }, true);
 
   });

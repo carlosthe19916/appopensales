@@ -33,6 +33,10 @@ angular.module('almacen').controller('Almacen.Almacen.Editar.Productos.Movimient
         } else if($scope.filterOptions.periodo.name === 'CUALQUIERA') {
           filter.desde = undefined;
           filter.hasta = undefined;
+        } else if($scope.filterOptions.periodo.name === 'PERIODO') {
+          filter.desde = new Date();
+          filter.hasta = new Date();
+          filter.desde.setDate(1);
         } else {
           console.log('Method undefined');
         }

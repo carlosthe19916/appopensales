@@ -1,40 +1,42 @@
 <br>
-<div class="os-list-view">
-  <div class="row os-divide">
-    <div class="col-sm-10">
-      <div class="form-inline">
-        <div class="row">
-          <div class="form-group col-sm-3">
-          </div>
-          <div class="form-group col-sm-3">
-            <div class="input-group"> <span class="input-group-addon"><i class="fa fa-envelope-o fa-fw"></i></span>
-
-              <input type="email" class="form-control" placeholder="Enter email" />
+<div class="row">
+  <div class="col-sm-12">
+    <ul class="list-inline pull-right">
+      <li data-ng-show="filterOptions.periodo.name === 'PERIODO'">
+        <div class="form-inline">
+          <div class="form-group">
+            <label>Desde</label>
+            <div class="input-group">
+              <input type="text" name="desde" class="form-control" data-ng-model="filterOptions.periodo.value.desde" uib-datepicker-popup="dd/MM/yyyy" is-open="desdeOpened" datepicker-options="{formatYear: 'yyyy', startingDay: 1}" placeholder="dd/mm/yyyy">
+              <span class="input-group-btn"><button class="btn btn-default" type="button" data-ng-click="desdeOpened = !desdeOpened"><span class="glyphicon glyphicon-calendar"></span></button></span>
             </div>
           </div>
-          <div class="form-group col-sm-3">
-            <div class="input-group"> <span class="input-group-addon"><i class="fa fa-key fa-fw"></i></span>
-              <input type="password" class="form-control" placeholder="Choose password" />
-            </div>
-          </div>
-          <div class="form-group col-sm-3">
-            <div class="btn-group">
-              <label class="btn btn-default" data-ng-model="filterOptions.periodo.name" uib-btn-radio="'CUALQUIERA'" uib-uncheckable>Cualquier fecha</label>
-              <label class="btn btn-default" data-ng-model="filterOptions.periodo.name" uib-btn-radio="'ANIO'" uib-uncheckable>&nbsp;&nbsp;&nbsp;A&#241;o&nbsp;&nbsp;&nbsp;</label>
-              <label class="btn btn-default" data-ng-model="filterOptions.periodo.name" uib-btn-radio="'MES'" uib-uncheckable>&nbsp;&nbsp;&nbsp;Mes&nbsp;&nbsp;&nbsp;</label>
-              <label class="btn btn-default" data-ng-model="filterOptions.periodo.name" uib-btn-radio="'SEMANA'" uib-uncheckable>Semana</label>
+          <div class="form-group">
+            <label>Hasta</label>
+            <div class="input-group">
+              <input type="text" name="hasta" class="form-control" data-ng-model="filterOptions.periodo.value.hasta" uib-datepicker-popup="dd/MM/yyyy" is-open="hastaOpenend" datepicker-options="{formatYear: 'yyyy', startingDay: 1}" placeholder="dd/mm/yyyy">
+              <span class="input-group-btn"><button class="btn btn-default" type="button" data-ng-click="hastaOpenend = !hastaOpenend"><span class="glyphicon glyphicon-calendar"></span></button></span>
             </div>
           </div>
         </div>
-      </div>
-    </div>
-    <div class="col-sm-2 text-right">
-      <div class="btn-group">
-        <label class="btn btn-default" ui-sref-active="active" ui-sref=".list"><i class="fa fa-th"></i></label>
-        <label class="btn btn-default" ui-sref-active="active" ui-sref=".table"><i class="fa fa-th-large"></i></label>
-        <label class="btn btn-default" ui-sref-active="active" ui-sref=".browse"><i class="fa fa-th-list"></i></label>
-      </div>
-    </div>
+      </li>
+      <li>
+        <div class="btn-group">
+          <label class="btn btn-default" data-ng-model="filterOptions.periodo.name" uib-btn-radio="'CUALQUIERA'" uib-uncheckable>Cualquier fecha</label>
+          <label class="btn btn-default" data-ng-model="filterOptions.periodo.name" uib-btn-radio="'ANIO'" uib-uncheckable>&nbsp;&nbsp;&nbsp;A&#241;o&nbsp;&nbsp;&nbsp;</label>
+          <label class="btn btn-default" data-ng-model="filterOptions.periodo.name" uib-btn-radio="'MES'" uib-uncheckable>&nbsp;&nbsp;&nbsp;Mes&nbsp;&nbsp;&nbsp;</label>
+          <label class="btn btn-default" data-ng-model="filterOptions.periodo.name" uib-btn-radio="'SEMANA'" uib-uncheckable>Semana</label>
+          <label class="btn btn-default" data-ng-model="filterOptions.periodo.name" uib-btn-radio="'PERIODO'" uib-uncheckable>Personalizado</label>
+        </div>
+      </li>
+      <li>
+        <div class="btn-group">
+          <label class="btn btn-default" ui-sref-active="active" ui-sref=".list"><i class="fa fa-th"></i></label>
+          <label class="btn btn-default" ui-sref-active="active" ui-sref=".table"><i class="fa fa-th-large"></i></label>
+          <label class="btn btn-default" ui-sref-active="active" ui-sref=".browse"><i class="fa fa-th-list"></i></label>
+        </div>
+      </li>
+    </ul>
   </div>
 </div>
 

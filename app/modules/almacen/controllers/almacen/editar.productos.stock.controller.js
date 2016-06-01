@@ -14,6 +14,7 @@ angular.module('almacen').controller('Almacen.Almacen.Editar.Productos.StockCont
       page: 1,
       pageSize: 10
     };
+    var sortOptions = [];
     $scope.filterOptions = {
       filterText: undefined
     };
@@ -34,7 +35,7 @@ angular.module('almacen').controller('Almacen.Almacen.Editar.Productos.StockCont
       columnDefs: [
         {field: 'codigo', displayName: 'Codigo', cellClass: 'text-right', width: '10%'},
         {field: 'denominacion', displayName: 'Denominacion', width: '30%'},
-        {field: 'stock[0].unidadMedida', displayName: 'Marca'},
+        {field: 'stock[0].unidadMedida', displayName: 'U.Medida'},
         {field: 'stock[0].marca', displayName: 'Marca'},
         {field: 'stock[0].cantidad', displayName: 'Cantidad', cellFilter: 'number: 0', cellClass: 'text-right', width: '10%'},
         {
@@ -64,7 +65,13 @@ angular.module('almacen').controller('Almacen.Almacen.Editar.Productos.StockCont
       onRegisterApi: function (gridApi) {
         $scope.gridApi = gridApi;
         $scope.gridApi.core.on.sortChanged($scope, function (grid, sortColumns) {
-          console.log('Order by. Not available.');
+          sortOptions = [];
+          for(var i = 0; i < sortColumns.length; i++) {
+            if(sortColumns[i].name !== 'actions' && sortColumns[i].name !== 'unidadMedida' && sortColumns[i].name !== 'marca') {
+              sortOptions.push({name: sortColumns[i].name, ascending: sortColumns[i].sort.direction === 'asc'});
+              $scope.search();
+            }
+          }
         });
         gridApi.pagination.on.paginationChanged($scope, function (newPage, pageSize) {
           paginationOptions.page = newPage;
@@ -87,7 +94,7 @@ angular.module('almacen').controller('Almacen.Almacen.Editar.Productos.StockCont
         filters: [
           {name: 'id_almacen', value: almacen.id, operator: 'eq'}
         ],
-        orders: [],
+        orders: sortOptions,
         paging: paginationOptions
       };
       OSProducto.$searchStock(criteria).then(function (response) {
