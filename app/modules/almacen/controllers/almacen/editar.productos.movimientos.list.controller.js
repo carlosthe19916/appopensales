@@ -14,6 +14,7 @@ angular.module('almacen').controller('Almacen.Almacen.Editar.Productos.Movimient
       page: 1,
       pageSize: 10
     };
+    var sortOptions = [];
 
     var getDangerClass = function(grid, row, col, rowRenderIndex, colRenderIndex) {
       var classes='';
@@ -52,13 +53,14 @@ angular.module('almacen').controller('Almacen.Almacen.Editar.Productos.Movimient
             '<span data-ng-show="row.entity.stock[0].entrada"><i class="fa fa-arrow-circle-o-down"></i> Entrada</span>'+
             '<span data-ng-show="row.entity.stock[0].salida"><i class="fa fa-arrow-circle-o-up"></i> Salida</span>'+
           '</div>',
+          enableSorting: false,
           cellClass: getDangerClass,
           width: '5%'
         },
         {name: 'codigo', field: 'codigo', displayName: 'Codigo', cellClass: getDangerClass},
         {name: 'denominacion', field: 'denominacion', displayName: 'Denominacion', width: '25%', cellClass: getDangerClass},
-        {name: 'unidadMedida', field: 'stock[0].unidadMedida', displayName: 'U.Medida', cellClass: getDangerClass},
-        {name: 'marca', field: 'stock[0].marca', displayName: 'Marca', cellClass: getDangerClass},
+        {name: 'unidadMedida', field: 'stock[0].unidadMedida', displayName: 'U.Medida', enableSorting: false, cellClass: getDangerClass},
+        {name: 'marca', field: 'stock[0].marca', displayName: 'Marca', enableSorting: false, cellClass: getDangerClass},
         {name: 'entrada', field: 'stock[0].entrada', displayName: 'Entrada', cellFilter: 'number: 2', cellClass: getDangerClass},
         {name: 'salida', field: 'stock[0].salida', displayName: 'Salida', cellFilter: 'number: 2', cellClass: getDangerClass},
         {name: 'cantidad', field: 'stock[0].cantidad', displayName: 'Saldo', cellFilter: 'number: 2', cellClass: getDangerClass},
@@ -84,13 +86,18 @@ angular.module('almacen').controller('Almacen.Almacen.Editar.Productos.Movimient
           '</ul>' +
           '</div>' +
           '</div>',
-          width: '20%'
+          width: '20%',
+          enableSorting: false
         }
       ],
       onRegisterApi: function (gridApi) {
         $scope.gridApi = gridApi;
         $scope.gridApi.core.on.sortChanged($scope, function (grid, sortColumns) {
-          console.log('Order by. Not available.');
+          sortOptions = [];
+          for(var i = 0; i < sortColumns.length; i++) {
+            sortOptions.push({name: sortColumns[i].name, ascending: sortColumns[i].sort.direction === 'asc'});
+            $scope.search();
+          }
         });
         gridApi.pagination.on.paginationChanged($scope, function (newPage, pageSize) {
           paginationOptions.page = newPage;
@@ -113,7 +120,7 @@ angular.module('almacen').controller('Almacen.Almacen.Editar.Productos.Movimient
         filters: [
           {name: 'id_almacen', value: almacen.id, operator: 'eq'}
         ],
-        orders: [],
+        orders: sortOptions,
         paging: paginationOptions
       };
       if($scope.$parent.filterOptions.periodo.value.desde) {

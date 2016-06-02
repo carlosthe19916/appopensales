@@ -18,6 +18,8 @@ angular.module('almacen').controller('Almacen.Almacen.Editar.Productos.Movimient
       page: 1,
       pageSize: 10
     };
+    var sortOptionsEntrada = [];
+    var sortOptionsSalida = [];
 
     $scope.filterOptionsEntrada = {
       filterText: undefined
@@ -43,8 +45,8 @@ angular.module('almacen').controller('Almacen.Almacen.Editar.Productos.Movimient
       columnDefs: [
         {name: 'codigo', field: 'codigo', displayName: 'Codigo', cellClass: 'text-right'},
         {name: 'denominacion', field: 'denominacion', displayName: 'Denominacion', width: '30%'},
-        {name: 'unidadMedida', field: 'stock[0].unidadMedida', displayName: 'U.Medida', cellClass: 'text-right'},
-        {name: 'marca', field: 'stock[0].marca', displayName: 'Marca', cellClass: 'text-right'},
+        {name: 'unidadMedida', field: 'stock[0].unidadMedida', displayName: 'U.Medida', cellClass: 'text-right', enableSorting: false},
+        {name: 'marca', field: 'stock[0].marca', displayName: 'Marca', cellClass: 'text-right', enableSorting: false},
         {name: 'entrada', field: 'stock[0].entrada', displayName: 'Entrada', cellFilter: 'number: 2', cellClass: 'text-right'},
         {name: 'cantidad', field: 'stock[0].cantidad', displayName: 'Saldo', cellFilter: 'number: 2', cellClass: 'text-right'},
         {name: 'fecha', field: 'stock[0].fecha', displayName: 'Fecha', cellFilter: 'date: "dd/MM/yyyy HH:mm:ss" ', cellClass: 'text-right', width: '20%'}
@@ -52,7 +54,11 @@ angular.module('almacen').controller('Almacen.Almacen.Editar.Productos.Movimient
       onRegisterApi: function (gridApi) {
         $scope.gridApiEntrada = gridApi;
         $scope.gridApiEntrada.core.on.sortChanged($scope, function (grid, sortColumns) {
-          console.log('Order by. Not available.');
+          sortOptionsEntrada = [];
+          for(var i = 0; i < sortColumns.length; i++) {
+            sortOptionsEntrada.push({name: sortColumns[i].name, ascending: sortColumns[i].sort.direction === 'asc'});
+            $scope.searchEntrada();
+          }
         });
         gridApi.pagination.on.paginationChanged($scope, function (newPage, pageSize) {
           paginationOptionsEntrada.page = newPage;
@@ -78,8 +84,8 @@ angular.module('almacen').controller('Almacen.Almacen.Editar.Productos.Movimient
       columnDefs: [
         {name: 'codigo', field: 'codigo', displayName: 'Codigo', cellClass: 'text-right'},
         {name: 'denominacion', field: 'denominacion', displayName: 'Denominacion', width: '30%'},
-        {name: 'unidadMedida', field: 'stock[0].unidadMedida', displayName: 'U.Medida', cellClass: 'text-right'},
-        {name: 'marca', field: 'stock[0].marca', displayName: 'Marca', cellClass: 'text-right'},
+        {name: 'unidadMedida', field: 'stock[0].unidadMedida', displayName: 'U.Medida', cellClass: 'text-right', enableSorting: false},
+        {name: 'marca', field: 'stock[0].marca', displayName: 'Marca', cellClass: 'text-right', enableSorting: false},
         {name: 'salida', field: 'stock[0].salida', displayName: 'Salida', cellFilter: 'number: 2', cellClass: 'text-right'},
         {name: 'cantidad', field: 'stock[0].cantidad', displayName: 'Saldo', cellFilter: 'number: 2', cellClass: 'text-right'},
         {name: 'fecha', field: 'stock[0].fecha', displayName: 'Fecha', cellFilter: 'date: "dd/MM/yyyy HH:mm:ss" ', cellClass: 'text-right', width: '20%'}
@@ -87,7 +93,11 @@ angular.module('almacen').controller('Almacen.Almacen.Editar.Productos.Movimient
       onRegisterApi: function (gridApi) {
         $scope.gridApiSalida = gridApi;
         $scope.gridApiSalida.core.on.sortChanged($scope, function (grid, sortColumns) {
-          console.log('Order by. Not available.');
+          sortOptionsSalida = [];
+          for(var i = 0; i < sortColumns.length; i++) {
+            sortOptionsSalida.push({name: sortColumns[i].name, ascending: sortColumns[i].sort.direction === 'asc'});
+            $scope.searchSalida();
+          }
         });
         gridApi.pagination.on.paginationChanged($scope, function (newPage, pageSize) {
           paginationOptionsSalida.page = newPage;
@@ -111,7 +121,7 @@ angular.module('almacen').controller('Almacen.Almacen.Editar.Productos.Movimient
           {name: 'id_almacen', value: almacen.id, operator: 'eq'},
           {name: 'cant_entrada', value: 0, operator: 'gt'}
         ],
-        orders: [],
+        orders: sortOptionsEntrada,
         paging: paginationOptionsEntrada
       };
       if($scope.$parent.filterOptions.periodo.value.desde) {
@@ -120,7 +130,7 @@ angular.module('almacen').controller('Almacen.Almacen.Editar.Productos.Movimient
       if($scope.$parent.filterOptions.periodo.value.hasta) {
         criteria.filters.push({name: 'fecha_registro', value: $scope.$parent.filterOptions.periodo.value.hasta, operator: 'lte'});
       }
-      
+
       OSProducto.$searchMovimientos(criteria).then(function (response) {
         $scope.gridOptionsEntrada.data = response.items;
         $scope.gridOptionsEntrada.totalItems = response.totalSize;
@@ -135,7 +145,7 @@ angular.module('almacen').controller('Almacen.Almacen.Editar.Productos.Movimient
           {name: 'id_almacen', value: almacen.id, operator: 'eq'},
           {name: 'cant_salida', value: 0, operator: 'gt'}
         ],
-        orders: [],
+        orders: sortOptionsSalida,
         paging: paginationOptionsSalida
       };
       if($scope.$parent.filterOptions.periodo.value.desde) {

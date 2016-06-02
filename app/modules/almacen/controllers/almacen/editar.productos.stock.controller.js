@@ -33,11 +33,11 @@ angular.module('almacen').controller('Almacen.Almacen.Editar.Productos.StockCont
       useExternalSorting: true,
 
       columnDefs: [
-        {field: 'codigo', displayName: 'Codigo', cellClass: 'text-right', width: '10%'},
-        {field: 'denominacion', displayName: 'Denominacion', width: '30%'},
-        {field: 'stock[0].unidadMedida', displayName: 'U.Medida'},
-        {field: 'stock[0].marca', displayName: 'Marca'},
-        {field: 'stock[0].cantidad', displayName: 'Cantidad', cellFilter: 'number: 0', cellClass: 'text-right', width: '10%'},
+        {name: 'codigo', field: 'codigo', displayName: 'Codigo', cellClass: 'text-right', width: '10%'},
+        {name: 'denominacion', field: 'denominacion', displayName: 'Denominacion', width: '30%'},
+        {name: 'unidadMedida', field: 'stock[0].unidadMedida', displayName: 'U.Medida', enableSorting: false},
+        {name: 'marca', field: 'stock[0].marca', displayName: 'Marca', enableSorting: false},
+        {name: 'cantidad', field: 'stock[0].cantidad', displayName: 'Cantidad', cellFilter: 'number: 0', cellClass: 'text-right', width: '10%'},
         {
           name: 'actions',
           displayName: 'Acciones',
@@ -59,7 +59,8 @@ angular.module('almacen').controller('Almacen.Almacen.Editar.Productos.StockCont
           '</ul>' +
           '</div>' +
           '</div>',
-          width: '20%'
+          width: '20%',
+          enableSorting: false
         }
       ],
       onRegisterApi: function (gridApi) {
@@ -67,10 +68,8 @@ angular.module('almacen').controller('Almacen.Almacen.Editar.Productos.StockCont
         $scope.gridApi.core.on.sortChanged($scope, function (grid, sortColumns) {
           sortOptions = [];
           for(var i = 0; i < sortColumns.length; i++) {
-            if(sortColumns[i].name !== 'actions' && sortColumns[i].name !== 'unidadMedida' && sortColumns[i].name !== 'marca') {
-              sortOptions.push({name: sortColumns[i].name, ascending: sortColumns[i].sort.direction === 'asc'});
-              $scope.search();
-            }
+            sortOptions.push({name: sortColumns[i].name, ascending: sortColumns[i].sort.direction === 'asc'});
+            $scope.search();
           }
         });
         gridApi.pagination.on.paginationChanged($scope, function (newPage, pageSize) {

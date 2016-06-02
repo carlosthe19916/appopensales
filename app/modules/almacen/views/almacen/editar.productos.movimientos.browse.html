@@ -1,1 +1,87 @@
-<h1>Falta diseñar una vista grafica para este caso</h1>
+<div class="col-md-12">
+  <div pf-utilization-trend-chart config="config"
+       chart-data="data" center-label="centerLabel"
+       donut-config="donutConfig" sparkline-config="sparklineConfig"
+       sparkline-chart-height="custChartHeight"
+       show-sparkline-x-axis="custShowXAxis"
+       show-sparkline-y-axis="custShowYAxis">
+  </div>
+</div>
+<hr class="col-md-12">
+<div class="col-md-12">
+  <form role="form">
+    <div class="form-group">
+      <label>Donut Center Label Type</label>
+      </br>
+      <label class="radio-inline">
+        <input type="radio" ng-model="centerLabel" value="used">Used</input>
+      </label>
+      <label class="radio-inline">
+        <input type="radio" ng-model="centerLabel" value="available">Available</input>
+      </label>
+      <label class="radio-inline">
+        <input type="radio" ng-model="centerLabel" value="percent">Percent</input>
+      </label>
+      <label class="radio-inline">
+        <input type="radio" ng-model="centerLabel" value="none">None</input>
+      </label>
+    </div>
+  </form>
+  <form role="form">
+    <div class="form-group">
+      <label>Sparkline Tooltip Type</label>
+      </br>
+      <label class="radio-inline">
+        <input type="radio" ng-model="sparklineConfig.tooltipType" value="default">Default</input>
+      </label>
+      <label class="radio-inline">
+        <input type="radio" ng-model="sparklineConfig.tooltipType" value="usagePerDay">Usage Per Day</input>
+      </label>
+      <label class="radio-inline">
+        <input type="radio" ng-model="sparklineConfig.tooltipType" value="valuePerDay">Value Per Day</input>
+      </label>
+      <label class="radio-inline">
+        <input type="radio" ng-model="sparklineConfig.tooltipType" value="percentage">Percentage</input>
+      </label>
+    </div>
+  </form>
+  <div class="row">
+    <div class="col-md-6">
+      <form role="form"">
+      <div class="form-group">
+        <label>Show</label>
+        </br>
+        <label class="checkbox-inline">
+          <input type="checkbox" ng-model="custShowXAxis">Sparkline X Axis</input>
+        </label>
+        <label class="checkbox-inline">
+          <input type="checkbox" ng-model="custShowYAxis">Sparkline Y Axis</input>
+        </label>
+      </div>
+      </form>
+    </div>
+    <div class="col-md-3">
+      <form role="form" >
+        <div class="form-group">
+          <label>Chart Height</label>
+          </br>
+          <input style="height:25px; width:60px;" type="number" ng-model="custChartHeight"></input>
+        </div>
+      </form>
+    </div>
+    <div class="col-md-3">
+      <button ng-click="addDataPoint()">Add Data Point</button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <form role="form"">
+      <div class="form-group">
+        <label class="checkbox-inline">
+          <input type="checkbox" ng-model="data.dataAvailable" ng-change="updateDataAvailable()">Data Available</input>
+        </label>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
