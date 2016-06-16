@@ -9,15 +9,14 @@ angular.module('almacen').controller('Almacen.Almacen.EditarController',
     };
 
     $scope.activar = function () {
-      /*SCDialog.confirm('Guardar', 'Estas seguro de activar el Trabajador?', function () {
-        $scope.view.trabajador.$enable().then(function (response) {
-          toastr.success('Trabajador activado.');
+      SCDialog.confirm('Guardar', 'Estas seguro de activar el Almacen?', function () {
+        $scope.view.almacen.$enable().then(function (response) {
+          toastr.success('Almacen activado.');
           $state.reload();
         }, function error(err) {
           toastr.error(err.data.errorMessage);
         });
-      });*/
-      alert('No se permite activar almacenes, pruebe creando uno nuevo');
+      });
     };
 
     $scope.desactivar = function () {

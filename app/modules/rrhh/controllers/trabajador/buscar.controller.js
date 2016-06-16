@@ -36,23 +36,23 @@ angular.module('rrhh').controller('Rrhh.Trabajador.BuscarController',
           displayName: 'Acciones',
           cellTemplate: '' +
           '<div class="os-grid-action">' +
-          '<div class="os-grid-action-cell os-45">' +
+          '<div class="os-grid-action-cell os-90">' +
           '<button type="button" data-ng-click="grid.appScope.gridActions.edit(row.entity)" class="btn btn-default btn-block btn-sm">Editar</button>' +
           '</div>' +
-          '<div class="os-grid-action-cell os-45">' +
-          '<button type="button" data-ng-click="grid.appScope.gridActions.remove(row.entity)" class="btn btn-default btn-block btn-sm">Eliminar</button>' +
-          '</div>' +
+          //'<div class="os-grid-action-cell os-45">' +
+          //'<button type="button" data-ng-click="grid.appScope.gridActions.remove(row.entity)" class="btn btn-default btn-block btn-sm">Eliminar</button>' +
+          //'</div>' +
           '<div class="os-grid-action-cell os-10" uib-dropdown dropdown-append-to-body>' +
           '<button class="btn btn-default btn-block" type="button" uib-dropdown-toggle>' +
           '<i class="fa fa-ellipsis-v"></i>' +
           '</button>' +
           '<ul class="dropdown-menu-right" uib-dropdown-menu aria-labelledby="btn-append-to-body">' +
-          '<li><a href="" data-ng-click="grid.appScope.gridActions.enable(row.entity)">Activar</a></li>' +
+          //'<li><a href="" data-ng-click="grid.appScope.gridActions.enable(row.entity)">Activar</a></li>' +
           '<li><a href="" data-ng-click="grid.appScope.gridActions.disable(row.entity)">Desactivar</a></li>' +
           '</ul>' +
           '</div>' +
           '</div>',
-          width: '20%'
+          width: '10%'
         }
       ],
       onRegisterApi: function (gridApi) {
@@ -84,23 +84,31 @@ angular.module('rrhh').controller('Rrhh.Trabajador.BuscarController',
         alert('No se puede eliminar trabajadores, pruebe desactivandolos');
       },
       enable: function(row) {
-        /*if(row) {
-          SCDialog.confirm('Guardar', 'Esta seguro de querer activar la persona' + row.nombres +'?.', function() {
+        if(row) {
+          SCDialog.confirm('Guardar', 'Esta seguro de querer activar el trabajador' + row.nombres +'?.', function() {
             OSTrabajador.$new(row.id).$enable().then(function(response) {
-              toastr.success('Persona activada.');
+              toastr.success('Trabajador activado.');
               $scope.search();
             }, function error(err) {
               toastr.error(err.data.errorMessage);
             });
           });
         } else {
-          alert('Operacion no implementada');
-        }*/
-        alert('No se permite activar trabajadores, cree uno nuevo');
+          var currentSelection = $scope.gridApi.selection.getSelectedRows();
+          SCDialog.confirm('Guardar', 'Esta seguro de querer activar los ' + currentSelection.length + ' trabajadores seleccionados' + '?.', function() {
+            currentSelection.forEach(function (row) {
+              OSTrabajador.$new(row.id).$enable().then(function(response) {
+                toastr.success('Trabajador '+ row.nombres +' activado');
+              }, function error(err) {
+                toastr.error(err.data.errorMessage);
+              });
+            });
+          });
+        }
       },
       disable : function(row) {
         if(row) {
-          SCDialog.confirm('Guardar', 'Esta seguro de querer desactivar la persona' + row.nombres +'?.', function() {
+          SCDialog.confirm('Guardar', 'Esta seguro de querer desactivar el trabajador ' + row.nombres +'?.', function() {
             OSTrabajador.$new(row.id).$disable().then(function(response) {
               toastr.success('Trabajador desactivado.');
               $scope.search();
@@ -109,7 +117,16 @@ angular.module('rrhh').controller('Rrhh.Trabajador.BuscarController',
             });
           });
         } else {
-          alert('Operacion no implementada');
+          var currentSelection = $scope.gridApi.selection.getSelectedRows();
+          SCDialog.confirm('Guardar', 'Esta seguro de querer desactivar los ' + currentSelection.length + ' trabajadores seleccionados' + '?.', function() {
+            currentSelection.forEach(function (row) {
+              OSTrabajador.$new(row.id).$disable().then(function(response) {
+                toastr.success('Trabajador '+ row.nombres +' desactivado');
+              }, function error(err) {
+                toastr.error(err.data.errorMessage);
+              });
+            });
+          });
         }
       }
     };

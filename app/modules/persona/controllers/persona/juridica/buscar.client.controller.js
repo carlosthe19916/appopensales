@@ -34,12 +34,12 @@ angular.module('persona').controller('Persona.Juridica.BuscarPersonaJuridicaCont
           displayName: 'Acciones',
           cellTemplate: '' +
           '<div class="os-grid-action">' +
-          '<div class="os-grid-action-cell os-45">' +
+          '<div class="os-grid-action-cell os-90">' +
           '<button type="button" data-ng-click="grid.appScope.gridActions.edit(row.entity)" class="btn btn-default btn-block btn-sm">Editar</button>' +
           '</div>' +
-          '<div class="os-grid-action-cell os-45">' +
-          '<button type="button" data-ng-click="grid.appScope.gridActions.remove(row.entity)" class="btn btn-default btn-block btn-sm">Eliminar</button>' +
-          '</div>' +
+          //'<div class="os-grid-action-cell os-45">' +
+          //'<button type="button" data-ng-click="grid.appScope.gridActions.remove(row.entity)" class="btn btn-default btn-block btn-sm">Eliminar</button>' +
+          //'</div>' +
           '<div class="os-grid-action-cell os-10" uib-dropdown dropdown-append-to-body>' +
           '<button class="btn btn-default btn-block" type="button" uib-dropdown-toggle>' +
           '<i class="fa fa-ellipsis-v"></i>' +
@@ -50,7 +50,7 @@ angular.module('persona').controller('Persona.Juridica.BuscarPersonaJuridicaCont
           '</ul>' +
           '</div>' +
           '</div>',
-          width: '20%'
+          width: '10%'
         }
       ],
       onRegisterApi: function (gridApi) {
@@ -93,7 +93,16 @@ angular.module('persona').controller('Persona.Juridica.BuscarPersonaJuridicaCont
             });
           });
         } else {
-          alert('Operacion no implementada');
+          var currentSelection = $scope.gridApi.selection.getSelectedRows();
+          SCDialog.confirm('Guardar', 'Esta seguro de querer activar las ' + currentSelection.length + ' personas seleccionadas' + '?.', function() {
+            currentSelection.forEach(function (row) {
+              OSPersona.$new(row.id).$enable().then(function(response) {
+                toastr.success('Persona '+ row.nombres +' activada');
+              }, function error(err) {
+                toastr.error(err.data.errorMessage);
+              });
+            });
+          });
         }
       },
       disable: function (row) {
@@ -107,7 +116,16 @@ angular.module('persona').controller('Persona.Juridica.BuscarPersonaJuridicaCont
             });
           });
         } else {
-          alert('Operacion no implementada');
+          var currentSelection = $scope.gridApi.selection.getSelectedRows();
+          SCDialog.confirm('Guardar', 'Esta seguro de querer desactivar las ' + currentSelection.length + ' personas seleccionadas' + '?.', function() {
+            currentSelection.forEach(function (row) {
+              OSPersona.$new(row.id).$disable().then(function(response) {
+                toastr.success('Persona '+ row.nombres +' desactivada');
+              }, function error(err) {
+                toastr.error(err.data.errorMessage);
+              });
+            });
+          });
         }
       }
     };

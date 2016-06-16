@@ -36,12 +36,12 @@ angular.module('almacen').controller('Almacen.Producto.BuscarController',
           displayName: 'Acciones',
           cellTemplate: '' +
           '<div class="os-grid-action">' +
-            '<div class="os-grid-action-cell os-45">' +
+            '<div class="os-grid-action-cell os-90">' +
               '<button type="button" data-ng-click="grid.appScope.gridActions.edit(row.entity)" class="btn btn-default btn-block btn-sm">Editar</button>' +
             '</div>' +
-            '<div class="os-grid-action-cell os-45">' +
-              '<button type="button" data-ng-click="grid.appScope.gridActions.remove(row.entity)" class="btn btn-default btn-block btn-sm">Eliminar</button>' +
-            '</div>' +
+            //'<div class="os-grid-action-cell os-45">' +
+            //  '<button type="button" data-ng-click="grid.appScope.gridActions.remove(row.entity)" class="btn btn-default btn-block btn-sm">Eliminar</button>' +
+            //'</div>' +
             '<div class="os-grid-action-cell os-10" uib-dropdown dropdown-append-to-body>' +
                 '<button class="btn btn-default btn-block" type="button" uib-dropdown-toggle>' +
                   '<i class="fa fa-ellipsis-v"></i>' +
@@ -52,7 +52,7 @@ angular.module('almacen').controller('Almacen.Producto.BuscarController',
                 '</ul>' +
             '</div>' +
           '</div>',
-          width: '20%'
+          width: '10%'
         }
       ],
       onRegisterApi: function (gridApi) {
@@ -99,7 +99,16 @@ angular.module('almacen').controller('Almacen.Producto.BuscarController',
             });
           });
         } else {
-          alert('Operacion no implementada');
+          var currentSelection = $scope.gridApi.selection.getSelectedRows();
+          SCDialog.confirm('Guardar', 'Esta seguro de querer activar los ' + currentSelection.length + ' productos seleccionados' + '?.', function() {
+            currentSelection.forEach(function (row) {
+              OSProducto.$new(row.id).$enable().then(function(response) {
+                toastr.success('Producto '+ row.denominacion +' activado');
+              }, function error(err) {
+                toastr.error(err.data.errorMessage);
+              });
+            });
+          });
         }
       },
       disable : function(row) {
@@ -113,7 +122,16 @@ angular.module('almacen').controller('Almacen.Producto.BuscarController',
             });
           });
         } else {
-          alert('Operacion no implementada');
+          var currentSelection = $scope.gridApi.selection.getSelectedRows();
+          SCDialog.confirm('Guardar', 'Esta seguro de querer desactivar los ' + currentSelection.length + ' productos seleccionados' + '?.', function() {
+            currentSelection.forEach(function (row) {
+              OSProducto.$new(row.id).$disable().then(function(response) {
+                toastr.success('Producto '+ row.denominacion +' desactivado');
+              }, function error(err) {
+                toastr.error(err.data.errorMessage);
+              });
+            });
+          });
         }
       }
     };

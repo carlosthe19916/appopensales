@@ -82,7 +82,7 @@ angular.module('venta').controller('Venta.Configuracion.PuntoVenta.Trabajador.Cr
         return;
       }
       if (angular.isDefined($scope.view.loaded.trabajador)) {
-        toastr.warning('El trabajador ya fue registrado, no puede continuar.');
+        toastr.warning('El trabajador ya fue registrado en algun punto de venta, no puede continuar.');
         return;
       }
 
